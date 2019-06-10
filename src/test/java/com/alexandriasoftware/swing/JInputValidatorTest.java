@@ -1,0 +1,240 @@
+/*
+ * Copyright (C) 2019 Randall Wood
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.alexandriasoftware.swing;
+
+import com.alexandriasoftware.swing.Validation.Type;
+import java.awt.Color;
+import java.awt.SystemColor;
+import java.beans.PropertyChangeListener;
+import javax.swing.JComponent;
+import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
+import static org.awaitility.Awaitility.await;
+import org.awaitility.Duration;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ *
+ * @author Randall Wood
+ */
+public class JInputValidatorTest {
+    
+    public JInputValidatorTest() {
+    }
+    
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
+    @Before
+    public void setUp() {
+    }
+    
+    @After
+    public void tearDown() {
+    }
+
+    /**
+     * Test of setToolTipText method, of class JInputValidator.
+     */
+    @Test
+    public void testSetToolTipText() {
+        JTextField c = new JTextField();
+        c.setText("test1");
+        c.setToolTipText("1");
+        JInputValidator v = new JInputValidator(c) {
+            @Override
+            protected Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
+                if (input instanceof JTextComponent) {
+                    String text = ((JTextComponent) input).getText();
+                    if (text.isEmpty()) {
+                        System.out.println("DUDE! [" + text + "]");
+                        return new Validation(Type.DANGER, "empty", settings);
+                    }
+                }
+                return new Validation(Type.NONE, "none", settings);
+            }
+        };
+        c.setInputVerifier(v);
+        assertEquals("1", v.getToolTipText());
+        // verify validator puts wrong tool tip in with type NONE when component
+        // tool tip text is changed and validator's is not
+        c.setToolTipText("2");
+        assertEquals("2", c.getToolTipText());
+        assertEquals("1", v.getToolTipText());
+        c.setText("test2");
+        await().atMost(Duration.ONE_SECOND);
+        assertEquals("1", c.getToolTipText());
+        // verify changing validator tool tip text changes component tool tip text
+        v.setToolTipText("3");
+        assertEquals("3", c.getToolTipText());
+        c.setText("test3");
+        await().atMost(Duration.ONE_SECOND);
+        // verify validator puts correct tool tip in with type NONE
+        assertEquals("3", c.getToolTipText());
+        c.setText("");
+        await().atMost(Duration.ONE_SECOND);
+        assertEquals(Type.DANGER, v.getValidation().getType());
+        assertEquals("empty", c.getToolTipText());
+        c.setText("test4");
+        await().atMost(Duration.ONE_SECOND);
+        assertEquals("3", c.getToolTipText());
+    }
+
+    /**
+     * Test of getValidation method, of class JInputValidator.
+     */
+    @Test
+    public void testGetValidation_0args() {
+        JTextField c = new JTextField();
+        c.setText("test1");
+        c.setToolTipText("1");
+        JInputValidator v = new JInputValidator(c) {
+            @Override
+            protected Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
+                System.out.println("YO");
+                return new Validation(Type.INFORMATION, "info", settings);
+            }
+        };
+        c.setInputVerifier(v);
+        Validation v1 = v.getValidation();
+        assertNotNull(v1);
+        assertEquals(Type.NONE, v1.getType());
+        assertEquals("", v1.getMessage());
+        assertEquals("", v1.getIcon());
+        assertEquals(SystemColor.textText, v1.getColor());
+        c.setText("test2");
+        await().atMost(Duration.ONE_SECOND);
+        v1 = v.getValidation();
+        assertNotNull(v1);
+        assertEquals(Type.INFORMATION, v1.getType());
+        assertEquals("info", v1.getMessage());
+        assertEquals("\ue92b", v1.getIcon());
+        assertEquals(new Color(0x73BCF7), v1.getColor());
+    }
+
+    /**
+     * Test of getValidation method, of class JInputValidator.
+     */
+    @Test
+    public void testGetValidation_JComponent_JInputValidatorSettings() {
+        System.out.println("getValidation");
+        JComponent input = null;
+        JInputValidatorPreferences settings = null;
+        JInputValidator instance = null;
+        Validation expResult = null;
+        Validation result = instance.getValidation(input, settings);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of verify method, of class JInputValidator.
+     */
+    @Test
+    public void testVerify() {
+        System.out.println("verify");
+        JComponent input = null;
+        JInputValidator instance = null;
+        boolean expResult = false;
+        boolean result = instance.verify(input);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of addPropertyChangeListener method, of class JInputValidator.
+     */
+    @Test
+    public void testAddPropertyChangeListener_PropertyChangeListener() {
+        PropertyChangeListener listener = evt -> {
+            // do nothing
+        };
+        JInputValidator instance = new JInputValidator(new JTextField()) {
+            @Override
+            protected Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
+                return new Validation(Type.NONE, "", settings);
+            }
+        };
+        assertEquals(0, instance.getPropertyChangeListeners().length);
+        instance.addPropertyChangeListener(listener);
+        assertEquals(1, instance.getPropertyChangeListeners());
+    }
+
+    /**
+     * Test of addPropertyChangeListener method, of class JInputValidator.
+     */
+    @Test
+    public void testAddPropertyChangeListener_String_PropertyChangeListener() {
+        System.out.println("addPropertyChangeListener");
+        String propertyName = "";
+        PropertyChangeListener listener = null;
+        JInputValidator instance = null;
+        instance.addPropertyChangeListener(propertyName, listener);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of removePropertyChangeListener method, of class JInputValidator.
+     */
+    @Test
+    public void testRemovePropertyChangeListener_PropertyChangeListener() {
+        System.out.println("removePropertyChangeListener");
+        PropertyChangeListener listener = null;
+        JInputValidator instance = null;
+        instance.removePropertyChangeListener(listener);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of removePropertyChangeListener method, of class JInputValidator.
+     */
+    @Test
+    public void testRemovePropertyChangeListener_String_PropertyChangeListener() {
+        System.out.println("removePropertyChangeListener");
+        String propertyName = "";
+        PropertyChangeListener listener = null;
+        JInputValidator instance = null;
+        instance.removePropertyChangeListener(propertyName, listener);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    public class JInputValidatorImpl extends JInputValidator {
+
+        public JInputValidatorImpl() {
+            super(null);
+        }
+
+        public Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
+            return null;
+        }
+    }
+    
+}
