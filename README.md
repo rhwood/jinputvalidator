@@ -7,5 +7,5 @@ An [InputVerifier](https://docs.oracle.com/javase/8/docs/api/index.html?javax/sw
 [![Javadocs](https://www.javadoc.io/badge/com.alexandriasoftware.swing/jinputvalidator.svg)](https://www.javadoc.io/doc/com.alexandriasoftware.swing/jinputvalidator)
 [![Build Status](https://travis-ci.com/rhwood/jinputvalidator.svg?token=cqDHpGf1kVSnERY1P7z7&branch=master)](https://travis-ci.com/rhwood/jinputvalidator)
 [![Coverage Status](https://coveralls.io/repos/github/rhwood/jinputvalidator/badge.svg?branch=master)](https://coveralls.io/github/rhwood/jinputvalidator?branch=master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/a9870d03476e5f70c721/maintainability)](https://codeclimate.com/github/rhwood/jinputvalidator/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/a9870d03476e5f70c721/test_coverage)](https://codeclimate.com/github/rhwood/jinputvalidator/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/3a346edbb0d353e71536/maintainability)](https://codeclimate.com/github/rhwood/jinputvalidator/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/3a346edbb0d353e71536/test_coverage)](https://codeclimate.com/github/rhwood/jinputvalidator/test_coverage)
