@@ -49,7 +49,6 @@ public class StringLengthValidator extends JInputValidator {
     @Override
     protected Validation getValidation(JComponent input, JInputValidatorPreferences preferences) {
         String text = ((JTextComponent) input).getText();
-        System.out.println("text length is " + text.length());
         if (minimum >= 0 && text.length() < minimum) {
             return new Validation(Type.WARNING, "String too short", preferences);
         } else if (maximum >= 0 && text.length() > maximum) {
