@@ -1,0 +1,33 @@
+language:
+- java
+
+jdk:
+- oraclejdk8
+
+before_script:
+# setup a display on linux ( the sleep gives xvfb some time to start )
+- export DISPLAY=:99.0 ; sh -e /etc/init.d/xvfb start ; sleep 3
+# setup code coverage reporting on code climate
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- ./cc-test-reporter before-build
+
+script:
+- mvn test --quiet --batch-mode --settings .travis.settings.xml
+
+after_success:
+- mvn site site-deploy --batch-mode --settings .travis.settings.xml
+- mvn clean test jacoco:report coveralls:report --batch-mode --settings .travis.settings.xml
+
+after_script:
+- cp ./target/site/jacoco/jacoco.xml .
+- ./cc-test-reporter after-build --debug --coverage-input-type jacoco --exit-code $TRAVIS_TEST_RESULT
+
+cache:
+  directories:
+  - $HOME/.m2
+
+env:
+  global:
+  - CC_TEST_REPORTER_ID=74ea770a7cc8f327d1eeb5b1d8e3589909f123fb8b59e9195bc45e3786f2c4d2
+  - secure: r6l+3I+3OMfo4iSyLuioOE91OxUdoDUZ9WPW/kjdE9Hr//0SQAJcQwIGJPMLIPaOKB5uXFG/P8TaoX/m1vzCvwDM+cmPUjGGHbmQLenlGjeogCtZWWt3olzf4ljU9uRtrCPLsmqJIxCkE9XXQp45Eue7NvVfGvuVs8Dv8EbDBXZ+2NCTq9ybNHjOd7dhf9gdenggi93wH+MX+dKV1S4SRrlHSYTUpHortjrZKT95mliUKmpfZcpihbohonuotXZC+Gq8kIMQ+xJfFjkAiIz33XFT6HeSsdUOLbFnixMdGsvE4AoBheVYpZznVeFnIMnTKozRmgxUpVbMwuqZIR4LkidD3bUIdKWHRlxB6kayCaRdKjcbrNT2JCYV3SQN50YVlWRXufLMnxYei7kAEltzkwllzQwM7gU8G40SOhkF1sTVDeLD91kgehhNiGaSO6Z59HkGL6vb0TkSkIYkNCAaJlhYrVNUXA9I6IDKjRJKt91z4RW6qXE5fNvsmubKJmS2gz2XAEOTg2YOpLpb5oFM6bSvRKTia9NIBKHqQ4U6VrGeSdZ6+IRwnRYgIm95B8GxzQO/kkvR/3mzM1oObSjPcv/VniTQLeDII9qSpVRQV1UFvwHUsGylG9G3d3JgoXxv3dAkdB8r+qHP0tMG8O8/iMzTTXWyStPGhq0ndtCPxdM=
