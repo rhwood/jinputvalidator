@@ -70,7 +70,6 @@ public class JInputValidatorTest {
                 if (input instanceof JTextComponent) {
                     String text = ((JTextComponent) input).getText();
                     if (text.isEmpty()) {
-                        System.out.println("DUDE! [" + text + "]");
                         return new Validation(Type.DANGER, "empty", settings);
                     }
                 }
@@ -114,7 +113,6 @@ public class JInputValidatorTest {
         JInputValidator v = new JInputValidator(c) {
             @Override
             protected Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
-                System.out.println("YO");
                 return new Validation(Type.INFORMATION, "info", settings);
             }
         };
@@ -146,7 +144,6 @@ public class JInputValidatorTest {
         JInputValidator v = new JInputValidator(c) {
             @Override
             protected Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
-                System.out.println("YO");
                 return new Validation(Type.INFORMATION, "info", settings);
             }
         };
