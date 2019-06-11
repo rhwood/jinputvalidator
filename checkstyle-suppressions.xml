@@ -19,5 +19,6 @@ limitations under the License.
      "http://www.puppycrawl.com/dtds/suppressions_1_0.dtd">
 
 <suppressions>
-    <suppress checks=".*" files="JInputValidtorBeanInfo.java"/>
+    <suppress checks=".*" files="JInputValidatorBeanInfo.java"/>
+    <suppress checks=".*" files="VerifyingValidatorBeanInfo.java"/>
 </suppressions>
