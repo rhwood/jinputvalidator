@@ -83,6 +83,8 @@ public class JInputValidatorTest {
         c.setToolTipText("2");
         assertEquals("2", c.getToolTipText());
         assertEquals("1", v.getToolTipText());
+        c.setText(""); // trigger a change and then trigger a change back
+        await().atMost(Duration.ONE_SECOND);
         c.setText("test2");
         await().atMost(Duration.ONE_SECOND);
         assertEquals("1", c.getToolTipText());
@@ -204,17 +206,6 @@ public class JInputValidatorTest {
         assertEquals(1, instance.getPropertyChangeListeners("validationType").length);
         instance.removePropertyChangeListener("validationType", listener);
         assertEquals(0, instance.getPropertyChangeListeners("validationType").length);
-    }
-
-    public class JInputValidatorImpl extends JInputValidator {
-
-        public JInputValidatorImpl() {
-            super(null);
-        }
-
-        public Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
-            return null;
-        }
     }
     
 }
