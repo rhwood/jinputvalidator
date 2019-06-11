@@ -32,8 +32,8 @@ import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
 
 /**
- * JInputValidator is an InputVerifier that adds a colored icon to the component
- * being verifiered.
+ * JInputValidator is an InputVerifier that adds a colored icon and tool tip
+ * text indicating validation status to the component being verified.
  *
  * @author Randall Wood
  */
@@ -49,9 +49,9 @@ public abstract class JInputValidator extends InputVerifier {
     private boolean verifying;
 
     /**
-     * Create a JInputValidator with the default preferences. The validator created
-     * with this call listens to all changes to the component if the component
-     * is a {@link java.swing.text.JTextComponent}.
+     * Create a JInputValidator with the default preferences. The validator
+     * created with this call listens to all changes to the component if the
+     * component is a {@link javax.swing.text.JTextComponent}.
      *
      * @param component the component to attach the validator to
      */
@@ -63,9 +63,10 @@ public abstract class JInputValidator extends InputVerifier {
      * Create a JInputValidator with the default preferences.
      *
      * @param component the component to attach the validator to
-     * @param onInput true if validator to validate on all input; false to
-     * validate only on focus change; note this has no effect if component is
-     * not a {@link javax.swing.text.JTextComponent}
+     * @param onInput   true if validator to validate on all input; false to
+     *                  validate only on focus change; note this has no effect
+     *                  if component is not a
+     *                  {@link javax.swing.text.JTextComponent}
      */
     public JInputValidator(@Nonnull JComponent component, boolean onInput) {
         this(component, onInput, JInputValidatorPreferences.getPreferences());
@@ -74,10 +75,11 @@ public abstract class JInputValidator extends InputVerifier {
     /**
      * Create a JInputValidator with custom preferences.
      *
-     * @param component the component to attach the validator to
-     * @param onInput true if validator to validate on all input; false to
-     * validate only on focus change; note this has no effect if component is
-     * not a {@link javax.swing.text.JTextComponent}
+     * @param component   the component to attach the validator to
+     * @param onInput     true if validator to validate on all input; false to
+     *                    validate only on focus change; note this has no effect
+     *                    if component is not a
+     *                    {@link javax.swing.text.JTextComponent}
      * @param preferences the custom preferences
      */
     public JInputValidator(@Nonnull JComponent component, boolean onInput, @Nonnull JInputValidatorPreferences preferences) {
@@ -98,7 +100,8 @@ public abstract class JInputValidator extends InputVerifier {
      * {@link Validation.Type#NONE}. If the validation state is NONE when
      * calling this method, the component's tool tip text is changed as well.
      *
-     * @param toolTipText
+     * @param toolTipText the default tool tip text for the component being
+     *                    validated
      */
     public void setToolTipText(String toolTipText) {
         originalToolTipText = toolTipText;
