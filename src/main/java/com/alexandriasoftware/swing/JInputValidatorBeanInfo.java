@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 rhwood.
+ * Copyright (C) 2019 Randall Wood.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,11 @@ import java.beans.SimpleBeanInfo;
 
 
 /**
- *
- * @author rhwood
+ * Provide a graphical editor for {@link JInputValidator}.
+ * <p>
+ * Icon is from <a href="https://fontawesome.com/icons/clipboard-check?style=solid">Font Awesome</a>.
+ * 
+ * @author Randall Wood
  */
 public class JInputValidatorBeanInfo extends SimpleBeanInfo {
 
