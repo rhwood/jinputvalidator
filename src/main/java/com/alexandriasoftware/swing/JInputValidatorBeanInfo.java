@@ -120,10 +120,10 @@ public class JInputValidatorBeanInfo extends SimpleBeanInfo {
     private static java.awt.Image iconColor32 = null;
     private static java.awt.Image iconMono16 = null;
     private static java.awt.Image iconMono32 = null;//GEN-END:IconsDef
-    private static String iconNameC16 = null;//GEN-BEGIN:Icons
-    private static String iconNameC32 = null;
-    private static String iconNameM16 = null;
-    private static String iconNameM32 = null;//GEN-END:Icons
+    private static String iconNameC16 = "/com/fontawesome/clipboard-check.png";//GEN-BEGIN:Icons
+    private static String iconNameC32 = "/com/fontawesome/clipboard-check@2x.png";
+    private static String iconNameM16 = "/com/fontawesome/clipboard-check.png";
+    private static String iconNameM32 = "/com/fontawesome/clipboard-check@2x.png";//GEN-END:Icons
 
     private static final int defaultPropertyIndex = -1;//GEN-BEGIN:Idx
     private static final int defaultEventIndex = -1;//GEN-END:Idx
