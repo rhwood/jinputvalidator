@@ -40,7 +40,11 @@ public class JInputValidatorSwingTest extends javax.swing.JFrame {
                 int length = jTextField1.getText().length();
                 return (length <= 0 || length >= 8); // true if empty or 8 or more characters
             }
-        }, new Validation(Validation.Type.DANGER, "This is a DANGER state."), true);
+        },
+                new Validation(Validation.Type.DANGER, "This is a DANGER state."),
+                new Validation(Validation.Type.SUCCESS, "This is a SUCCESS state."),
+                true,
+                JInputValidatorPreferences.getPreferences());
         jTextField1.setInputVerifier(validator);
     }
 
@@ -64,9 +68,9 @@ public class JInputValidatorSwingTest extends javax.swing.JFrame {
 
         jLabel1.setText("VerifyingValidator demonstration.");
 
-        jLabel2.setText("Shows danger if non-empty and less than 8 characters.");
+        jLabel2.setText("Shows danger if text length > 0 && < 8.");
 
-        jLabel3.setText("Shows no validation character otherwise.");
+        jLabel3.setText("Shows success after first input otherwise.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,12 +87,12 @@ public class JInputValidatorSwingTest extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel3)
-                                .addGap(0, 125, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jLabel3)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
