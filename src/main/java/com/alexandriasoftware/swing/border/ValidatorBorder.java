@@ -16,7 +16,6 @@
 package com.alexandriasoftware.swing.border;
 
 import com.alexandriasoftware.swing.Validation;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -39,6 +38,8 @@ public class ValidatorBorder extends CompoundBorder {
     public ValidatorBorder(@Nonnull Validation validation, Border originalBorder) {
         this.outsideBorder = originalBorder;
         this.insideBorder = new AbstractBorder() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
                 paintInsideBorder(c, g, x, y, width, height);
