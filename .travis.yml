@@ -13,11 +13,10 @@ before_script:
 - ./cc-test-reporter before-build
 
 script:
-- mvn test --quiet --batch-mode --settings .travis.settings.xml
+- mvn clean test jacoco:report coveralls:report --batch-mode --settings .travis.settings.xml
 
 after_success:
 - mvn site site-deploy --batch-mode --settings .travis.settings.xml
-- mvn clean test jacoco:report coveralls:report --batch-mode --settings .travis.settings.xml
 
 after_script:
 - cp ./target/site/jacoco/jacoco.xml .

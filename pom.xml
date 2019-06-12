@@ -186,7 +186,7 @@ limitations under the License.
                 <version>0.8.4</version>
                 <configuration>
                     <excludes>
-                        <File>**/JInputValidatorBeanInfo.class</File>
+                        <File>**/*BeanInfo.class</File>
                     </excludes>
                 </configuration>
                 <executions>
