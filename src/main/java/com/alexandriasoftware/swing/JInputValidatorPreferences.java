@@ -108,11 +108,11 @@ public class JInputValidatorPreferences {
         informationIcon = preferences.get("information.icon", "\ue92b");
         informationColor = new Color(preferences.getInt("information.color", 0x73BCF7));
         successIcon = preferences.get("success.icon", "\ue602");
-        successColor = new Color(preferences.getInt("success.color", 0x73BCF7));
+        successColor = new Color(preferences.getInt("success.color", 0x92D400));
         warningIcon = preferences.get("warning.icon", "\ue913");
-        warningColor = new Color(preferences.getInt("warning.color", 0x73BCF7));
+        warningColor = new Color(preferences.getInt("warning.color", 0xF0AB00));
         dangerIcon = preferences.get("danger.icon", "\ue926");
-        dangerColor = new Color(preferences.getInt("danger.color", 0x73BCF7));
+        dangerColor = new Color(preferences.getInt("danger.color", 0xC9190B));
     }
 
     public Font getFont() {
