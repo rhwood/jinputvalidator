@@ -20,8 +20,9 @@ import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 
 /**
- * A {@link JInputValidator} that uses a standard {@link javax.swing.InputVerifier} to toggle a good/bad state.
- * 
+ * A {@link JInputValidator} that uses a standard
+ * {@link javax.swing.InputVerifier} to toggle a good/bad state.
+ *
  * @author Randall Wood
  */
 public class VerifyingValidator extends JInputValidator {
@@ -30,24 +31,77 @@ public class VerifyingValidator extends JInputValidator {
     private final Validation valid;
     private final Validation invalid;
 
+    /**
+     * Create a VerifyingValidator. This is the same as calling
+     * {@link #VerifyingValidator(javax.swing.JComponent, javax.swing.InputVerifier, com.alexandriasoftware.swing.Validation, boolean)}
+     * with the onInput parameter false.
+     *
+     * @param component the component to verify
+     * @param verifier  the verifier to use
+     * @param invalid   the validation to use when the
+     *                  {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)}
+     *                  method of the verifier returns false
+     */
     public VerifyingValidator(@Nonnull JComponent component, @Nonnull InputVerifier verifier, Validation invalid) {
         this(component, verifier, invalid, false);
     }
-    
+
+    /**
+     * Create a VerifyingValidator. This is the same as calling
+     * {@link #VerifyingValidator(javax.swing.JComponent, javax.swing.InputVerifier, com.alexandriasoftware.swing.Validation, com.alexandriasoftware.swing.Validation, boolean, com.alexandriasoftware.swing.JInputValidatorPreferences)}
+     * with a {@link Validation} that has type {@link Validation.Type#NONE} for
+     * the valid parameter and
+     * {@link JInputValidatorPreferences#getPreferences()} for the preferences
+     * parameter.
+     *
+     * @param component the component to verify
+     * @param verifier  the verifier to use
+     * @param invalid   the validation to use when the
+     *                  {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)}
+     *                  method of the verifier returns false
+     * @param onInput   true if validation should occur on every change to
+     *                  input; false if validation should only occur on focus
+     *                  changes
+     */
     public VerifyingValidator(@Nonnull JComponent component, @Nonnull InputVerifier verifier, Validation invalid, boolean onInput) {
-        this(component, verifier, invalid, onInput, JInputValidatorPreferences.getPreferences());
+        this(component, verifier, invalid, new Validation(Validation.Type.NONE, "", JInputValidatorPreferences.getPreferences()), onInput, JInputValidatorPreferences.getPreferences());
     }
-    
-    public VerifyingValidator(@Nonnull JComponent component, @Nonnull InputVerifier verifier, Validation invalid, boolean onInput, @Nonnull JInputValidatorPreferences preferences) {
+
+    /**
+     * Create a VerifyingValidator.
+     *
+     * @param component   the component to verify
+     * @param verifier    the verifier to use
+     * @param invalid     the validation to use when the
+     *                    {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)}
+     *                    method of the verifier returns false
+     * @param valid       the validation to use when the
+     *                    {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)}
+     *                    method of the verifier returns true
+     * @param onInput     true if validation should occur on every change to
+     *                    input; false if validation should only occur on focus
+     *                    changes
+     * @param preferences the preferences to use to draw the validation icons
+     */
+    public VerifyingValidator(@Nonnull JComponent component, @Nonnull InputVerifier verifier, Validation invalid, Validation valid, boolean onInput, @Nonnull JInputValidatorPreferences preferences) {
         super(component, onInput, preferences);
         this.verifier = verifier;
         this.invalid = invalid;
-        this.valid = new Validation(Validation.Type.NONE, "", preferences);
+        this.valid = valid;
     }
 
+    /**
+     * Get the validation for the current result of calling
+     * {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)} using
+     * the current verifier.
+     *
+     * @param input       the component to verify
+     * @param preferences ignored, but required by implemented API
+     * @return the Validation for the valid or invalid states as appropriate
+     */
     @Override
     protected Validation getValidation(JComponent input, JInputValidatorPreferences preferences) {
         return verifier.verify(input) ? valid : invalid;
     }
-    
+
 }
