@@ -116,16 +116,16 @@ public class JInputValidatorSwingTest extends javax.swing.JFrame {
     public void testVerifyingValidator() {
         jTextField1.setText("");
         validator.verify(jTextField1); // manually call verify to avoid possibly asserting before Swing thread triggers verify method
-        assertEquals(Validation.Type.NONE, validator.getValidation().getType());
+        assertEquals(Validation.Type.SUCCESS, validator.getValidation().getType());
         jTextField1.setText("123456");
         validator.verify(jTextField1); // manually call verify to avoid possibly asserting before Swing thread triggers verify method
         assertEquals(Validation.Type.DANGER, validator.getValidation().getType());
         jTextField1.setText("12345678");
         validator.verify(jTextField1); // manually call verify to avoid possibly asserting before Swing thread triggers verify method
-        assertEquals(Validation.Type.NONE, validator.getValidation().getType());
+        assertEquals(Validation.Type.SUCCESS, validator.getValidation().getType());
         jTextField1.setText("1234567890");
         validator.verify(jTextField1); // manually call verify to avoid possibly asserting before Swing thread triggers verify method
-        assertEquals(Validation.Type.NONE, validator.getValidation().getType());
+        assertEquals(Validation.Type.SUCCESS, validator.getValidation().getType());
     }
 
     /**
