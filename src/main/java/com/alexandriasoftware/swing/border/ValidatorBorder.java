@@ -16,52 +16,53 @@
 package com.alexandriasoftware.swing.border;
 
 import com.alexandriasoftware.swing.Validation;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Insets;
+import javax.annotation.Nonnull;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 
 /**
  *
  * @author Randall Wood
  */
-public class ValidatorBorder extends AbstractBorder {
+public class ValidatorBorder extends CompoundBorder {
 
     private static final long serialVersionUID = 1L;
-    private final Border originalBorder;
     private final Validation validation;
 
-    public ValidatorBorder(Validation validation, Border originalBorder) {
-        this.originalBorder = originalBorder;
+    public ValidatorBorder(@Nonnull Validation validation, Border originalBorder) {
+        this.outsideBorder = originalBorder;
+        this.insideBorder = new AbstractBorder() {
+            @Override
+            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+                paintInsideBorder(c, g, x, y, width, height);
+            }
+
+            @Override
+            public boolean isBorderOpaque() {
+                return true;
+            }
+        };
         this.validation = validation;
     }
 
-    @Override
-    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-        originalBorder.paintBorder(c, g, x, y, width, height);
-        Insets insets = getBorderInsets(c);
+    public void paintInsideBorder(Component c, Graphics g, int x, int y, int width, int height) {
+        Insets insets = outsideBorder.getBorderInsets(c);
         Font font = c.getFont();
         FontMetrics metrics = c.getFontMetrics(font);
-        int by = (c.getHeight() / 2) + (metrics.getAscent() / 2);
+        int by = (c.getHeight() / 2) + (metrics.getAscent() / 2) - insets.top;
         int bw = Math.max(2, insets.left); // border width
         int iw = metrics.stringWidth(validation.getIcon()); // icon width
         int bx = x + width - (Math.round(iw * 1.5f) + (bw * 2)) + 2;
         g.translate(bx, by);
         g.setColor(validation.getColor());
         g.setFont(validation.getFont().deriveFont(Font.BOLD, font.getSize()));
-        g.drawString(validation.getIcon(), x, y);
-    }
-
-    @Override
-    public Insets getBorderInsets(Component c) {
-        return originalBorder.getBorderInsets(c);
-    }
-
-    @Override
-    public boolean isBorderOpaque() {
-        return false;
+        g.drawString(validation.getIcon(), x + (iw / 2), y);
     }
 }
