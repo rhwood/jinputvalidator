@@ -30,6 +30,7 @@ import javax.swing.border.Border;
  */
 public class ValidatorBorder extends AbstractBorder {
 
+    private static final long serialVersionUID = 1L;
     private final Border originalBorder;
     private final Validation validation;
 
