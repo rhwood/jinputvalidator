@@ -25,8 +25,8 @@ import javax.swing.JLabel;
 import org.slf4j.LoggerFactory;
 
 /**
- * Preferences for a JInputValidator. By default the preferences are pulled from a
- * {@link java.util.prefs.Preferences} object for the package
+ * Preferences for a JInputValidator. By default the preferences are pulled from
+ * a {@link java.util.prefs.Preferences} object for the package
  * {@code com.alexandriasoftware.swing} with the following keys:
  * <dl>
  * <dt>font (String)</dt>
@@ -66,6 +66,13 @@ public class JInputValidatorPreferences {
 
     private static JInputValidatorPreferences defaultPreferences = null;
 
+    /**
+     * Get the default preferences object. This object uses the default
+     * {@link java.util.prefs.Preferences}, so application-wide defaults can be
+     * set by setting preferences keys appropriately before calling this method.
+     *
+     * @return the default preferences
+     */
     public synchronized static JInputValidatorPreferences getPreferences() {
         if (defaultPreferences == null) {
             defaultPreferences = new JInputValidatorPreferences();
@@ -73,6 +80,14 @@ public class JInputValidatorPreferences {
         return defaultPreferences;
     }
 
+    /**
+     * Get a set of preferences using a {@link java.util.prefs.Preferences}
+     * object. The Preferences must contain the keys listed above, but not
+     * necessarily within the package specified above.
+     *
+     * @param preferences
+     * @return
+     */
     public static JInputValidatorPreferences getPreferences(Preferences preferences) {
         return new JInputValidatorPreferences(preferences);
     }
@@ -98,7 +113,8 @@ public class JInputValidatorPreferences {
         Font f;
         try {
             f = Font.createFont(Font.TRUETYPE_FONT, JInputValidatorPreferences.class.getResourceAsStream(preferences.get("font", patternfly)));
-        } catch (FontFormatException | IOException ex) {
+        }
+        catch (FontFormatException | IOException ex) {
             LoggerFactory.getLogger(this.getClass()).error("Unable to get Font resource named {}", preferences.get("font", patternfly), ex);
             f = (new JLabel()).getFont();
         }
@@ -115,10 +131,24 @@ public class JInputValidatorPreferences {
         dangerColor = new Color(preferences.getInt("danger.color", 0xC9190B));
     }
 
+    /**
+     * Get the font to use.
+     *
+     * @return the font
+     */
     public Font getFont() {
         return font;
     }
 
+    /**
+     * Get the icon for the specified type. Note the icon can be any string that
+     * can be rendered using the font returned by {@link #getFont()} although it
+     * is recommended this be a Unicode glyph or emoji-style icon.
+     *
+     * @param type the validation type to get
+     * @return the specified icon or an empty String if type is
+     *         {@link Validation.Type#NONE} or not recognized
+     */
     public String getIcon(Validation.Type type) {
         switch (type) {
             case UNKNOWN:
@@ -138,6 +168,13 @@ public class JInputValidatorPreferences {
         }
     }
 
+    /**
+     * Get the icon for the specified type.
+     *
+     * @param type the validation type to get
+     * @return the specified color or {@link java.awt.SystemColor#textText} if
+     *         type is {@link Validation.Type#NONE} or not recognized
+     */
     public Color getColor(Validation.Type type) {
         switch (type) {
             case UNKNOWN:
