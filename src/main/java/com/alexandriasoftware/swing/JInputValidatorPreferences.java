@@ -85,8 +85,8 @@ public class JInputValidatorPreferences {
      * object. The Preferences must contain the keys listed above, but not
      * necessarily within the package specified above.
      *
-     * @param preferences
-     * @return
+     * @param preferences the preferences to use
+     * @return the preferences for a specific scenario 
      */
     public static JInputValidatorPreferences getPreferences(Preferences preferences) {
         return new JInputValidatorPreferences(preferences);
