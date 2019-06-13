@@ -34,8 +34,11 @@ public class ValidatorBorder extends CompoundBorder {
 
     private static final long serialVersionUID = 1L;
     private final Validation validation;
+    private Font font;
 
     public ValidatorBorder(@Nonnull Validation validation, Border originalBorder) {
+        this.validation = validation;
+        this.font = this.validation.getFont().deriveFont(Font.BOLD, 0);
         this.outsideBorder = originalBorder;
         this.insideBorder = new AbstractBorder() {
             private static final long serialVersionUID = 1L;
@@ -49,21 +52,35 @@ public class ValidatorBorder extends CompoundBorder {
             public boolean isBorderOpaque() {
                 return true;
             }
+
+            @Override
+            public Insets getBorderInsets(Component c, Insets insets) {
+                FontMetrics metrics = getFontMetrics(c);
+                int iw = metrics.stringWidth(validation.getIcon()); // icon width
+                insets.right = Math.round(iw * 1.5f);
+                return insets;
+            }
         };
-        this.validation = validation;
     }
 
     public void paintInsideBorder(Component c, Graphics g, int x, int y, int width, int height) {
         Insets insets = outsideBorder.getBorderInsets(c);
-        Font font = c.getFont();
-        FontMetrics metrics = c.getFontMetrics(font);
+        FontMetrics metrics = getFontMetrics(c);
         int by = (c.getHeight() / 2) + (metrics.getAscent() / 2) - insets.top;
-        int bw = Math.max(2, insets.left); // border width
+        int bw = Math.max(2, insets.right); // border width
         int iw = metrics.stringWidth(validation.getIcon()); // icon width
-        int bx = x + width - (Math.round(iw * 1.5f) + (bw * 2)) + 2;
+        int bx = x + width - (Math.round((iw * 1.5f) + (bw * 1.5f))) + 2;
         g.translate(bx, by);
         g.setColor(validation.getColor());
-        g.setFont(validation.getFont().deriveFont(Font.BOLD, font.getSize()));
+        g.setFont(font);
         g.drawString(validation.getIcon(), x + (iw / 2), y);
+    }
+    
+    private FontMetrics getFontMetrics(Component c) {
+        Font cFont = c.getFont();
+        if (font.getSize() != cFont.getSize()) {
+            font = validation.getFont().deriveFont(Font.BOLD, cFont.getSize());
+        }
+        return c.getFontMetrics(font);
     }
 }
