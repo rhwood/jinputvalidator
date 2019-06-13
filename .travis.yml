@@ -11,6 +11,8 @@ before_script:
 - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
 - chmod +x ./cc-test-reporter
 - ./cc-test-reporter before-build
+# cache maven dependencies needed for after_success script
+- mvn dependency:go-offline
 
 script:
 - mvn clean test jacoco:report coveralls:report --batch-mode --settings .travis.settings.xml
