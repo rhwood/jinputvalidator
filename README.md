@@ -19,6 +19,8 @@ JInputValidator extends the verify idiom to use six states, each with its own gr
 - __UNKNOWN__, a non-failure state, which defaults to a light blue question mark in a circle.
 - __WARNING__, a failure state, which defaults to a yellow-orange exclamtion mark in a triangle.
 
+When a status is set to a "failure state" `InputVerifier.verify(Component c)` returns `false`, while for "non-failure states" that method returns `true`.
+
 ![Nimbus L&F Screenshot](wiki/images/all-nimbus.png)
 
 ## Usage
@@ -48,3 +50,7 @@ myJTextField.setInputVerifier(new InputVerifer() {
 })
 myJTextField.setInputVerifier(new VerifyingValidator(myJTextField, myJTextField.getInputVerifier(), new Validation(Validation.Type.DANGER, "Too short")));
 ```
+
+## Customizing
+
+By default, `JInputValidator` uses [PatternFly 4](https://www.patternfly.org/v4/) [colors](https://www.patternfly.org/v4/design-guidelines/styles/colors) and [icons](https://www.patternfly.org/v4/design-guidelines/styles/icons) for the various states.
