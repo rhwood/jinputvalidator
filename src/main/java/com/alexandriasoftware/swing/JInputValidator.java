@@ -36,6 +36,7 @@ import javax.swing.text.JTextComponent;
  * text indicating validation status to the component being verified.
  *
  * @author Randall Wood
+ * @see NonVerifyingValidator
  */
 public abstract class JInputValidator extends InputVerifier {
 
@@ -63,9 +64,9 @@ public abstract class JInputValidator extends InputVerifier {
      * Create a JInputValidator with the default preferences.
      *
      * @param component the component to attach the validator to
-     * @param onInput   true if validator to validate on all input; false to
-     *                  validate only on focus change; note this has no effect
-     *                  if component is not a
+     * @param onInput   {@code true} if validator to validate on all input;
+     *                  {@code false} to validate only on focus change; note
+     *                  this has no effect if component is not a
      *                  {@link javax.swing.text.JTextComponent}
      */
     public JInputValidator(@Nonnull JComponent component, boolean onInput) {
@@ -76,9 +77,9 @@ public abstract class JInputValidator extends InputVerifier {
      * Create a JInputValidator with custom preferences.
      *
      * @param component   the component to attach the validator to
-     * @param onInput     true if validator to validate on all input; false to
-     *                    validate only on focus change; note this has no effect
-     *                    if component is not a
+     * @param onInput     {@code true} if validator to validate on all input;
+     *                    {@code false} to validate only on focus change; note
+     *                    this has no effect if component is not a
      *                    {@link javax.swing.text.JTextComponent}
      * @param preferences the custom preferences
      */
@@ -111,7 +112,7 @@ public abstract class JInputValidator extends InputVerifier {
     }
 
     /**
-     * Set the tool tip text used when the validation state is
+     * Get the tool tip text used when the validation state is
      * {@link Validation.Type#NONE}.
      *
      * @return the tool tip text
@@ -120,14 +121,38 @@ public abstract class JInputValidator extends InputVerifier {
         return originalToolTipText;
     }
 
+    /**
+     * Get the current validation.
+     *
+     * @return the current validation
+     */
+    @Nonnull
     public final Validation getValidation() {
         return validation;
     }
 
+    /**
+     * Get the validation object for the current state of the input component.
+     *
+     * @param input       the component to get the state of
+     * @param preferences preferences to use for creating the validation
+     * @return the validation for the current state
+     */
     protected abstract Validation getValidation(JComponent input, JInputValidatorPreferences preferences);
 
+    /**
+     * {@inheritDoc}
+     *
+     * This implementation, besides verifying if focus can change, redraws the
+     * component with a re-evaluated validation state. The validation state can
+     * be retrieved afterwards using {@link #getValidation()}.
+     *
+     * @return {@code false} if {@link Validation#getType()} equals
+     *         {@link Validation.Type#DANGER} or
+     *         {@link Validation.Type#WARNING}; otherwise returns {@code true}
+     */
     @Override
-    public final boolean verify(JComponent input) {
+    public boolean verify(JComponent input) {
         validation = getValidation(input, preferences);
         if (validation.getType() != validationType && !verifying) {
             verifying = true;
@@ -175,16 +200,25 @@ public abstract class JInputValidator extends InputVerifier {
             private int lastChange = 0;
             private int lastNotifiedChange = 0;
 
+            /**
+             * {@inheritDoc}
+             */
             @Override
             public void insertUpdate(DocumentEvent e) {
                 changedUpdate(e);
             }
 
+            /**
+             * {@inheritDoc}
+             */
             @Override
             public void removeUpdate(DocumentEvent e) {
                 changedUpdate(e);
             }
 
+            /**
+             * {@inheritDoc}
+             */
             @Override
             public void changedUpdate(DocumentEvent e) {
                 lastChange++;
