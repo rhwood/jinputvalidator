@@ -58,7 +58,7 @@ public class NonVerifyingValidatorTest {
     }
 
     /**
-     * Test of setToolTipText method, of class JInputValidator.
+     * Test of setToolTipText method, of class NonVerifyingValidator.
      */
     @Test
     public void testSetToolTipText() {
@@ -66,7 +66,7 @@ public class NonVerifyingValidatorTest {
         c.setText("test1");
         c.setToolTipText("1");
         // do not attempt to automatically verify
-        JInputValidator v = new JInputValidator(c, false) {
+        NonVerifyingValidator v = new NonVerifyingValidator(c, false) {
             @Override
             protected Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
                 if (input instanceof JTextComponent) {
@@ -118,14 +118,14 @@ public class NonVerifyingValidatorTest {
     }
 
     /**
-     * Test of getValidation method, of class JInputValidator.
+     * Test of getValidation method, of class NonVerifyingValidator.
      */
     @Test
     public void testGetValidation_0args() {
         JTextField c = new JTextField();
         c.setText("test1");
         c.setToolTipText("1");
-        JInputValidator v = new JInputValidator(c) {
+        NonVerifyingValidator v = new NonVerifyingValidator(c) {
             @Override
             protected Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
                 return new Validation(Type.INFORMATION, "info", settings);
@@ -150,14 +150,14 @@ public class NonVerifyingValidatorTest {
     }
 
     /**
-     * Test of verify method, of class JInputValidator.
+     * Test of verify method, of class NonVerifyingValidator.
      */
     @Test
     public void testVerify() {
         JTextField c = new JTextField();
         c.setText("test1");
         c.setToolTipText("1");
-        JInputValidator v = new JInputValidator(c) {
+        NonVerifyingValidator v = new NonVerifyingValidator(c) {
             @Override
             protected Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
                 return new Validation(Type.INFORMATION, "info", settings);
@@ -182,14 +182,14 @@ public class NonVerifyingValidatorTest {
     }
 
     /**
-     * Test of addPropertyChangeListener method, of class JInputValidator.
+     * Test of addPropertyChangeListener method, of class NonVerifyingValidator.
      */
     @Test
     public void testAddPropertyChangeListener_PropertyChangeListener() {
         PropertyChangeListener listener = evt -> {
             // do nothing
         };
-        JInputValidator instance = new JInputValidator(new JTextField()) {
+        NonVerifyingValidator instance = new NonVerifyingValidator(new JTextField()) {
             @Override
             protected Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
                 return new Validation(Type.NONE, "", settings);
@@ -203,14 +203,14 @@ public class NonVerifyingValidatorTest {
     }
 
     /**
-     * Test of addPropertyChangeListener method, of class JInputValidator.
+     * Test of addPropertyChangeListener method, of class NonVerifyingValidator.
      */
     @Test
     public void testAddPropertyChangeListener_String_PropertyChangeListener() {
         PropertyChangeListener listener = evt -> {
             // do nothing
         };
-        JInputValidator instance = new JInputValidator(new JTextField()) {
+        NonVerifyingValidator instance = new NonVerifyingValidator(new JTextField()) {
             @Override
             protected Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
                 return new Validation(Type.NONE, "", settings);
