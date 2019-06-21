@@ -44,7 +44,7 @@ public abstract class JInputValidator extends InputVerifier {
     private String originalToolTipText = null;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private Validation validation;
-    private Type validationType = Type.NONE;
+    private Validation oldValidation;
     private final JInputValidatorPreferences preferences;
     private final JComponent component;
     private boolean verifying;
@@ -91,7 +91,8 @@ public abstract class JInputValidator extends InputVerifier {
             });
         }
         this.preferences = preferences;
-        validation = new Validation(Type.NONE, "", this.preferences);
+        validation = getNoneValidation();
+        oldValidation = getNoneValidation();
     }
 
     /**
@@ -104,7 +105,7 @@ public abstract class JInputValidator extends InputVerifier {
      */
     public void setToolTipText(String toolTipText) {
         originalToolTipText = toolTipText;
-        if (validationType == Type.NONE) {
+        if (validation == null || validation.getType() == Type.NONE) {
             component.setToolTipText(toolTipText);
         }
     }
@@ -120,7 +121,8 @@ public abstract class JInputValidator extends InputVerifier {
     }
 
     /**
-     * Get the current validation.
+     * Get the current validation. This property can be listened to using the
+     * property name {@code validation}.
      *
      * @return the current validation
      */
@@ -151,8 +153,9 @@ public abstract class JInputValidator extends InputVerifier {
      */
     @Override
     public boolean verify(JComponent input) {
+        oldValidation = validation;
         validation = getValidation(input, preferences);
-        if (validation.getType() != validationType && !verifying) {
+        if (!validation.equals(oldValidation) && !verifying) {
             verifying = true;
             if (validation.getType() == Type.NONE) {
                 input.setBorder(originalBorder);
@@ -162,8 +165,7 @@ public abstract class JInputValidator extends InputVerifier {
                 input.setToolTipText(validation.getMessage());
             }
             input.validate();
-            pcs.firePropertyChange("validationType", validationType, validation.getType());
-            validationType = validation.getType();
+            pcs.firePropertyChange("validation", oldValidation, validation);
             verifying = false;
         }
         return validation.getType() != Type.WARNING && validation.getType() != Type.DANGER;

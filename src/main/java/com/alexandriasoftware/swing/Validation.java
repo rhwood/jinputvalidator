@@ -17,8 +17,8 @@ package com.alexandriasoftware.swing;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.Objects;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * A Validation is the combination of a validation state and the tool tip to
@@ -96,7 +96,7 @@ public class Validation {
      * @param message the tool tip text
      * @param preferences the preferences to use
      */
-    public Validation(Type type, String message, JInputValidatorPreferences preferences) {
+    public Validation(Type type, String message, @Nonnull JInputValidatorPreferences preferences) {
         this.type = type;
         this.message = message;
         this.preferences = preferences;
@@ -159,5 +159,27 @@ public class Validation {
     // package private
     void setPreferences(@Nonnull JInputValidatorPreferences preferences) {
         this.preferences = preferences;
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.type);
+        hash = 79 * hash + Objects.hashCode(this.message);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        return this.hashCode() == obj.hashCode();
     }
 }
