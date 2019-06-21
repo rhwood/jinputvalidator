@@ -64,10 +64,9 @@ public abstract class JInputValidator extends InputVerifier {
      * Create a JInputValidator with the default preferences.
      *
      * @param component the component to attach the validator to
-     * @param onInput   {@code true} if validator to validate on all input;
-     *                  {@code false} to validate only on focus change; note
-     *                  this has no effect if component is not a
-     *                  {@link javax.swing.text.JTextComponent}
+     * @param onInput {@code true} if validator to validate on all input;
+     * {@code false} to validate only on focus change; note this has no effect
+     * if component is not a {@link javax.swing.text.JTextComponent}
      */
     public JInputValidator(@Nonnull JComponent component, boolean onInput) {
         this(component, onInput, JInputValidatorPreferences.getPreferences());
@@ -76,11 +75,10 @@ public abstract class JInputValidator extends InputVerifier {
     /**
      * Create a JInputValidator with custom preferences.
      *
-     * @param component   the component to attach the validator to
-     * @param onInput     {@code true} if validator to validate on all input;
-     *                    {@code false} to validate only on focus change; note
-     *                    this has no effect if component is not a
-     *                    {@link javax.swing.text.JTextComponent}
+     * @param component the component to attach the validator to
+     * @param onInput {@code true} if validator to validate on all input;
+     * {@code false} to validate only on focus change; note this has no effect
+     * if component is not a {@link javax.swing.text.JTextComponent}
      * @param preferences the custom preferences
      */
     public JInputValidator(@Nonnull JComponent component, boolean onInput, @Nonnull JInputValidatorPreferences preferences) {
@@ -102,7 +100,7 @@ public abstract class JInputValidator extends InputVerifier {
      * calling this method, the component's tool tip text is changed as well.
      *
      * @param toolTipText the default tool tip text for the component being
-     *                    validated
+     * validated
      */
     public void setToolTipText(String toolTipText) {
         originalToolTipText = toolTipText;
@@ -134,7 +132,7 @@ public abstract class JInputValidator extends InputVerifier {
     /**
      * Get the validation object for the current state of the input component.
      *
-     * @param input       the component to get the state of
+     * @param input the component to get the state of
      * @param preferences preferences to use for creating the validation
      * @return the validation for the current state
      */
@@ -148,8 +146,8 @@ public abstract class JInputValidator extends InputVerifier {
      * be retrieved afterwards using {@link #getValidation()}.
      *
      * @return {@code false} if {@link Validation#getType()} equals
-     *         {@link Validation.Type#DANGER} or
-     *         {@link Validation.Type#WARNING}; otherwise returns {@code true}
+     * {@link Validation.Type#DANGER} or {@link Validation.Type#WARNING};
+     * otherwise returns {@code true}
      */
     @Override
     public boolean verify(JComponent input) {
@@ -169,6 +167,16 @@ public abstract class JInputValidator extends InputVerifier {
             verifying = false;
         }
         return validation.getType() != Type.WARNING && validation.getType() != Type.DANGER;
+    }
+
+    /**
+     * Set the preferences for a Validation to this JInputValidator's
+     * preferences.
+     *
+     * @param validation the validation to set preferences for
+     */
+    protected final void setValidationPreferences(Validation validation) {
+        validation.setPreferences(preferences);
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

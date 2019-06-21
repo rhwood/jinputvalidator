@@ -17,6 +17,8 @@ package com.alexandriasoftware.swing;
 
 import java.awt.Color;
 import java.awt.Font;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * A Validation is the combination of a validation state and the tool tip to
@@ -28,7 +30,7 @@ public class Validation {
 
     private final Type type;
     private final String message;
-    private final JInputValidatorPreferences preferences;
+    private JInputValidatorPreferences preferences;
 
     /**
      * The Validation state. The states {@link Type#DANGER} and
@@ -76,8 +78,11 @@ public class Validation {
 
     /**
      * Create a validation with default preferences.
+     * <p>
+     * This constructor should not be used within
+     * {@link JInputValidator#getValidation(javax.swing.JComponent, com.alexandriasoftware.swing.JInputValidatorPreferences)}.
      *
-     * @param type    the type of validation
+     * @param type the type of validation
      * @param message the tool tip text
      */
     public Validation(Type type, String message) {
@@ -87,8 +92,8 @@ public class Validation {
     /**
      * Create a validation with custom preferences.
      *
-     * @param type        the type of validation
-     * @param message     the tool tip text
+     * @param type the type of validation
+     * @param message the tool tip text
      * @param preferences the preferences to use
      */
     public Validation(Type type, String message, JInputValidatorPreferences preferences) {
@@ -121,6 +126,7 @@ public class Validation {
      *
      * @return the icon text
      */
+    @Nonnull
     public String getIcon() {
         return preferences.getIcon(type);
     }
@@ -130,6 +136,7 @@ public class Validation {
      *
      * @return the color to use
      */
+    @Nonnull
     public Color getColor() {
         return preferences.getColor(type);
     }
@@ -139,7 +146,18 @@ public class Validation {
      *
      * @return the font to use
      */
+    @Nonnull
     public Font getFont() {
         return preferences.getFont();
+    }
+
+    /**
+     * Set the preferences to use with this Validation.
+     *
+     * @param preferences the preferences to set
+     */
+    // package private
+    void setPreferences(@Nonnull JInputValidatorPreferences preferences) {
+        this.preferences = preferences;
     }
 }

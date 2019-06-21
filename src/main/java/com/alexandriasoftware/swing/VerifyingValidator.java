@@ -88,6 +88,8 @@ public class VerifyingValidator extends JInputValidator {
         this.verifier = verifier;
         this.invalid = invalid;
         this.valid = valid;
+        setValidationPreferences(this.invalid);
+        setValidationPreferences(this.valid);
     }
 
     /**
