@@ -223,4 +223,21 @@ public class JInputValidatorTest {
         assertEquals(0, instance.getPropertyChangeListeners("validationType").length);
     }
     
+    @Test
+    public void testTrimHtmlTags() {
+        JInputValidator instance = new JInputValidator(new JTextField()) {
+            @Override
+            protected Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
+                return new Validation(Type.NONE, "", settings);
+            }
+        };
+        assertEquals("abcd", instance.trimHtmlTags("abcd"));
+        assertEquals("abcd", instance.trimHtmlTags(" abcd"));
+        assertEquals("abcd", instance.trimHtmlTags("abcd "));
+        assertEquals("abcd", instance.trimHtmlTags(" abcd "));
+        assertEquals("abcd", instance.trimHtmlTags("<html>abcd</html>"));
+        assertEquals("abcd", instance.trimHtmlTags(" <html> abcd </html> "));
+        assertEquals("abcd", instance.trimHtmlTags("<html>abcd"));
+        assertEquals("abcd", instance.trimHtmlTags("abcd</html>"));
+    }
 }

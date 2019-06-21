@@ -179,6 +179,24 @@ public abstract class JInputValidator extends InputVerifier {
         validation.setPreferences(preferences);
     }
 
+    /**
+     * Trims input and removes the leading {@code <html>} and trailing
+     * {@code </html>} markers if present.
+     *
+     * @param input the input to modify
+     * @return the modified input
+     */
+    protected final String trimHtmlTags(String input) {
+        String output = input.trim();
+        if (output.startsWith("<html>")) {
+            output = output.substring(6);
+        }
+        if (output.endsWith("</html>")) {
+            output = output.substring(0, output.length() - 7);
+        }
+        return output.trim();
+    }
+
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         pcs.addPropertyChangeListener(listener);
     }
