@@ -18,7 +18,7 @@ limitations under the License.
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.alexandriasoftware.swing</groupId>
     <artifactId>jinputvalidator</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
     <packaging>jar</packaging>
     <name>JInputValidator</name>
     <description>Java Swing InputVerifier that adds an icon and tooltip to the component for invalid states.</description>
