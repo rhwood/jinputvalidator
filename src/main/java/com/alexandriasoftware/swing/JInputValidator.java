@@ -197,6 +197,18 @@ public abstract class JInputValidator extends InputVerifier {
         return output.trim();
     }
 
+    /**
+     * Create a Validation with type {@link Type#NONE} and with the contents of
+     * {@link #getToolTipText()} as the message. Note that the message of a
+     * Validation with Type.NONE is not used internally, but this allows a
+     * listener to get a Validation with the default tool tip text.
+     *
+     * @return a new Validation with Type.NONE
+     */
+    public final Validation getNoneValidation() {
+        return new Validation(Type.NONE, getToolTipText(), preferences);
+    }
+
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         pcs.addPropertyChangeListener(listener);
     }

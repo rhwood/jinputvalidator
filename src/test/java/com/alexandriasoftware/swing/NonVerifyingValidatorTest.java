@@ -135,7 +135,7 @@ public class NonVerifyingValidatorTest {
         Validation v1 = v.getValidation();
         assertNotNull(v1);
         assertEquals(Type.NONE, v1.getType());
-        assertEquals("", v1.getMessage());
+        assertEquals("1", v1.getMessage());
         assertEquals("", v1.getIcon());
         assertEquals(SystemColor.textText, v1.getColor());
         c.setText("test2");
@@ -167,7 +167,7 @@ public class NonVerifyingValidatorTest {
         Validation v1 = v.getValidation();
         assertNotNull(v1);
         assertEquals(Type.NONE, v1.getType());
-        assertEquals("", v1.getMessage());
+        assertEquals("1", v1.getMessage());
         assertEquals("", v1.getIcon());
         assertEquals(SystemColor.textText, v1.getColor());
         v.verify(c); // manually call verify to avoid possibly asserting before Swing thread triggers

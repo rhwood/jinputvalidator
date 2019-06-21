@@ -64,7 +64,7 @@ public class VerifyingValidator extends JInputValidator {
      *                  changes
      */
     public VerifyingValidator(@Nonnull JComponent component, @Nonnull InputVerifier verifier, Validation invalid, boolean onInput) {
-        this(component, verifier, invalid, new Validation(Validation.Type.NONE, "", JInputValidatorPreferences.getPreferences()), onInput, JInputValidatorPreferences.getPreferences());
+        this(component, verifier, invalid, null, onInput, JInputValidatorPreferences.getPreferences());
     }
 
     /**
@@ -83,13 +83,17 @@ public class VerifyingValidator extends JInputValidator {
      *                    changes
      * @param preferences the preferences to use to draw the validation icons
      */
-    public VerifyingValidator(@Nonnull JComponent component, @Nonnull InputVerifier verifier, Validation invalid, Validation valid, boolean onInput, @Nonnull JInputValidatorPreferences preferences) {
+    public VerifyingValidator(@Nonnull JComponent component, @Nonnull InputVerifier verifier, @Nonnull Validation invalid, Validation valid, boolean onInput, @Nonnull JInputValidatorPreferences preferences) {
         super(component, onInput, preferences);
         this.verifier = verifier;
         this.invalid = invalid;
-        this.valid = valid;
         setValidationPreferences(this.invalid);
-        setValidationPreferences(this.valid);
+        if (valid != null) {
+            this.valid = valid;
+            setValidationPreferences(this.valid);
+        } else {
+            this.valid = getNoneValidation();
+        }
     }
 
     /**
