@@ -44,6 +44,7 @@ public class JInputValidatorSwingTest extends javax.swing.JFrame {
                 new Validation(Validation.Type.DANGER, "This is a DANGER state."),
                 new Validation(Validation.Type.SUCCESS, "This is a SUCCESS state."),
                 true,
+                true,
                 JInputValidatorPreferences.getPreferences());
         jTextField1.setInputVerifier(validator);
     }

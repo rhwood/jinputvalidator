@@ -48,6 +48,7 @@ public abstract class JInputValidator extends InputVerifier {
     private final JInputValidatorPreferences preferences;
     private final JComponent component;
     private boolean verifying;
+    private boolean isVerifying;
 
     /**
      * Create a JInputValidator with the default preferences. The validator
@@ -57,31 +58,41 @@ public abstract class JInputValidator extends InputVerifier {
      * @param component the component to attach the validator to
      */
     public JInputValidator(@Nonnull JComponent component) {
-        this(component, true);
+        this(component, true, true);
     }
 
     /**
      * Create a JInputValidator with the default preferences.
      *
-     * @param component the component to attach the validator to
-     * @param onInput {@code true} if validator to validate on all input;
-     * {@code false} to validate only on focus change; note this has no effect
-     * if component is not a {@link javax.swing.text.JTextComponent}
+     * @param component   the component to attach the validator to
+     * @param onInput     {@code true} if validator to validate on all input;
+     *                    {@code false} to validate only on focus change; note
+     *                    this has no effect if component is not a
+     *                    {@link javax.swing.text.JTextComponent}
+     * @param isVerifying {@code true} if validator is to return true or false
+     *                    per
+     *                    {@link #verify(javax.swing.JComponent)}; {@code false}
+     *                    to always return {@code true} for that method.
      */
-    public JInputValidator(@Nonnull JComponent component, boolean onInput) {
-        this(component, onInput, JInputValidatorPreferences.getPreferences());
+    public JInputValidator(@Nonnull JComponent component, boolean onInput, boolean isVerifying) {
+        this(component, onInput, isVerifying, JInputValidatorPreferences.getPreferences());
     }
 
     /**
      * Create a JInputValidator with custom preferences.
      *
-     * @param component the component to attach the validator to
-     * @param onInput {@code true} if validator to validate on all input;
-     * {@code false} to validate only on focus change; note this has no effect
-     * if component is not a {@link javax.swing.text.JTextComponent}
+     * @param component   the component to attach the validator to
+     * @param onInput     {@code true} if validator to validate on all input;
+     *                    {@code false} to validate only on focus change; note
+     *                    this has no effect if component is not a
+     *                    {@link javax.swing.text.JTextComponent}
+     * @param isVerifying {@code true} if validator is to return true or false
+     *                    per
+     *                    {@link #verify(javax.swing.JComponent)}; {@code false}
+     *                    to always return {@code true} for that method.
      * @param preferences the custom preferences
      */
-    public JInputValidator(@Nonnull JComponent component, boolean onInput, @Nonnull JInputValidatorPreferences preferences) {
+    public JInputValidator(@Nonnull JComponent component, boolean onInput, boolean isVerifying, @Nonnull JInputValidatorPreferences preferences) {
         this.component = component;
         originalBorder = this.component.getBorder();
         originalToolTipText = this.component.getToolTipText();
@@ -91,8 +102,32 @@ public abstract class JInputValidator extends InputVerifier {
             });
         }
         this.preferences = preferences;
+        this.isVerifying = isVerifying;
         validation = getNoneValidation();
         oldValidation = getNoneValidation();
+    }
+
+    /**
+     * Set if this validator is verifying when
+     * {@link #verify(javax.swing.JComponent)} is called. When not verifying
+     * {@link #verify(javax.swing.JComponent)} always returns {@code true}. When
+     * verifying, that method returns {@code false} if the current {@link Type}
+     * is {@link Type#WARNING} or {@link Type#DANGER}.
+     *
+     * @param isVerifying {@code true} if verifying; {@code false} if not
+     */
+    public void setVerifying(boolean isVerifying) {
+        this.isVerifying = isVerifying;
+    }
+
+    /**
+     * Check if this validator is verifying when
+     * {@link #verify(javax.swing.JComponent)} is called.
+     *
+     * @return {@code true} if verifying; {@code false} if not
+     */
+    public boolean isVerifying() {
+        return isVerifying;
     }
 
     /**
@@ -101,7 +136,7 @@ public abstract class JInputValidator extends InputVerifier {
      * calling this method, the component's tool tip text is changed as well.
      *
      * @param toolTipText the default tool tip text for the component being
-     * validated
+     *                    validated
      */
     public void setToolTipText(String toolTipText) {
         originalToolTipText = toolTipText;
@@ -134,7 +169,7 @@ public abstract class JInputValidator extends InputVerifier {
     /**
      * Get the validation object for the current state of the input component.
      *
-     * @param input the component to get the state of
+     * @param input       the component to get the state of
      * @param preferences preferences to use for creating the validation
      * @return the validation for the current state
      */
@@ -148,8 +183,9 @@ public abstract class JInputValidator extends InputVerifier {
      * be retrieved afterwards using {@link #getValidation()}.
      *
      * @return {@code false} if {@link Validation#getType()} equals
-     * {@link Validation.Type#DANGER} or {@link Validation.Type#WARNING};
-     * otherwise returns {@code true}
+     *         {@link Validation.Type#DANGER} or {@link Validation.Type#WARNING}
+     *         and {@link #isVerifying} is {@code true}; otherwise returns
+     *         {@code true}
      */
     @Override
     public boolean verify(JComponent input) {
@@ -168,7 +204,9 @@ public abstract class JInputValidator extends InputVerifier {
             pcs.firePropertyChange("validation", oldValidation, validation);
             verifying = false;
         }
-        return validation.getType() != Type.WARNING && validation.getType() != Type.DANGER;
+        return isVerifying
+                ? validation.getType() != Type.WARNING && validation.getType() != Type.DANGER
+                : true;
     }
 
     /**

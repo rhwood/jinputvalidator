@@ -66,7 +66,7 @@ public class JInputValidatorTest {
         c.setText("test1");
         c.setToolTipText("1");
         // do not attempt to automatically verify
-        JInputValidator v = new JInputValidator(c, false) {
+        JInputValidator v = new JInputValidator(c, false, true) {
             @Override
             protected Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
                 if (input instanceof JTextComponent) {
