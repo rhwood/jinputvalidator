@@ -20,5 +20,6 @@ limitations under the License.
 
 <suppressions>
     <suppress checks=".*" files="JInputValidatorBeanInfo.java"/>
+    <suppress checks=".*" files="PredicateValidatorBeanInfo.java"/>
     <suppress checks=".*" files="VerifyingValidatorBeanInfo.java"/>
 </suppressions>
