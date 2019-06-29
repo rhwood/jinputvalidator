@@ -34,22 +34,22 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Randall Wood
  */
 public class PredicateValidatorTest {
-    
+
     public PredicateValidatorTest() {
     }
-    
+
     @BeforeAll
     public static void setUpClass() {
     }
-    
+
     @AfterAll
     public static void tearDownClass() {
     }
-    
+
     @BeforeEach
     public void setUp() {
     }
-    
+
     @AfterEach
     public void tearDown() {
     }
@@ -62,14 +62,9 @@ public class PredicateValidatorTest {
         JTextField c = new JTextField();
         c.setText("test1");
         c.setToolTipText("1");
-        Predicate<JComponent> p = (JComponent t) -> {
-            if (t instanceof JTextComponent) {
-                JTextComponent jtc = (JTextComponent) t;
-                return jtc.getText().equals("test1");
-            }
-            return false;
-        };
-        PredicateValidator v = new PredicateValidator(c, p, new Validation(Type.INFORMATION, "info"));
+        PredicateValidator v = new PredicateValidator(c,
+                (String t) -> t.equals("test1"),
+                new Validation(Type.INFORMATION, "info"));
         c.setInputVerifier(v);
         Validation v1 = v.getValidation();
         assertNotNull(v1);
@@ -79,7 +74,7 @@ public class PredicateValidatorTest {
         assertEquals(SystemColor.textText, v1.getColor());
         c.setText("test2");
         v.verify(c); // manually call verify to avoid possibly asserting before Swing thread triggers
-                     // verify method
+        // verify method
         v1 = v.getValidation();
         assertNotNull(v1);
         assertEquals(Type.INFORMATION, v1.getType());
@@ -87,5 +82,5 @@ public class PredicateValidatorTest {
         assertEquals("\ue92b", v1.getIcon());
         assertEquals(new Color(0x73BCF7), v1.getColor());
     }
-    
+
 }

@@ -18,16 +18,18 @@ package com.alexandriasoftware.swing;
 import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.swing.JComponent;
+import javax.swing.text.JTextComponent;
 
 /**
  * A {@link JInputValidator} that uses a standard
- * {@link java.util.function.Predicate} to toggle a good/bad state.
+ * {@link java.util.function.Predicate} for a String to toggle a good/bad state.
+ * This only works against subclasses of {@link JTextComponent}.
  *
  * @author Randall Wood
  */
 public class PredicateValidator extends JInputValidator {
 
-    private final Predicate<JComponent> predicate;
+    private final Predicate<String> predicate;
     private final Validation valid;
     private final Validation invalid;
 
@@ -42,7 +44,7 @@ public class PredicateValidator extends JInputValidator {
      *                  {@link java.util.function.Predicate#test(java.lang.Object)}
      *                  method of the predicate returns false
      */
-    public PredicateValidator(@Nonnull JComponent component, @Nonnull Predicate<JComponent> predicate, Validation invalid) {
+    public PredicateValidator(@Nonnull JComponent component, @Nonnull Predicate<String> predicate, Validation invalid) {
         this(component, predicate, invalid, true, true);
     }
 
@@ -54,19 +56,19 @@ public class PredicateValidator extends JInputValidator {
      * {@link JInputValidatorPreferences#getPreferences()} for the preferences
      * parameter.
      *
-     * @param component the component to verify
-     * @param predicate the predicate to use
-     * @param invalid   the validation to use when the
-     *                  {@link java.util.function.Predicate#test(java.lang.Object)}
-     *                  method of the predicate returns false
-     * @param onInput   true if validation should occur on every change to
-     *                  input; false if validation should only occur on focus
-     *                  changes
+     * @param component   the component to verify
+     * @param predicate   the predicate to use
+     * @param invalid     the validation to use when the
+     *                    {@link java.util.function.Predicate#test(java.lang.Object)}
+     *                    method of the predicate returns false
+     * @param onInput     true if validation should occur on every change to
+     *                    input; false if validation should only occur on focus
+     *                    changes
      * @param isVerifying {@code true} if validator is to return true or false
      *                    per {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)};
      *                    {@code false} to always return {@code true} for that method.
      */
-    public PredicateValidator(@Nonnull JComponent component, @Nonnull Predicate<JComponent> predicate, Validation invalid, boolean onInput, boolean isVerifying) {
+    public PredicateValidator(@Nonnull JComponent component, @Nonnull Predicate<String> predicate, Validation invalid, boolean onInput, boolean isVerifying) {
         this(component, predicate, invalid, null, onInput, isVerifying, JInputValidatorPreferences.getPreferences());
     }
 
@@ -75,12 +77,12 @@ public class PredicateValidator extends JInputValidator {
      *
      * @param component   the component to verify
      * @param predicate   the predicate to use
-     * @param invalid   the validation to use when the
-     *                  {@link java.util.function.Predicate#test(java.lang.Object)}
-     *                  method of the predicate returns false
-     * @param valid   the validation to use when the
-     *                  {@link java.util.function.Predicate#test(java.lang.Object)}
-     *                  method of the predicate returns true
+     * @param invalid     the validation to use when the
+     *                    {@link java.util.function.Predicate#test(java.lang.Object)}
+     *                    method of the predicate returns false
+     * @param valid       the validation to use when the
+     *                    {@link java.util.function.Predicate#test(java.lang.Object)}
+     *                    method of the predicate returns true
      * @param onInput     true if validation should occur on every change to
      *                    input; false if validation should only occur on focus
      *                    changes
@@ -89,7 +91,7 @@ public class PredicateValidator extends JInputValidator {
      *                    {@code false} to always return {@code true} for that method.
      * @param preferences the preferences to use to draw the validation icons
      */
-    public PredicateValidator(@Nonnull JComponent component, @Nonnull Predicate<JComponent> predicate, @Nonnull Validation invalid, Validation valid, boolean onInput, boolean isVerifying, @Nonnull JInputValidatorPreferences preferences) {
+    public PredicateValidator(@Nonnull JComponent component, @Nonnull Predicate<String> predicate, @Nonnull Validation invalid, Validation valid, boolean onInput, boolean isVerifying, @Nonnull JInputValidatorPreferences preferences) {
         super(component, onInput, isVerifying, preferences);
         this.predicate = predicate;
         this.invalid = invalid;
@@ -105,7 +107,8 @@ public class PredicateValidator extends JInputValidator {
     /**
      * Get the validation for the current result of calling
      * {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)} using
-     * the current verifier.
+     * the predicate. If input is not a subclass of {@link JTextComponent}; no
+     * validation is performed.
      *
      * @param input       the component to verify
      * @param preferences ignored, but required by implemented API
@@ -113,7 +116,11 @@ public class PredicateValidator extends JInputValidator {
      */
     @Override
     protected Validation getValidation(JComponent input, JInputValidatorPreferences preferences) {
-        return predicate.test(input) ? valid : invalid;
+        if (input instanceof JTextComponent) {
+            return predicate.test(((JTextComponent) input).getText()) ? valid : invalid;
+        } else {
+            return getNoneValidation();
+        }
     }
 
 }
