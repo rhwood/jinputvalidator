@@ -33,8 +33,8 @@ public class VerifyingValidator extends JInputValidator {
 
     /**
      * Create a VerifyingValidator. This is the same as calling
-     * {@link #VerifyingValidator(javax.swing.JComponent, javax.swing.InputVerifier, com.alexandriasoftware.swing.Validation, boolean)}
-     * with the onInput parameter false.
+     * {@link #VerifyingValidator(javax.swing.JComponent, javax.swing.InputVerifier, com.alexandriasoftware.swing.Validation, boolean, boolean)}
+     * with the onInput and isVerifying parameters true.
      *
      * @param component the component to verify
      * @param verifier  the verifier to use
@@ -48,7 +48,7 @@ public class VerifyingValidator extends JInputValidator {
 
     /**
      * Create a VerifyingValidator. This is the same as calling
-     * {@link #VerifyingValidator(javax.swing.JComponent, javax.swing.InputVerifier, com.alexandriasoftware.swing.Validation, com.alexandriasoftware.swing.Validation, boolean, com.alexandriasoftware.swing.JInputValidatorPreferences)}
+     * {@link #VerifyingValidator(javax.swing.JComponent, javax.swing.InputVerifier, com.alexandriasoftware.swing.Validation, com.alexandriasoftware.swing.Validation, boolean, boolean, com.alexandriasoftware.swing.JInputValidatorPreferences)}
      * with a {@link Validation} that has type {@link Validation.Type#NONE} for
      * the valid parameter and
      * {@link JInputValidatorPreferences#getPreferences()} for the preferences
@@ -81,8 +81,8 @@ public class VerifyingValidator extends JInputValidator {
      * @param valid       the validation to use when the
      *                    {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)}
      *                    method of the verifier returns true
-     * @param onInput     true if validation should occur on every change to
-     *                    input; false if validation should only occur on focus
+     * @param onInput     {@code true{} if validation should occur on every change to
+     *                    input; {@code false} if validation should only occur on focus
      *                    changes
      * @param isVerifying {@code true} if validator is to return true or false
      *                    per {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)};

@@ -35,8 +35,8 @@ public class PredicateValidator extends JInputValidator {
 
     /**
      * Create a VerifyingValidator. This is the same as calling
-     * {@link #VerifyingValidator(javax.swing.JComponent, javax.swing.InputVerifier, com.alexandriasoftware.swing.Validation, boolean)}
-     * with the onInput parameter false.
+     * {@link #PredicateValidator(JComponent, Predicate, Validation, boolean, boolean)}
+     * with the onInput and isVerifying parameters true.
      *
      * @param component the component to verify
      * @param predicate the predicate to use

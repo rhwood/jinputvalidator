@@ -23,7 +23,7 @@ import java.beans.PropertyDescriptor;
 import java.beans.SimpleBeanInfo;
 
 /**
- * Provide a graphical editor for {@link PreficateValidator}.
+ * Provide a graphical editor for {@link PredicateValidator}.
  * <p>
  * Icon is from <a href="https://fontawesome.com/icons/clipboard-check?style=solid">Font Awesome</a>.
  * 

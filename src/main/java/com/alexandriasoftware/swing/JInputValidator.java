@@ -36,7 +36,8 @@ import javax.swing.text.JTextComponent;
  * text indicating validation status to the component being verified.
  *
  * @author Randall Wood
- * @see NonVerifyingValidator
+ * @see PredicateValidator
+ * @see VerifyingValidator
  */
 public abstract class JInputValidator extends InputVerifier {
 
