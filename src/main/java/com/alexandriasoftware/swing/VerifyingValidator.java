@@ -81,7 +81,7 @@ public class VerifyingValidator extends JInputValidator {
      * @param valid       the validation to use when the
      *                    {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)}
      *                    method of the verifier returns true
-     * @param onInput     {@code true{} if validation should occur on every change to
+     * @param onInput     {@code true} if validation should occur on every change to
      *                    input; {@code false} if validation should only occur on focus
      *                    changes
      * @param isVerifying {@code true} if validator is to return true or false
