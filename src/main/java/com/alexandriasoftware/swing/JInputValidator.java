@@ -20,6 +20,7 @@ import com.alexandriasoftware.swing.border.ValidatorBorder;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
@@ -225,10 +226,11 @@ public abstract class JInputValidator extends InputVerifier {
      * {@code </html>} markers if present.
      *
      * @param input the input to modify
-     * @return the modified input
+     * @return the modified input or an empty string if input was null
      */
-    protected final String trimHtmlTags(String input) {
-        String output = input.trim();
+    @Nonnull
+    protected final String trimHtmlTags(@Nullable String input) {
+        String output = input != null ? input.trim() : "";
         if (output.startsWith("<html>")) {
             output = output.substring(6);
         }

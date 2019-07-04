@@ -231,6 +231,7 @@ public class JInputValidatorTest {
                 return new Validation(Type.NONE, "", settings);
             }
         };
+        assertEquals("", instance.trimHtmlTags(null));
         assertEquals("abcd", instance.trimHtmlTags("abcd"));
         assertEquals("abcd", instance.trimHtmlTags(" abcd"));
         assertEquals("abcd", instance.trimHtmlTags("abcd "));
