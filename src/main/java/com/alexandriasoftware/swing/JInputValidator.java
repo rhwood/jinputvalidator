@@ -49,7 +49,7 @@ public abstract class JInputValidator extends InputVerifier {
     private Validation oldValidation;
     private final JInputValidatorPreferences preferences;
     private final JComponent component;
-    private boolean verifying;
+    private boolean inVerifyMethod;
     private boolean isVerifying;
 
     /**
@@ -193,8 +193,8 @@ public abstract class JInputValidator extends InputVerifier {
     public boolean verify(JComponent input) {
         oldValidation = validation;
         validation = getValidation(input, preferences);
-        if (!validation.equals(oldValidation) && !verifying) {
-            verifying = true;
+        if (!validation.equals(oldValidation) && !inVerifyMethod) {
+            inVerifyMethod = true;
             if (validation.getType() == Type.NONE) {
                 input.setBorder(originalBorder);
                 input.setToolTipText(originalToolTipText);
@@ -204,11 +204,19 @@ public abstract class JInputValidator extends InputVerifier {
             }
             input.validate();
             pcs.firePropertyChange("validation", oldValidation, validation);
-            verifying = false;
+            inVerifyMethod = false;
         }
         return isVerifying
                 ? validation.getType() != Type.WARNING && validation.getType() != Type.DANGER
                 : true;
+    }
+
+    protected JComponent getComponent() {
+        return component;
+    }
+
+    protected PropertyChangeSupport getPropertyChangeSupport() {
+        return pcs;
     }
 
     /**
