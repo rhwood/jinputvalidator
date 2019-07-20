@@ -76,7 +76,7 @@ public class PredicateValidatorTest {
         assertNotNull(v1);
         assertEquals(Type.INFORMATION, v1.getType());
         assertEquals("info", v1.getMessage());
-        assertEquals("\ue92b", v1.getIcon());
+        assertEquals("\uf05a", v1.getIcon());
         assertEquals(new Color(0x73BCF7), v1.getColor());
     }
 

@@ -110,25 +110,25 @@ public class JInputValidatorPreferences {
 
     private JInputValidatorPreferences(Preferences preferences) {
         Preferences defaults = Preferences.userNodeForPackage(JInputValidatorPreferences.class);
-        String patternfly = "/org/patternfly/PatternFlyIcons-webfont.ttf";
+        String fontAwesome = "/com/fontawesome/Font Awesome 5 Free-Solid-900.otf";
         Font f;
         try {
-            f = Font.createFont(Font.TRUETYPE_FONT, JInputValidatorPreferences.class.getResourceAsStream(preferences.get("font", defaults.get("font", patternfly))));
+            f = Font.createFont(Font.TRUETYPE_FONT, JInputValidatorPreferences.class.getResourceAsStream(preferences.get("font", defaults.get("font", fontAwesome))));
         }
         catch (FontFormatException | IOException ex) {
-            LoggerFactory.getLogger(this.getClass()).error("Unable to get Font resource named {}", preferences.get("font", patternfly), ex);
+            LoggerFactory.getLogger(this.getClass()).error("Unable to get Font resource named {}", preferences.get("font", fontAwesome), ex);
             f = (new JLabel()).getFont();
         }
         font = f;
-        unknownIcon = preferences.get("unknown.icon", defaults.get("unknown.icon", "\ue605"));
+        unknownIcon = preferences.get("unknown.icon", defaults.get("unknown.icon", "\uf059"));
         unknownColor = new Color(preferences.getInt("unknown.color", defaults.getInt("inknown.color", 0x73BCF7)));
-        informationIcon = preferences.get("information.icon", defaults.get("information.icon", "\ue92b"));
+        informationIcon = preferences.get("information.icon", defaults.get("information.icon", "\uf05a"));
         informationColor = new Color(preferences.getInt("information.color", defaults.getInt("information.color", 0x73BCF7)));
-        successIcon = preferences.get("success.icon", defaults.get("success.icon", "\ue602"));
+        successIcon = preferences.get("success.icon", defaults.get("success.icon", "\uf058"));
         successColor = new Color(preferences.getInt("success.color", defaults.getInt("success.color", 0x92D400)));
-        warningIcon = preferences.get("warning.icon", defaults.get("warning.icon", "\ue913"));
+        warningIcon = preferences.get("warning.icon", defaults.get("warning.icon", "\uf071"));
         warningColor = new Color(preferences.getInt("warning.color", defaults.getInt("warning.color", 0xF0AB00)));
-        dangerIcon = preferences.get("danger.icon", defaults.get("danger.icon", "\ue926"));
+        dangerIcon = preferences.get("danger.icon", defaults.get("danger.icon", "\uf06a"));
         dangerColor = new Color(preferences.getInt("danger.color", defaults.getInt("danger.color", 0xC9190B)));
     }
 

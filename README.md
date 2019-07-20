@@ -60,7 +60,7 @@ myJTextField.setInputVerifier(new VerifyingValidator(myJTextField,
 
 ## Customizing
 
-By default, `JInputValidator` uses [PatternFly 4](https://www.patternfly.org/v4/) [colors](https://www.patternfly.org/v4/design-guidelines/styles/colors) and [icons](https://www.patternfly.org/v4/design-guidelines/styles/icons) for the various states.
+By default, `JInputValidator` uses [PatternFly 4 colors](https://www.patternfly.org/v4/design-guidelines/styles/colors) and [Font Awesome icons](https://fontawesome.com/icons?d=gallery&s=solid&m=free) for the various states.
 
 These values can be overridden by providing a [`Preferences`](https://docs.oracle.com/javase/8/docs/api/index.html?java/util/prefs/Preferences.html) object to [`JInputValidatorPreferences.getPreferences(Preferences preferences)`](https://static.javadoc.io/com.alexandriasoftware.swing/jinputvalidator/0.1.0/com/alexandriasoftware/swing/JInputValidatorPreferences.html#getPreferences-java.util.prefs.Preferences-) containing the following keys:
 
