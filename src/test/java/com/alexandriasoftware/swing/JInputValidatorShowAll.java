@@ -26,7 +26,7 @@ import javax.swing.JComponent;
 public class JInputValidatorShowAll extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
-    private static final boolean useNimbus = false;
+    private static final boolean USE_NIMBUS = false;
 
     /**
      * Creates new form JInputValidatorDemo
@@ -189,7 +189,7 @@ public class JInputValidatorShowAll extends javax.swing.JFrame {
          * default look and feel. For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        if (useNimbus) {
+        if (USE_NIMBUS) {
             try {
                 for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                     if ("Nimbus".equals(info.getName())) {
