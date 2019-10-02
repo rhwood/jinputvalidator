@@ -20,7 +20,9 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Insets;
+import java.awt.RenderingHints;
 import javax.annotation.Nonnull;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.Border;
@@ -57,7 +59,7 @@ public class ValidatorBorder extends CompoundBorder {
              * {@inheritDoc}
              */
             @Override
-            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            public void paintBorder(Component c, @Nonnull Graphics g, int x, int y, int width, int height) {
                 Insets insets = outsideBorder.getBorderInsets(c);
                 FontMetrics metrics = getFontMetrics(c);
                 int by = (c.getHeight() / 2) + (metrics.getAscent() / 2) - insets.top;
@@ -67,6 +69,15 @@ public class ValidatorBorder extends CompoundBorder {
                 g.translate(bx, by);
                 g.setColor(validation.getColor());
                 g.setFont(font);
+                if (g instanceof Graphics2D) {
+                    Graphics2D g2d = (Graphics2D) g;
+                    g2d.setRenderingHint(
+                            RenderingHints.KEY_TEXT_ANTIALIASING,
+                            RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                    g2d.setRenderingHint(
+                            RenderingHints.KEY_FRACTIONALMETRICS,
+                            RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+                }
                 g.drawString(validation.getIcon(), x + (iw / 2), y);
             }
 
