@@ -6,7 +6,7 @@ An [InputVerifier](https://docs.oracle.com/javase/8/docs/api/index.html?javax/sw
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.alexandriasoftware.swing/jinputvalidator/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.alexandriasoftware.swing/jinputvalidator)
 [![Javadocs](https://www.javadoc.io/badge/com.alexandriasoftware.swing/jinputvalidator.svg)](https://www.javadoc.io/doc/com.alexandriasoftware.swing/jinputvalidator)
 [![Build Status](https://travis-ci.com/rhwood/jinputvalidator.svg?token=cqDHpGf1kVSnERY1P7z7&branch=master)](https://travis-ci.com/rhwood/jinputvalidator)
-[![Coverage Status](https://coveralls.io/repos/github/rhwood/jinputvalidator/badge.svg?branch=master)](https://coveralls.io/github/rhwood/jinputvalidator?branch=master)
+[![codecov](https://codecov.io/gh/rhwood/jinputvalidator/branch/master/graph/badge.svg)](https://codecov.io/gh/rhwood/jinputvalidator)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3a346edbb0d353e71536/maintainability)](https://codeclimate.com/github/rhwood/jinputvalidator/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/3a346edbb0d353e71536/test_coverage)](https://codeclimate.com/github/rhwood/jinputvalidator/test_coverage)
 
