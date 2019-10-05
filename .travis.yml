@@ -2,7 +2,9 @@ language:
 - java
 
 jdk:
-- oraclejdk8
+- openjdk8
+- openjdk11
+- openjdk13
 
 before_script:
 # setup a display on linux ( the sleep gives xvfb some time to start )
