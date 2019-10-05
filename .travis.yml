@@ -22,6 +22,7 @@ script:
 
 after_success:
 - mvn --batch-mode --settings .travis.settings.xml site site-deploy
+- bash <(curl -s https://codecov.io/bash)
 
 after_script:
 - JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage target/site/jacoco/jacoco.xml --input-type jacoco
