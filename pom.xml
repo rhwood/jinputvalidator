@@ -261,7 +261,7 @@ limitations under the License.
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
-            <version>3.1.6</version>
+            <version>4.0.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
