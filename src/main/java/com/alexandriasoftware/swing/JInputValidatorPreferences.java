@@ -73,7 +73,7 @@ public class JInputValidatorPreferences {
      *
      * @return the default preferences
      */
-    public synchronized static JInputValidatorPreferences getPreferences() {
+    public static synchronized JInputValidatorPreferences getPreferences() {
         if (defaultPreferences == null) {
             defaultPreferences = new JInputValidatorPreferences();
         }

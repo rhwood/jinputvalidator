@@ -38,7 +38,7 @@ import javax.swing.border.CompoundBorder;
 public class ValidatorBorder extends CompoundBorder {
 
     private static final long serialVersionUID = 1L;
-    private final Validation validation;
+    private final transient Validation validation;
     private Font font;
 
     /**

@@ -99,9 +99,7 @@ public abstract class JInputValidator extends InputVerifier {
         originalBorder = this.component.getBorder();
         originalToolTipText = this.component.getToolTipText();
         if (onInput && this.component instanceof JTextComponent) {
-            addChangeListener((JTextComponent) this.component, (e) -> {
-                verify(this.component);
-            });
+            addChangeListener((JTextComponent) this.component, e -> verify(this.component));
         }
         this.preferences = preferences;
         this.isVerifying = isVerifying;
@@ -207,8 +205,8 @@ public abstract class JInputValidator extends InputVerifier {
             inVerifyMethod = false;
         }
         return isVerifying
-                ? validation.getType() != Type.WARNING && validation.getType() != Type.DANGER
-                : true;
+                ? validation.getType() == Type.WARNING || validation.getType() == Type.DANGER
+                : isVerifying;
     }
 
     protected JComponent getComponent() {
@@ -319,7 +317,7 @@ public abstract class JInputValidator extends InputVerifier {
                 });
             }
         };
-        component.addPropertyChangeListener("document", (e) -> {
+        component.addPropertyChangeListener("document", e -> {
             Document oldDocument = (Document) e.getOldValue();
             Document newDocument = (Document) e.getNewValue();
             if (oldDocument != null) {
