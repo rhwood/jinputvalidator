@@ -1,5 +1,6 @@
 package com.alexandriasoftware.swing;
 
+import java.awt.Image;
 import java.beans.SimpleBeanInfo;
 
 // package private
@@ -36,47 +37,28 @@ class AbstractValidatorBeanInfo extends SimpleBeanInfo {
      *         if no suitable icon is available.
      */
     @Override
-    public java.awt.Image getIcon(int iconKind) {
+    public Image getIcon(int iconKind) {
         switch (iconKind) {
             case ICON_COLOR_16x16:
-                if (iconNameC16 == null) {
-                    return null;
-                } else {
-                    if (iconColor16 == null) {
-                        iconColor16 = loadImage(iconNameC16);
-                    }
-                    return iconColor16;
-                }
+                return loadImage(iconColor16, iconNameC16);
             case ICON_COLOR_32x32:
-                if (iconNameC32 == null) {
-                    return null;
-                } else {
-                    if (iconColor32 == null) {
-                        iconColor32 = loadImage(iconNameC32);
-                    }
-                    return iconColor32;
-                }
+                return loadImage(iconColor32, iconNameC32);
             case ICON_MONO_16x16:
-                if (iconNameM16 == null) {
-                    return null;
-                } else {
-                    if (iconMono16 == null) {
-                        iconMono16 = loadImage(iconNameM16);
-                    }
-                    return iconMono16;
-                }
+                return loadImage(iconMono16, iconNameM16);
             case ICON_MONO_32x32:
-                if (iconNameM32 == null) {
-                    return null;
-                } else {
-                    if (iconMono32 == null) {
-                        iconMono32 = loadImage(iconNameM32);
-                    }
-                    return iconMono32;
-                }
+                return loadImage(iconMono32, iconNameM32);
             default:
                 return null;
         }
     }
- 
+
+    private Image loadImage(Image image, String name) {
+        if (name == null) {
+            return null;
+        }
+        if (image == null) {
+            image = loadImage(name);
+        }
+        return image;
+    }
 }
