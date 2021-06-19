@@ -56,9 +56,7 @@ public class JInputValidatorBeanInfo extends SimpleBeanInfo {
             properties[PROPERTY_toolTipText] = new PropertyDescriptor ( "toolTipText", com.alexandriasoftware.swing.JInputValidator.class, "getToolTipText", "setToolTipText" ); // NOI18N
             properties[PROPERTY_validation] = new PropertyDescriptor ( "validation", com.alexandriasoftware.swing.JInputValidator.class, "getValidation", null ); // NOI18N
         }
-        catch(IntrospectionException e) {
-            e.printStackTrace();
-        }//GEN-HEADEREND:Properties
+        catch(IntrospectionException e) {}//GEN-HEADEREND:Properties
         // Here you can add code for customizing the properties array.
 
         return properties;     }//GEN-LAST:Properties
@@ -74,9 +72,7 @@ public class JInputValidatorBeanInfo extends SimpleBeanInfo {
         try {
             eventSets[EVENT_propertyChangeListener] = new EventSetDescriptor ( com.alexandriasoftware.swing.JInputValidator.class, "propertyChangeListener", java.beans.PropertyChangeListener.class, new String[] {"propertyChange"}, "addPropertyChangeListener", "removePropertyChangeListener" ); // NOI18N
         }
-        catch(IntrospectionException e) {
-            e.printStackTrace();
-        }//GEN-HEADEREND:Events
+        catch(IntrospectionException e) {}//GEN-HEADEREND:Events
         // Here you can add code for customizing the event sets array.
 
         return eventSets;     }//GEN-LAST:Events
