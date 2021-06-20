@@ -6,6 +6,7 @@ import static java.beans.BeanInfo.ICON_MONO_16x16;
 import static java.beans.BeanInfo.ICON_MONO_32x32;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.beans.BeanInfo;
 
@@ -27,5 +28,6 @@ public class AbstractValidatorBeanInfoTest {
         assertNotNull(info.getIcon(ICON_COLOR_32x32));
         assertNotNull(info.getIcon(ICON_MONO_16x16));
         assertNotNull(info.getIcon(ICON_MONO_32x32));
+        assertNull(info.getIcon(Integer.MAX_VALUE));
     }
 }
