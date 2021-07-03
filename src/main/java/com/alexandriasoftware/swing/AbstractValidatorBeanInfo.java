@@ -6,14 +6,14 @@ import java.beans.SimpleBeanInfo;
 // package private
 class AbstractValidatorBeanInfo extends SimpleBeanInfo {
 
-    private static java.awt.Image iconColor16 = null;//GEN-BEGIN:IconsDef
+    private static java.awt.Image iconColor16 = null;
     private static java.awt.Image iconColor32 = null;
     private static java.awt.Image iconMono16 = null;
-    private static java.awt.Image iconMono32 = null;//GEN-END:IconsDef
-    private static String iconNameC16 = "/com/fontawesome/clipboard-check.png";//GEN-BEGIN:Icons
+    private static java.awt.Image iconMono32 = null;
+    private static String iconNameC16 = "/com/fontawesome/clipboard-check.png";
     private static String iconNameC32 = "/com/fontawesome/clipboard-check@2x.png";
     private static String iconNameM16 = "/com/fontawesome/clipboard-check.png";
-    private static String iconNameM32 = "/com/fontawesome/clipboard-check@2x.png";//GEN-END:Icons
+    private static String iconNameM32 = "/com/fontawesome/clipboard-check@2x.png";
 
     /**
      * This method returns an image object that can be used to represent the
