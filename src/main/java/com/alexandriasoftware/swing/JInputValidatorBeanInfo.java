@@ -20,6 +20,8 @@ import java.beans.EventSetDescriptor;
 import java.beans.IntrospectionException;
 import java.beans.MethodDescriptor;
 import java.beans.PropertyDescriptor;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Provide a graphical editor for {@link JInputValidator}.
@@ -57,7 +59,7 @@ public class JInputValidatorBeanInfo extends AbstractValidatorBeanInfo {
             properties[PROPERTY_validation] = new PropertyDescriptor("validation",
                     com.alexandriasoftware.swing.JInputValidator.class, "getValidation", null);
         } catch (IntrospectionException e) {
-            e.printStackTrace();
+            Logger.getLogger(JInputValidatorBeanInfo.class.getName()).log(Level.SEVERE, e.getMessage(), e);
         }
         // Here you can add code for customizing the properties array.
 
@@ -78,7 +80,7 @@ public class JInputValidatorBeanInfo extends AbstractValidatorBeanInfo {
                     java.beans.PropertyChangeListener.class, new String[] { "propertyChange" },
                     "addPropertyChangeListener", "removePropertyChangeListener");
         } catch (IntrospectionException e) {
-            e.printStackTrace();
+            Logger.getLogger(JInputValidatorBeanInfo.class.getName()).log(Level.SEVERE, e.getMessage(), e);
         }
 
         return eventSets;
@@ -124,7 +126,7 @@ public class JInputValidatorBeanInfo extends AbstractValidatorBeanInfo {
                     javax.swing.InputVerifier.class.getMethod("verifyTarget", javax.swing.JComponent.class));
             methods[METHOD_verifyTarget6].setDisplayName("");
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(JInputValidatorBeanInfo.class.getName()).log(Level.SEVERE, e.getMessage(), e);
         }
 
         return methods;
