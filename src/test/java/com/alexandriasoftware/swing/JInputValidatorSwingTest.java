@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Randall Wood
  */
-public class JInputValidatorSwingTest extends javax.swing.JFrame {
+class JInputValidatorSwingTest extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
     private final VerifyingValidator validator;
@@ -114,7 +114,7 @@ public class JInputValidatorSwingTest extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     @Test
-    public void testVerifyingValidator() {
+    void testVerifyingValidator() {
         jTextField1.setText("");
         validator.verify(jTextField1); // manually call verify to avoid possibly asserting before Swing thread triggers verify method
         assertEquals(Validation.Type.SUCCESS, validator.getValidation().getType());

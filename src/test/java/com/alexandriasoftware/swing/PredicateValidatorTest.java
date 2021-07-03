@@ -30,10 +30,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Randall Wood
  */
-public class PredicateValidatorTest {
-
-    public PredicateValidatorTest() {
-    }
+class PredicateValidatorTest {
 
     @BeforeAll
     public static void setUpClass() {
@@ -55,7 +52,7 @@ public class PredicateValidatorTest {
      * Test of getValidation method, of class PredicateValidator.
      */
     @Test
-    public void testGetValidation() {
+    void testGetValidation() {
         JTextField c = new JTextField();
         c.setText("test1");
         c.setToolTipText("1");

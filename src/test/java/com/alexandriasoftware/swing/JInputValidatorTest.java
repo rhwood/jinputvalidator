@@ -37,10 +37,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Randall Wood
  */
-public class JInputValidatorTest {
-    
-    public JInputValidatorTest() {
-    }
+class JInputValidatorTest {
     
     @BeforeAll
     public static void setUpClass() {
@@ -62,7 +59,7 @@ public class JInputValidatorTest {
      * Test of setToolTipText method, of class JInputValidator.
      */
     @Test
-    public void testSetToolTipText() {
+    void testSetToolTipText() {
         JTextField c = new JTextField();
         c.setText("test1");
         c.setToolTipText("1");
@@ -122,7 +119,7 @@ public class JInputValidatorTest {
      * Test of getValidation method, of class JInputValidator.
      */
     @Test
-    public void testGetValidation_0args() {
+    void testGetValidation_0args() {
         JTextField c = new JTextField();
         c.setText("test1");
         c.setToolTipText("1");
@@ -154,7 +151,7 @@ public class JInputValidatorTest {
      * Test of verify method, of class JInputValidator.
      */
     @Test
-    public void testVerify() {
+    void testVerify() {
         JTextField c = new JTextField();
         c.setText("test1");
         c.setToolTipText("1");
@@ -186,7 +183,7 @@ public class JInputValidatorTest {
      * Test of addPropertyChangeListener method, of class JInputValidator.
      */
     @Test
-    public void testAddPropertyChangeListener_PropertyChangeListener() {
+    void testAddPropertyChangeListener_PropertyChangeListener() {
         PropertyChangeListener listener = evt -> {
             // do nothing
         };
@@ -207,7 +204,7 @@ public class JInputValidatorTest {
      * Test of addPropertyChangeListener method, of class JInputValidator.
      */
     @Test
-    public void testAddPropertyChangeListener_String_PropertyChangeListener() {
+    void testAddPropertyChangeListener_String_PropertyChangeListener() {
         PropertyChangeListener listener = evt -> {
             // do nothing
         };
@@ -225,7 +222,7 @@ public class JInputValidatorTest {
     }
     
     @Test
-    public void testTrimHtmlTags() {
+    void testTrimHtmlTags() {
         JInputValidator instance = new JInputValidator(new JTextField()) {
             @Override
             protected Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
