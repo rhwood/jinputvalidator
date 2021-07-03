@@ -17,8 +17,8 @@ class ValidationTest {
 
     @Test
     void testEquals() {
-        assertNotEquals(validation, null);
-        assertNotEquals(validation, "");
+        assertNotEquals(null, validation);
+        assertNotEquals("", validation);
         assertEquals(validation, validation);
         assertEquals(validation, new Validation(null, "foo"));
         assertNotEquals(validation, new Validation(null, "bar"));
