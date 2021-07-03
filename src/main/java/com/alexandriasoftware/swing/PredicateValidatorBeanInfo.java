@@ -19,9 +19,13 @@ import java.beans.BeanDescriptor;
 import java.beans.EventSetDescriptor;
 import java.beans.IntrospectionException;
 import java.beans.MethodDescriptor;
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyDescriptor;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
 
 /**
  * Provide a graphical editor for {@link PredicateValidator}.
@@ -38,7 +42,7 @@ public class PredicateValidatorBeanInfo extends AbstractValidatorBeanInfo {
     // Bean descriptor
     /* lazy BeanDescriptor */
     private static BeanDescriptor getBdescriptor() {
-        return new BeanDescriptor(com.alexandriasoftware.swing.PredicateValidator.class, null);
+        return new BeanDescriptor(PredicateValidator.class, null);
     }
 
     // Property identifiers
@@ -53,14 +57,14 @@ public class PredicateValidatorBeanInfo extends AbstractValidatorBeanInfo {
         PropertyDescriptor[] properties = new PropertyDescriptor[4];
 
         try {
-            properties[PROPERTY_noneValidation] = new PropertyDescriptor("noneValidation",
-                    com.alexandriasoftware.swing.PredicateValidator.class, "getNoneValidation", null);
+            properties[PROPERTY_noneValidation] = new PropertyDescriptor("noneValidation", PredicateValidator.class,
+                    "getNoneValidation", null);
             properties[PROPERTY_propertyChangeListeners] = new PropertyDescriptor("propertyChangeListeners",
-                    com.alexandriasoftware.swing.PredicateValidator.class, "getPropertyChangeListeners", null);
-            properties[PROPERTY_toolTipText] = new PropertyDescriptor("toolTipText",
-                    com.alexandriasoftware.swing.PredicateValidator.class, "getToolTipText", "setToolTipText");
-            properties[PROPERTY_validation] = new PropertyDescriptor("validation",
-                    com.alexandriasoftware.swing.PredicateValidator.class, "getValidation", null);
+                    PredicateValidator.class, "getPropertyChangeListeners", null);
+            properties[PROPERTY_toolTipText] = new PropertyDescriptor("toolTipText", PredicateValidator.class,
+                    "getToolTipText", "setToolTipText");
+            properties[PROPERTY_validation] = new PropertyDescriptor("validation", PredicateValidator.class,
+                    "getValidation", null);
         } catch (IntrospectionException e) {
             Logger.getLogger(JInputValidatorBeanInfo.class.getName()).log(Level.SEVERE, e.getMessage(), e);
         }
@@ -77,9 +81,8 @@ public class PredicateValidatorBeanInfo extends AbstractValidatorBeanInfo {
         EventSetDescriptor[] eventSets = new EventSetDescriptor[1];
 
         try {
-            eventSets[EVENT_propertyChangeListener] = new EventSetDescriptor(
-                    com.alexandriasoftware.swing.PredicateValidator.class, "propertyChangeListener",
-                    java.beans.PropertyChangeListener.class, new String[] { "propertyChange" },
+            eventSets[EVENT_propertyChangeListener] = new EventSetDescriptor(PredicateValidator.class,
+                    "propertyChangeListener", PropertyChangeListener.class, new String[] { "propertyChange" },
                     "addPropertyChangeListener", "removePropertyChangeListener");
         } catch (IntrospectionException e) {
             Logger.getLogger(JInputValidatorBeanInfo.class.getName()).log(Level.SEVERE, e.getMessage(), e);
@@ -103,29 +106,25 @@ public class PredicateValidatorBeanInfo extends AbstractValidatorBeanInfo {
         MethodDescriptor[] methods = new MethodDescriptor[7];
 
         try {
-            methods[METHOD_addPropertyChangeListener0] = new MethodDescriptor(
-                    com.alexandriasoftware.swing.JInputValidator.class.getMethod("addPropertyChangeListener",
-                            java.lang.String.class, java.beans.PropertyChangeListener.class));
+            methods[METHOD_addPropertyChangeListener0] = new MethodDescriptor(JInputValidator.class
+                    .getMethod("addPropertyChangeListener", String.class, PropertyChangeListener.class));
             methods[METHOD_addPropertyChangeListener0].setDisplayName("");
             methods[METHOD_getPropertyChangeListeners1] = new MethodDescriptor(
-                    com.alexandriasoftware.swing.JInputValidator.class.getMethod("getPropertyChangeListeners",
-                            java.lang.String.class));
+                    JInputValidator.class.getMethod("getPropertyChangeListeners", String.class));
             methods[METHOD_getPropertyChangeListeners1].setDisplayName("");
-            methods[METHOD_removePropertyChangeListener2] = new MethodDescriptor(
-                    com.alexandriasoftware.swing.JInputValidator.class.getMethod("removePropertyChangeListener",
-                            java.lang.String.class, java.beans.PropertyChangeListener.class));
+            methods[METHOD_removePropertyChangeListener2] = new MethodDescriptor(JInputValidator.class
+                    .getMethod("removePropertyChangeListener", String.class, PropertyChangeListener.class));
             methods[METHOD_removePropertyChangeListener2].setDisplayName("");
             methods[METHOD_shouldYieldFocus3] = new MethodDescriptor(
-                    javax.swing.InputVerifier.class.getMethod("shouldYieldFocus", javax.swing.JComponent.class));
+                    InputVerifier.class.getMethod("shouldYieldFocus", JComponent.class));
             methods[METHOD_shouldYieldFocus3].setDisplayName("");
-            methods[METHOD_shouldYieldFocus4] = new MethodDescriptor(javax.swing.InputVerifier.class
-                    .getMethod("shouldYieldFocus", javax.swing.JComponent.class, javax.swing.JComponent.class));
+            methods[METHOD_shouldYieldFocus4] = new MethodDescriptor(
+                    InputVerifier.class.getMethod("shouldYieldFocus", JComponent.class, JComponent.class));
             methods[METHOD_shouldYieldFocus4].setDisplayName("");
-            methods[METHOD_verify5] = new MethodDescriptor(com.alexandriasoftware.swing.JInputValidator.class
-                    .getMethod("verify", javax.swing.JComponent.class));
+            methods[METHOD_verify5] = new MethodDescriptor(JInputValidator.class.getMethod("verify", JComponent.class));
             methods[METHOD_verify5].setDisplayName("");
             methods[METHOD_verifyTarget6] = new MethodDescriptor(
-                    javax.swing.InputVerifier.class.getMethod("verifyTarget", javax.swing.JComponent.class));
+                    InputVerifier.class.getMethod("verifyTarget", JComponent.class));
             methods[METHOD_verifyTarget6].setDisplayName("");
         } catch (Exception e) {
             Logger.getLogger(JInputValidatorBeanInfo.class.getName()).log(Level.SEVERE, e.getMessage(), e);
