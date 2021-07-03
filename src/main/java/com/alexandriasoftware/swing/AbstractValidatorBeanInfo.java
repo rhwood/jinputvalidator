@@ -1,9 +1,19 @@
 package com.alexandriasoftware.swing;
 
 import java.awt.Image;
+import java.beans.EventSetDescriptor;
+import java.beans.IntrospectionException;
+import java.beans.MethodDescriptor;
+import java.beans.PropertyChangeListener;
 import java.beans.SimpleBeanInfo;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
 
 // package private
+@SuppressWarnings("java:S115") // static names include names of methods
 class AbstractValidatorBeanInfo extends SimpleBeanInfo {
 
     private static java.awt.Image iconColor16 = null;
@@ -14,6 +24,92 @@ class AbstractValidatorBeanInfo extends SimpleBeanInfo {
     private static String iconNameC32 = "/com/fontawesome/clipboard-check@2x.png";
     private static String iconNameM16 = "/com/fontawesome/clipboard-check.png";
     private static String iconNameM32 = "/com/fontawesome/clipboard-check@2x.png";
+
+    // EventSet identifiers
+    private static final int EVENT_propertyChangeListener = 0;
+
+    // EventSet array
+    /* lazy EventSetDescriptor */
+
+    private static EventSetDescriptor[] getEventSetDescriptor() {
+        EventSetDescriptor[] eventSets = new EventSetDescriptor[1];
+
+        try {
+            eventSets[EVENT_propertyChangeListener] = new EventSetDescriptor(PredicateValidator.class,
+                    "propertyChangeListener", PropertyChangeListener.class, new String[] { "propertyChange" },
+                    "addPropertyChangeListener", "removePropertyChangeListener");
+        } catch (IntrospectionException e) {
+            Logger.getLogger(JInputValidatorBeanInfo.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+        }
+
+        return eventSets;
+    }
+
+    // Method identifiers
+    private static final int METHOD_addPropertyChangeListener0 = 0;
+    private static final int METHOD_getPropertyChangeListeners1 = 1;
+    private static final int METHOD_removePropertyChangeListener2 = 2;
+    private static final int METHOD_shouldYieldFocus3 = 3;
+    private static final int METHOD_shouldYieldFocus4 = 4;
+    private static final int METHOD_verify5 = 5;
+    private static final int METHOD_verifyTarget6 = 6;
+
+    // Method array
+    /* lazy MethodDescriptor */
+    private static MethodDescriptor[] getMethodDescriptor() {
+        MethodDescriptor[] methods = new MethodDescriptor[7];
+
+        try {
+            methods[METHOD_addPropertyChangeListener0] = new MethodDescriptor(JInputValidator.class
+                    .getMethod("addPropertyChangeListener", String.class, PropertyChangeListener.class));
+            methods[METHOD_addPropertyChangeListener0].setDisplayName("");
+            methods[METHOD_getPropertyChangeListeners1] = new MethodDescriptor(
+                    JInputValidator.class.getMethod("getPropertyChangeListeners", String.class));
+            methods[METHOD_getPropertyChangeListeners1].setDisplayName("");
+            methods[METHOD_removePropertyChangeListener2] = new MethodDescriptor(JInputValidator.class
+                    .getMethod("removePropertyChangeListener", String.class, PropertyChangeListener.class));
+            methods[METHOD_removePropertyChangeListener2].setDisplayName("");
+            methods[METHOD_shouldYieldFocus3] = new MethodDescriptor(
+                    InputVerifier.class.getMethod("shouldYieldFocus", JComponent.class));
+            methods[METHOD_shouldYieldFocus3].setDisplayName("");
+            methods[METHOD_shouldYieldFocus4] = new MethodDescriptor(
+                    InputVerifier.class.getMethod("shouldYieldFocus", JComponent.class, JComponent.class));
+            methods[METHOD_shouldYieldFocus4].setDisplayName("");
+            methods[METHOD_verify5] = new MethodDescriptor(JInputValidator.class.getMethod("verify", JComponent.class));
+            methods[METHOD_verify5].setDisplayName("");
+            methods[METHOD_verifyTarget6] = new MethodDescriptor(
+                    InputVerifier.class.getMethod("verifyTarget", JComponent.class));
+            methods[METHOD_verifyTarget6].setDisplayName("");
+        } catch (Exception e) {
+            Logger.getLogger(JInputValidatorBeanInfo.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+        }
+
+        return methods;
+    }
+
+    /**
+     * Gets the bean's <code>EventSetDescriptor</code>s.
+     *
+     * @return An array of EventSetDescriptors describing the kinds of events fired
+     *         by this bean. May return null if the information should be obtained
+     *         by automatic analysis.
+     */
+    @Override
+    public EventSetDescriptor[] getEventSetDescriptors() {
+        return getEventSetDescriptor();
+    }
+
+    /**
+     * Gets the bean's <code>MethodDescriptor</code>s.
+     *
+     * @return An array of MethodDescriptors describing the methods implemented by
+     *         this bean. May return null if the information should be obtained by
+     *         automatic analysis.
+     */
+    @Override
+    public MethodDescriptor[] getMethodDescriptors() {
+        return getMethodDescriptor();
+    }
 
     /**
      * This method returns an image object that can be used to represent the
