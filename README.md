@@ -5,8 +5,6 @@ An [InputVerifier](https://docs.oracle.com/javase/8/docs/api/index.html?javax/sw
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.alexandriasoftware.swing/jinputvalidator/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.alexandriasoftware.swing/jinputvalidator)
 [![Javadocs](https://www.javadoc.io/badge/com.alexandriasoftware.swing/jinputvalidator.svg)](https://www.javadoc.io/doc/com.alexandriasoftware.swing/jinputvalidator)
-[![Build Status](https://travis-ci.com/rhwood/jinputvalidator.svg?token=cqDHpGf1kVSnERY1P7z7&branch=master)](https://travis-ci.com/rhwood/jinputvalidator)
-[![codecov](https://codecov.io/gh/rhwood/jinputvalidator/branch/master/graph/badge.svg)](https://codecov.io/gh/rhwood/jinputvalidator)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rhwood_jinputvalidator&metric=alert_status)](https://sonarcloud.io/dashboard?id=rhwood_jinputvalidator)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=rhwood_jinputvalidator&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=rhwood_jinputvalidator)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=rhwood_jinputvalidator&metric=coverage)](https://sonarcloud.io/dashboard?id=rhwood_jinputvalidator)
