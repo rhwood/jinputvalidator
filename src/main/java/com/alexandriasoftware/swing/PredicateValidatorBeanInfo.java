@@ -60,6 +60,7 @@ public class PredicateValidatorBeanInfo extends AbstractValidatorBeanInfo {
             properties[PROPERTY_validation] = new PropertyDescriptor("validation",
                     com.alexandriasoftware.swing.PredicateValidator.class, "getValidation", null);
         } catch (IntrospectionException e) {
+            e.printStackTrace();
         }
 
         return properties;
@@ -79,6 +80,7 @@ public class PredicateValidatorBeanInfo extends AbstractValidatorBeanInfo {
                     java.beans.PropertyChangeListener.class, new String[] { "propertyChange" },
                     "addPropertyChangeListener", "removePropertyChangeListener");
         } catch (IntrospectionException e) {
+            e.printStackTrace();
         }
 
         return eventSets;
@@ -124,6 +126,7 @@ public class PredicateValidatorBeanInfo extends AbstractValidatorBeanInfo {
                     javax.swing.InputVerifier.class.getMethod("verifyTarget", javax.swing.JComponent.class));
             methods[METHOD_verifyTarget6].setDisplayName("");
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return methods;
