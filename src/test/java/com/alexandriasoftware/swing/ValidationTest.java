@@ -1,7 +1,7 @@
 package com.alexandriasoftware.swing;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,11 +17,10 @@ class ValidationTest {
 
     @Test
     void testEquals() {
-        assertFalse(validation.equals(null));
-        // test that equals returns false for unrelated class
-        assertFalse(validation.equals(""));
-        assertTrue(validation.equals(validation));
-        assertTrue(validation.equals(new Validation(null, "foo")));
-        assertFalse(validation.equals(new Validation(null, "bar")));
+        assertNotEquals(validation, null);
+        assertNotEquals(validation, "");
+        assertEquals(validation, validation);
+        assertEquals(validation, new Validation(null, "foo"));
+        assertNotEquals(validation, new Validation(null, "bar"));
     }
 }
