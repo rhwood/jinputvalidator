@@ -358,7 +358,7 @@ limitations under the License.
         </repository>
         <repository>
             <id>spring-plugins</id>
-            <url>http://repo.spring.io/plugins-release/</url>
+            <url>https://repo.spring.io/plugins-release/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
