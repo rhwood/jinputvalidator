@@ -130,9 +130,6 @@ public class VerifyingValidatorBeanInfo extends AbstractValidatorBeanInfo {
         return methods;
     }
 
-    private static final int defaultPropertyIndex = -1;
-    private static final int defaultEventIndex = -1;
-
     /**
      * Gets the bean's <code>BeanDescriptor</code>s.
      *
@@ -185,35 +182,6 @@ public class VerifyingValidatorBeanInfo extends AbstractValidatorBeanInfo {
     @Override
     public MethodDescriptor[] getMethodDescriptors() {
         return getMdescriptor();
-    }
-
-    /**
-     * A bean may have a "default" property that is the property that will mostly
-     * commonly be initially chosen for update by human's who are customizing the
-     * bean.
-     *
-     * @return Index of default property in the PropertyDescriptor array returned by
-     *         getPropertyDescriptors.
-     *         <P>
-     *         Returns -1 if there is no default property.
-     */
-    @Override
-    public int getDefaultPropertyIndex() {
-        return defaultPropertyIndex;
-    }
-
-    /**
-     * A bean may have a "default" event that is the event that will mostly commonly
-     * be used by human's when using the bean.
-     *
-     * @return Index of default event in the EventSetDescriptor array returned by
-     *         getEventSetDescriptors.
-     *         <P>
-     *         Returns -1 if there is no default event.
-     */
-    @Override
-    public int getDefaultEventIndex() {
-        return defaultEventIndex;
     }
 
 }
