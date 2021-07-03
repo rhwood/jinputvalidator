@@ -1,7 +1,12 @@
 package com.alexandriasoftware.swing;
 
 import java.awt.Image;
+import java.beans.EventSetDescriptor;
+import java.beans.IntrospectionException;
+import java.beans.PropertyChangeListener;
 import java.beans.SimpleBeanInfo;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 // package private
 class AbstractValidatorBeanInfo extends SimpleBeanInfo {
@@ -14,6 +19,38 @@ class AbstractValidatorBeanInfo extends SimpleBeanInfo {
     private static String iconNameC32 = "/com/fontawesome/clipboard-check@2x.png";
     private static String iconNameM16 = "/com/fontawesome/clipboard-check.png";
     private static String iconNameM32 = "/com/fontawesome/clipboard-check@2x.png";
+
+    // EventSet identifiers
+    private static final int EVENT_propertyChangeListener = 0;
+
+    // EventSet array
+    /* lazy EventSetDescriptor */
+
+    private static EventSetDescriptor[] getEventSetDescriptor() {
+        EventSetDescriptor[] eventSets = new EventSetDescriptor[1];
+
+        try {
+            eventSets[EVENT_propertyChangeListener] = new EventSetDescriptor(PredicateValidator.class,
+                    "propertyChangeListener", PropertyChangeListener.class, new String[] { "propertyChange" },
+                    "addPropertyChangeListener", "removePropertyChangeListener");
+        } catch (IntrospectionException e) {
+            Logger.getLogger(JInputValidatorBeanInfo.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+        }
+
+        return eventSets;
+    }
+
+    /**
+     * Gets the bean's <code>EventSetDescriptor</code>s.
+     *
+     * @return An array of EventSetDescriptors describing the kinds of events fired
+     *         by this bean. May return null if the information should be obtained
+     *         by automatic analysis.
+     */
+    @Override
+    public EventSetDescriptor[] getEventSetDescriptors() {
+        return getEventSetDescriptor();
+    }
 
     /**
      * This method returns an image object that can be used to represent the
