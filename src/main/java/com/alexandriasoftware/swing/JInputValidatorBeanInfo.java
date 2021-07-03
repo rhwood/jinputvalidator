@@ -28,6 +28,7 @@ import java.beans.PropertyDescriptor;
  * 
  * @author Randall Wood
  */
+@SuppressWarnings("java:S115") // static names include names of methods
 public class JInputValidatorBeanInfo extends AbstractValidatorBeanInfo {
 
     // Bean descriptor//GEN-FIRST:BeanDescriptor
