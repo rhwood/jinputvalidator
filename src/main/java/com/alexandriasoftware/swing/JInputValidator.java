@@ -59,7 +59,7 @@ public abstract class JInputValidator extends InputVerifier {
      *
      * @param component the component to attach the validator to
      */
-    public JInputValidator(@Nonnull JComponent component) {
+    protected JInputValidator(@Nonnull JComponent component) {
         this(component, true, true);
     }
 
@@ -76,7 +76,7 @@ public abstract class JInputValidator extends InputVerifier {
      *                    {@link #verify(javax.swing.JComponent)}; {@code false}
      *                    to always return {@code true} for that method.
      */
-    public JInputValidator(@Nonnull JComponent component, boolean onInput, boolean isVerifying) {
+    protected JInputValidator(@Nonnull JComponent component, boolean onInput, boolean isVerifying) {
         this(component, onInput, isVerifying, JInputValidatorPreferences.getPreferences());
     }
 
@@ -94,7 +94,7 @@ public abstract class JInputValidator extends InputVerifier {
      *                    to always return {@code true} for that method.
      * @param preferences the custom preferences
      */
-    public JInputValidator(@Nonnull JComponent component, boolean onInput, boolean isVerifying, @Nonnull JInputValidatorPreferences preferences) {
+    protected JInputValidator(@Nonnull JComponent component, boolean onInput, boolean isVerifying, @Nonnull JInputValidatorPreferences preferences) {
         this.component = component;
         originalBorder = this.component.getBorder();
         originalToolTipText = this.component.getToolTipText();

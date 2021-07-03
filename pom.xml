@@ -297,7 +297,7 @@ limitations under the License.
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <show>public</show>
+                    <show>protected</show>
                     <quiet>true</quiet>
                 </configuration>
             </plugin>
