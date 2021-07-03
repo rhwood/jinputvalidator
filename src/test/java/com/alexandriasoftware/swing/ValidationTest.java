@@ -15,10 +15,11 @@ class ValidationTest {
         validation = new Validation(null, "foo");
     }
 
+    @SuppressWarnings("java:S3415")
     @Test
     void testEquals() {
-        assertNotEquals(null, validation);
-        assertNotEquals("", validation);
+        assertNotEquals(validation, null);
+        assertNotEquals(validation, "");
         assertEquals(validation, validation);
         assertEquals(validation, new Validation(null, "foo"));
         assertNotEquals(validation, new Validation(null, "bar"));
