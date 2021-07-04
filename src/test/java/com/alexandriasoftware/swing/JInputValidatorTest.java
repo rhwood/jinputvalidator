@@ -89,12 +89,12 @@ class JInputValidatorTest {
         assertEquals("2", c.getToolTipText());
         assertEquals("1", v.getToolTipText());
         c.setText(""); // trigger a change and then trigger a change back
-        // manually call verify to avoid possibly asserting before Swing thread triggers verify method
-        v.verify(c);
+        // manually call to assert return value
+        assertFalse(v.verify(c));
         await().atMost(Duration.ofSeconds(1));
         c.setText("test2");
-        // manually call verify to avoid possibly asserting before Swing thread triggers verify method
-        v.verify(c);
+        // manually call to assert return value
+        assertTrue(v.verify(c));
         await().atMost(Duration.ofSeconds(1));
         assertEquals(Type.NONE, v.getValidation().getType());
         assertEquals("1", c.getToolTipText());
@@ -102,20 +102,20 @@ class JInputValidatorTest {
         v.setToolTipText("3");
         assertEquals("3", c.getToolTipText());
         c.setText("test3");
-        // manually call verify to avoid possibly asserting before Swing thread triggers verify method
-        v.verify(c);
+        // manually call to assert return value
+        assertTrue(v.verify(c));
         await().atMost(Duration.ofSeconds(1));
         // verify validator puts correct tool tip in with type NONE
         assertEquals("3", c.getToolTipText());
         c.setText("");
-        // manually call verify to avoid possibly asserting before Swing thread triggers verify method
-        v.verify(c);
+        // manually call to assert return value
+        assertFalse(v.verify(c));
         await().atMost(Duration.ofSeconds(1));
         assertEquals(Type.DANGER, v.getValidation().getType());
         assertEquals("empty", c.getToolTipText());
         c.setText("test4");
-        // manually call verify to avoid possibly asserting before Swing thread triggers verify method
-        v.verify(c);
+        // manually call to assert return value
+        assertTrue(v.verify(c));
         await().atMost(Duration.ofSeconds(1));
         assertEquals("3", c.getToolTipText());
     }
@@ -142,8 +142,8 @@ class JInputValidatorTest {
         assertEquals("", v1.getIcon());
         assertEquals(SystemColor.textText, v1.getColor());
         c.setText("test2");
-        // manually call verify to avoid possibly asserting before Swing thread triggers verify method
-        v.verify(c);
+        // manually call to assert return value
+        assertTrue(v.verify(c));
         v1 = v.getValidation();
         assertNotNull(v1);
         assertEquals(Type.INFORMATION, v1.getType());
@@ -173,8 +173,8 @@ class JInputValidatorTest {
         assertEquals("1", v1.getMessage());
         assertEquals("", v1.getIcon());
         assertEquals(SystemColor.textText, v1.getColor());
-        // manually call verify to avoid possibly asserting before Swing thread triggers verify method
-        v.verify(c);
+        // manually call to assert return value
+        assertTrue(v.verify(c));
         await().atMost(Duration.ofSeconds(1));
         v1 = v.getValidation();
         assertNotNull(v1);

@@ -56,8 +56,7 @@ class PredicateValidatorTest {
         JTextField c = new JTextField();
         c.setText("test1");
         c.setToolTipText("1");
-        PredicateValidator v = new PredicateValidator(c,
-                (String t) -> t.equals("test1"),
+        PredicateValidator v = new PredicateValidator(c, (String t) -> t.equals("test1"),
                 new Validation(Type.INFORMATION, "info"));
         c.setInputVerifier(v);
         Validation v1 = v.getValidation();
@@ -67,8 +66,8 @@ class PredicateValidatorTest {
         assertEquals("", v1.getIcon());
         assertEquals(SystemColor.textText, v1.getColor());
         c.setText("test2");
-        v.verify(c); // manually call verify to avoid possibly asserting before Swing thread triggers
-        // verify method
+        // manually call to assert return value
+        assertTrue(v.verify(c));
         v1 = v.getValidation();
         assertNotNull(v1);
         assertEquals(Type.INFORMATION, v1.getType());
