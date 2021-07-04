@@ -18,6 +18,9 @@ package com.alexandriasoftware.swing;
 import com.alexandriasoftware.swing.Validation.Type;
 import java.awt.Color;
 import java.awt.SystemColor;
+
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
 import javax.swing.JTextField;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -30,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Randall Wood
  */
-class PredicateValidatorTest {
+class VerifyingValidatorTest {
 
     @BeforeAll
     public static void setUpClass() {
@@ -48,17 +51,52 @@ class PredicateValidatorTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of getValidation method, of class PredicateValidator.
-     */
     @Test
-    void testGetValidation() {
+    void testGetValidationWARNING() {
         JTextField c = new JTextField();
         c.setText("test1");
         c.setToolTipText("1");
-        PredicateValidator v = new PredicateValidator(c, (String t) -> t.equals("test1"),
-                new Validation(Type.INFORMATION, "info"));
+        VerifyingValidator v = new VerifyingValidator(c, new InputVerifier() {
+            @Override
+            public boolean verify(JComponent input) {
+                return "test1".equals(((JTextField) input).getText());
+            }
+        }, new Validation(Type.WARNING, "warning"));
         c.setInputVerifier(v);
+        // manually call to assert return value
+        assertTrue(v.verify(c));
+        Validation v1 = v.getValidation();
+        assertNotNull(v1);
+        assertEquals(Type.NONE, v1.getType());
+        assertEquals("1", v1.getMessage());
+        assertEquals("", v1.getIcon());
+        assertEquals(SystemColor.textText, v1.getColor());
+        c.setText("test2");
+        // manually call to assert return value
+        assertFalse(v.verify(c));
+        v1 = v.getValidation();
+        assertNotNull(v1);
+        assertEquals(Type.WARNING, v1.getType());
+        assertEquals("warning", v1.getMessage());
+        assertEquals("\uf071", v1.getIcon());
+        assertEquals(new Color(0xF0AB00), v1.getColor());
+    }
+
+
+    @Test
+    void testGetValidationINFORMATION() {
+        JTextField c = new JTextField();
+        c.setText("test1");
+        c.setToolTipText("1");
+        VerifyingValidator v = new VerifyingValidator(c, new InputVerifier() {
+            @Override
+            public boolean verify(JComponent input) {
+                return "test1".equals(((JTextField) input).getText());
+            }
+        }, new Validation(Type.INFORMATION, "info"));
+        c.setInputVerifier(v);
+        // manually call to assert return value
+        assertTrue(v.verify(c));
         Validation v1 = v.getValidation();
         assertNotNull(v1);
         assertEquals(Type.NONE, v1.getType());
@@ -75,5 +113,4 @@ class PredicateValidatorTest {
         assertEquals("\uf05a", v1.getIcon());
         assertEquals(new Color(0x73BCF7), v1.getColor());
     }
-
 }

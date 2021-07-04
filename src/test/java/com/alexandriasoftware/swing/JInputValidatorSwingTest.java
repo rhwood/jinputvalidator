@@ -18,6 +18,9 @@ package com.alexandriasoftware.swing;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -116,16 +119,17 @@ class JInputValidatorSwingTest extends javax.swing.JFrame {
     @Test
     void testVerifyingValidator() {
         jTextField1.setText("");
-        validator.verify(jTextField1); // manually call verify to avoid possibly asserting before Swing thread triggers verify method
+        // manually call to assert return value
+        assertTrue(validator.verify(jTextField1));
         assertEquals(Validation.Type.SUCCESS, validator.getValidation().getType());
         jTextField1.setText("123456");
-        validator.verify(jTextField1); // manually call verify to avoid possibly asserting before Swing thread triggers verify method
+        assertFalse(validator.verify(jTextField1));
         assertEquals(Validation.Type.DANGER, validator.getValidation().getType());
         jTextField1.setText("12345678");
-        validator.verify(jTextField1); // manually call verify to avoid possibly asserting before Swing thread triggers verify method
+        assertTrue(validator.verify(jTextField1));
         assertEquals(Validation.Type.SUCCESS, validator.getValidation().getType());
         jTextField1.setText("1234567890");
-        validator.verify(jTextField1); // manually call verify to avoid possibly asserting before Swing thread triggers verify method
+        assertTrue(validator.verify(jTextField1));
         assertEquals(Validation.Type.SUCCESS, validator.getValidation().getType());
     }
 
