@@ -259,4 +259,33 @@ class JInputValidatorTest {
         instance.setVerifying(true);
         assertTrue(instance.isVerifying());
     }
+
+    /**
+     * Test that verify() in a non-verifying JInputValidator is always true.
+     */
+    @Test
+    void testNotVerifying() {
+        JTextField c = new JTextField();
+        JInputValidator v = new JInputValidator(c, true, false) {
+            @Override
+            protected Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
+                if (input instanceof JTextComponent) {
+                    String text = ((JTextComponent) input).getText();
+                    if (text.isEmpty()) {
+                        return new Validation(Type.DANGER, "empty", settings);
+                    }
+                }
+                return new Validation(Type.NONE, "none", settings);
+            }
+        };
+        assertFalse(v.isVerifying());
+        assertTrue(c.getText().isEmpty());
+        assertTrue(v.verify(c));
+        v.setVerifying(true);
+        assertFalse(v.verify(c));
+        v.setVerifying(false);
+        assertTrue(v.verify(c));
+        c.setText("test");
+        assertTrue(v.verify(c));
+    }
 }
