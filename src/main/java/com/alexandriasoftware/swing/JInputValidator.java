@@ -211,10 +211,20 @@ public abstract class JInputValidator extends InputVerifier {
         return true;
     }
 
+    /**
+     * Get the {@link javax.swing.JComponent} this validator modifies.
+     * 
+     * @return the validated component
+     */
     protected JComponent getComponent() {
         return component;
     }
 
+    /**
+     * Get the {@link java.beans.PropertyChangeSupport} supporting this validator.
+     * 
+     * @return the support
+     */
     protected PropertyChangeSupport getPropertyChangeSupport() {
         return pcs;
     }
@@ -259,26 +269,59 @@ public abstract class JInputValidator extends InputVerifier {
         return new Validation(Type.NONE, getToolTipText(), preferences);
     }
 
+    /**
+     * Add a {@link java.beans.PropertyChangeListener} for all properties.
+     * 
+     * @param listener the listener to add
+     */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         pcs.addPropertyChangeListener(listener);
     }
 
+    /**
+     * Add a {@link java.beans.PropertyChangeListener} for the named property.
+     * 
+     * @param propertyName the property to listen to
+     * @param listener the listener to add
+     */
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         pcs.addPropertyChangeListener(propertyName, listener);
     }
 
+    /**
+     * Remove a {@link java.beans.PropertyChangeListener} for all properties.
+     * 
+     * @param listener the listener to remove
+     */
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         pcs.removePropertyChangeListener(listener);
     }
 
+    /**
+     * Remove a {@link java.beans.PropertyChangeListener} for the named property.
+     * 
+     * @param propertyName the property listened to
+     * @param listener the listener to remove
+     */
     public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         pcs.removePropertyChangeListener(propertyName, listener);
     }
 
+    /**
+     * Get the {@link java.beans.PropertyChangeListener}s for all properties.
+     * 
+     * @return the listeners
+     */
     public PropertyChangeListener[] getPropertyChangeListeners() {
         return pcs.getPropertyChangeListeners();
     }
 
+    /**
+     * Get the {@link java.beans.PropertyChangeListener}s for the named property.
+     * 
+     * @param propertyName the property listened to
+     * @return the listeners
+     */
     public PropertyChangeListener[] getPropertyChangeListeners(String propertyName) {
         return pcs.getPropertyChangeListeners(propertyName);
     }

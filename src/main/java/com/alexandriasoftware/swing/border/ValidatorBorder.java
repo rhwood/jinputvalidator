@@ -39,6 +39,9 @@ public class ValidatorBorder extends CompoundBorder {
 
     private static final long serialVersionUID = 1L;
     private final transient Validation validation;
+    /**
+     * The font used to draw the validation icons.
+     */
     private Font font;
 
     /**
