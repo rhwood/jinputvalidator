@@ -102,6 +102,7 @@ public class JInputValidatorPreferences {
     private final Color warningColor;
     private final String dangerIcon;
     private final Color dangerColor;
+    public static final int DEFAULT_UNKNOWN_COLOR = 0x73BCF7;
 
     private JInputValidatorPreferences() {
         this(Preferences.userNodeForPackage(JInputValidatorPreferences.class));
@@ -120,7 +121,7 @@ public class JInputValidatorPreferences {
         }
         font = f;
         unknownIcon = preferences.get("unknown.icon", defaults.get("unknown.icon", "\uf059"));
-        unknownColor = new Color(preferences.getInt("unknown.color", defaults.getInt("inknown.color", 0x73BCF7)));
+        unknownColor = new Color(preferences.getInt("unknown.color", defaults.getInt("unknown.color", DEFAULT_UNKNOWN_COLOR)));
         informationIcon = preferences.get("information.icon", defaults.get("information.icon", "\uf05a"));
         informationColor = new Color(preferences.getInt("information.color", defaults.getInt("information.color", 0x73BCF7)));
         successIcon = preferences.get("success.icon", defaults.get("success.icon", "\uf058"));
