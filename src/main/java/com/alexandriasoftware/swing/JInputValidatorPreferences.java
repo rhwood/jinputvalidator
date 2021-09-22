@@ -57,7 +57,6 @@ import org.slf4j.LoggerFactory;
  * {@link Validation.Type#DANGER}</dd>
  * <dt>danger.color (int)</dt>
  * <dd>The color that represents {@link Validation.Type#DANGER}</dd>
- * <dd>
  * </dl>
  *
  * @author Randall Wood
