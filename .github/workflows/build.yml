@@ -36,4 +36,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: xvfb-run mvn -B verify site sonar:sonar -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
+        run: xvfb-run mvn -B verify site sonar:sonar
