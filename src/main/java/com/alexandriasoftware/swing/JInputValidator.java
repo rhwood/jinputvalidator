@@ -44,24 +44,54 @@ import javax.swing.text.JTextComponent;
  */
 public abstract class JInputValidator extends InputVerifier {
 
+    /**
+     * The original border of the validated component.
+     */
     private final Border originalBorder;
+    /**
+     * The original tool tip text of the validated component.
+     */
     private String originalToolTipText = null;
+    /**
+     * Property change support for monitoring this validator as a bean.
+     */
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-    private Validation validation;
-    private Validation oldValidation;
+    /**
+     * The current validation state.
+     */
+    private Validation state;
+    /**
+     * The prior validation state.
+     */
+    private Validation oldState;
+    /**
+     * The preferences applied to this validator.
+     */
     private final JInputValidatorPreferences preferences;
+    /**
+     * The validated component.
+     */
     private final JComponent component;
+    /**
+     * True when in {@link #verify(JComponent)} to prevent endless recursion
+     * when validating a component triggers a redraw.
+     */
     private boolean inVerifyMethod;
-    private boolean isVerifying;
+    /**
+     * True if validation is also verifying the component.
+     *
+     * @see #setVerifying(boolean)
+     */
+    private boolean shouldVerify;
 
     /**
-     * Create a JInputValidator with the default preferences. The validator created
-     * with this call listens to all changes to the component if the component is a
-     * {@link javax.swing.text.JTextComponent}.
+     * Create a JInputValidator with the default preferences. The validator
+     * created with this call listens to all changes to the component if the
+     * component is a {@link javax.swing.text.JTextComponent}.
      *
      * @param component the component to attach the validator to
      */
-    protected JInputValidator(@Nonnull JComponent component) {
+    protected JInputValidator(final @Nonnull JComponent component) {
         this(component, true, true);
     }
 
@@ -70,15 +100,19 @@ public abstract class JInputValidator extends InputVerifier {
      *
      * @param component   the component to attach the validator to
      * @param onInput     {@code true} if validator to validate on all input;
-     *                    {@code false} to validate only on focus change; note this
-     *                    has no effect if component is not a
+     *                    {@code false} to validate only on focus change; note
+     *                    this has no effect if component is not a
      *                    {@link javax.swing.text.JTextComponent}
-     * @param isVerifying {@code true} if validator is to return true or false per
-     *                    {@link #verify(javax.swing.JComponent)}; {@code false} to
-     *                    always return {@code true} for that method.
+     * @param isVerifying {@code true} if validator is to return true or false
+     *                    per
+     *                    {@link #verify(javax.swing.JComponent)}; {@code false}
+     *                    to always return {@code true} for that method.
      */
-    protected JInputValidator(@Nonnull JComponent component, boolean onInput, boolean isVerifying) {
-        this(component, onInput, isVerifying, JInputValidatorPreferences.getPreferences());
+    protected JInputValidator(@Nonnull final JComponent component,
+            final boolean onInput,
+            final boolean isVerifying) {
+        this(component, onInput, isVerifying,
+                JInputValidatorPreferences.getPreferences());
     }
 
     /**
@@ -86,39 +120,43 @@ public abstract class JInputValidator extends InputVerifier {
      *
      * @param component   the component to attach the validator to
      * @param onInput     {@code true} if validator to validate on all input;
-     *                    {@code false} to validate only on focus change; note this
-     *                    has no effect if component is not a
+     *                    {@code false} to validate only on focus change; note
+     *                    this has no effect if component is not a
      *                    {@link javax.swing.text.JTextComponent}
-     * @param isVerifying {@code true} if validator is to return true or false per
-     *                    {@link #verify(javax.swing.JComponent)}; {@code false} to
-     *                    always return {@code true} for that method.
+     * @param isVerifying {@code true} if validator is to return true or false
+     *                    per
+     *                    {@link #verify(javax.swing.JComponent)}; {@code false}
+     *                    to always return {@code true} for that method.
      * @param preferences the custom preferences
      */
-    protected JInputValidator(@Nonnull JComponent component, boolean onInput, boolean isVerifying,
-            @Nonnull JInputValidatorPreferences preferences) {
+    protected JInputValidator(@Nonnull final JComponent component,
+            final boolean onInput,
+            final boolean isVerifying,
+            @Nonnull final JInputValidatorPreferences preferences) {
         this.component = component;
         originalBorder = this.component.getBorder();
         originalToolTipText = this.component.getToolTipText();
         if (onInput && this.component instanceof JTextComponent) {
-            addChangeListener((JTextComponent) this.component, e -> verify(this.component));
+            addChangeListener((JTextComponent) this.component,
+                    e -> verify(this.component));
         }
         this.preferences = preferences;
-        this.isVerifying = isVerifying;
-        validation = getNoneValidation();
-        oldValidation = getNoneValidation();
+        this.shouldVerify = isVerifying;
+        state = getNoneValidation();
+        oldState = getNoneValidation();
     }
 
     /**
      * Set if this validator is verifying when
      * {@link #verify(javax.swing.JComponent)} is called. When not verifying
      * {@link #verify(javax.swing.JComponent)} always returns {@code true}. When
-     * verifying, that method returns {@code false} if the current {@link Type} is
-     * {@link Type#WARNING} or {@link Type#DANGER}.
+     * verifying, that method returns {@code false} if the current {@link Type}
+     * is {@link Type#WARNING} or {@link Type#DANGER}.
      *
      * @param isVerifying {@code true} if verifying; {@code false} if not
      */
-    public void setVerifying(boolean isVerifying) {
-        this.isVerifying = isVerifying;
+    public void setVerifying(final boolean isVerifying) {
+        this.shouldVerify = isVerifying;
     }
 
     /**
@@ -128,20 +166,20 @@ public abstract class JInputValidator extends InputVerifier {
      * @return {@code true} if verifying; {@code false} if not
      */
     public boolean isVerifying() {
-        return isVerifying;
+        return shouldVerify;
     }
 
     /**
      * Set the tool tip text used when the validation state is
-     * {@link Validation.Type#NONE}. If the validation state is NONE when calling
-     * this method, the component's tool tip text is changed as well.
+     * {@link Validation.Type#NONE}. If the validation state is NONE when
+     * calling this method, the component's tool tip text is changed as well.
      *
      * @param toolTipText the default tool tip text for the component being
      *                    validated
      */
-    public void setToolTipText(String toolTipText) {
+    public void setToolTipText(final String toolTipText) {
         originalToolTipText = toolTipText;
-        if (validation == null || validation.getType() == Type.NONE) {
+        if (state == null || state.getType() == Type.NONE) {
             component.setToolTipText(toolTipText);
         }
     }
@@ -164,7 +202,7 @@ public abstract class JInputValidator extends InputVerifier {
      */
     @Nonnull
     public final Validation getValidation() {
-        return validation;
+        return state;
     }
 
     /**
@@ -174,46 +212,49 @@ public abstract class JInputValidator extends InputVerifier {
      * @param preferences preferences to use for creating the validation
      * @return the validation for the current state
      */
-    protected abstract Validation getValidation(JComponent input, JInputValidatorPreferences preferences);
+    protected abstract Validation getValidation(JComponent input,
+            JInputValidatorPreferences preferences);
 
     /**
      * {@inheritDoc}
      *
      * This implementation, besides verifying if focus can change, redraws the
-     * component with a re-evaluated validation state. The validation state can be
-     * retrieved afterwards using {@link #getValidation()}.
+     * component with a re-evaluated validation state. The validation state can
+     * be retrieved afterwards using {@link #getValidation()}.
      *
      * @return {@code false} if {@link Validation#getType()} equals
-     *         {@link Validation.Type#DANGER} or {@link Validation.Type#WARNING} and
-     *         {@link #isVerifying} is {@code true}; otherwise returns {@code true}
+     *         {@link Validation.Type#DANGER} or {@link Validation.Type#WARNING}
+     *         and {@link #shouldVerify} is {@code true}; otherwise returns
+     *         {@code true}
      */
     @Override
-    public boolean verify(JComponent input) {
-        oldValidation = validation;
-        validation = getValidation(input, preferences);
-        if (!validation.equals(oldValidation) && !inVerifyMethod) {
+    public boolean verify(final JComponent input) {
+        oldState = state;
+        state = getValidation(input, preferences);
+        if (!state.equals(oldState) && !inVerifyMethod) {
             inVerifyMethod = true;
-            if (validation.getType() == Type.NONE) {
+            if (state.getType() == Type.NONE) {
                 input.setBorder(originalBorder);
                 input.setToolTipText(originalToolTipText);
             } else {
-                input.setBorder(new ValidatorBorder(validation, originalBorder));
-                input.setToolTipText(validation.getMessage());
+                input.setBorder(new ValidatorBorder(state, originalBorder));
+                input.setToolTipText(state.getMessage());
             }
             input.validate();
-            pcs.firePropertyChange("validation", oldValidation, validation);
+            pcs.firePropertyChange("validation", oldState, state);
             inVerifyMethod = false;
         }
-        if (isVerifying) {
+        if (shouldVerify) {
             // WARNING or DANGER are false, all others are true
-            return validation.getType() != Type.WARNING && validation.getType() != Type.DANGER;
+            return state.getType() != Type.WARNING
+                    && state.getType() != Type.DANGER;
         }
         return true;
     }
 
     /**
      * Get the {@link javax.swing.JComponent} this validator modifies.
-     * 
+     *
      * @return the validated component
      */
     protected JComponent getComponent() {
@@ -221,8 +262,9 @@ public abstract class JInputValidator extends InputVerifier {
     }
 
     /**
-     * Get the {@link java.beans.PropertyChangeSupport} supporting this validator.
-     * 
+     * Get the {@link java.beans.PropertyChangeSupport} supporting this
+     * validator.
+     *
      * @return the support
      */
     protected PropertyChangeSupport getPropertyChangeSupport() {
@@ -230,29 +272,32 @@ public abstract class JInputValidator extends InputVerifier {
     }
 
     /**
-     * Set the preferences for a Validation to this JInputValidator's preferences.
+     * Set the preferences for a Validation to this JInputValidator's
+     * preferences.
      *
      * @param validation the validation to set preferences for
      */
-    protected final void setValidationPreferences(Validation validation) {
+    protected final void setValidationPreferences(final Validation validation) {
         validation.setPreferences(preferences);
     }
 
     /**
-     * Trims input and removes the leading {@code <html>} and trailing
-     * {@code </html>} markers if present.
+     * Trims input and removes the leading {@code &lt;html&gt;} and trailing
+     * {@code &lt;/html&gt;} markers if present.
      *
      * @param input the input to modify
      * @return the modified input or an empty string if input was null
      */
     @Nonnull
-    protected final String trimHtmlTags(@Nullable String input) {
+    protected final String trimHtmlTags(@Nullable final String input) {
         String output = input != null ? input.trim() : "";
-        if (output.startsWith("<html>")) {
-            output = output.substring(6);
+        String start = "<html>";
+        String end = "</html>";
+        if (output.startsWith(start)) {
+            output = output.substring(start.length());
         }
-        if (output.endsWith("</html>")) {
-            output = output.substring(0, output.length() - 7);
+        if (output.endsWith(end)) {
+            output = output.substring(0, output.length() - end.length());
         }
         return output.trim();
     }
@@ -260,8 +305,8 @@ public abstract class JInputValidator extends InputVerifier {
     /**
      * Create a Validation with type {@link Type#NONE} and with the contents of
      * {@link #getToolTipText()} as the message. Note that the message of a
-     * Validation with Type.NONE is not used internally, but this allows a listener
-     * to get a Validation with the default tool tip text.
+     * Validation with Type.NONE is not used internally, but this allows a
+     * listener to get a Validation with the default tool tip text.
      *
      * @return a new Validation with Type.NONE
      */
@@ -270,46 +315,50 @@ public abstract class JInputValidator extends InputVerifier {
     }
 
     /**
-     * Add a {@link java.beans.PropertyChangeListener} for all properties.
-     * 
+     * Add a {@link PropertyChangeListener} for all properties.
+     *
      * @param listener the listener to add
      */
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
+    public void addPropertyChangeListener(
+            final PropertyChangeListener listener) {
         pcs.addPropertyChangeListener(listener);
     }
 
     /**
-     * Add a {@link java.beans.PropertyChangeListener} for the named property.
-     * 
+     * Add a {@link PropertyChangeListener} for the named property.
+     *
      * @param propertyName the property to listen to
      * @param listener the listener to add
      */
-    public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+    public void addPropertyChangeListener(final String propertyName,
+            final PropertyChangeListener listener) {
         pcs.addPropertyChangeListener(propertyName, listener);
     }
 
     /**
-     * Remove a {@link java.beans.PropertyChangeListener} for all properties.
-     * 
+     * Remove a {@link PropertyChangeListener} for all properties.
+     *
      * @param listener the listener to remove
      */
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
+    public void removePropertyChangeListener(
+            final PropertyChangeListener listener) {
         pcs.removePropertyChangeListener(listener);
     }
 
     /**
-     * Remove a {@link java.beans.PropertyChangeListener} for the named property.
-     * 
+     * Remove a {@link PropertyChangeListener} for the named property.
+     *
      * @param propertyName the property listened to
      * @param listener the listener to remove
      */
-    public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+    public void removePropertyChangeListener(final String propertyName,
+            final PropertyChangeListener listener) {
         pcs.removePropertyChangeListener(propertyName, listener);
     }
 
     /**
      * Get the {@link java.beans.PropertyChangeListener}s for all properties.
-     * 
+     *
      * @return the listeners
      */
     public PropertyChangeListener[] getPropertyChangeListeners() {
@@ -317,16 +366,19 @@ public abstract class JInputValidator extends InputVerifier {
     }
 
     /**
-     * Get the {@link java.beans.PropertyChangeListener}s for the named property.
-     * 
+     * Get the {@link PropertyChangeListener}s for the named property.
+     *
      * @param propertyName the property listened to
      * @return the listeners
      */
-    public PropertyChangeListener[] getPropertyChangeListeners(String propertyName) {
+    public PropertyChangeListener[] getPropertyChangeListeners(
+            final String propertyName) {
         return pcs.getPropertyChangeListeners(propertyName);
     }
 
-    private void addChangeListener(@Nonnull JTextComponent component, @Nonnull ChangeListener changeListener) {
+    private static void addChangeListener(
+            @Nonnull final JTextComponent component,
+            @Nonnull final ChangeListener changeListener) {
         DocumentListener listener = new DocumentListener() {
             private int lastChange = 0;
             private int lastNotifiedChange = 0;
@@ -335,7 +387,7 @@ public abstract class JInputValidator extends InputVerifier {
              * {@inheritDoc}
              */
             @Override
-            public void insertUpdate(DocumentEvent e) {
+            public void insertUpdate(final DocumentEvent e) {
                 changedUpdate(e);
             }
 
@@ -343,7 +395,7 @@ public abstract class JInputValidator extends InputVerifier {
              * {@inheritDoc}
              */
             @Override
-            public void removeUpdate(DocumentEvent e) {
+            public void removeUpdate(final DocumentEvent e) {
                 changedUpdate(e);
             }
 
@@ -351,7 +403,7 @@ public abstract class JInputValidator extends InputVerifier {
              * {@inheritDoc}
              */
             @Override
-            public void changedUpdate(DocumentEvent e) {
+            public void changedUpdate(final DocumentEvent e) {
                 lastChange++;
                 SwingUtilities.invokeLater(() -> {
                     if (lastNotifiedChange != lastChange) {
