@@ -31,13 +31,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  *
  * @author rhwood
  */
-public class JInputValidatorPreferencesTest {
+class JInputValidatorPreferencesTest {
     
     /**
      * Test of getPreferences method, of class JInputValidatorPreferences.
      */
     @Test
-    public void testGetPreferences_0args() {
+    void testGetPreferences_0args() {
         JInputValidatorPreferences preferences = JInputValidatorPreferences.getPreferences();
         assertNotNull(preferences);
         assertEquals("Font Awesome 5 Free Solid", preferences.getFont().getFontName(), "default font");
@@ -59,7 +59,7 @@ public class JInputValidatorPreferencesTest {
      * Test of getPreferences method, of class JInputValidatorPreferences.
      */
     @Test
-    public void testGetPreferences_Preferences() {
+    void testGetPreferences_Preferences() {
         System.out.println("getPreferences");
         Preferences parameter = Preferences.systemNodeForPackage(JInputValidatorPreferences.class);
         parameter.put("danger.icon", "foo");
