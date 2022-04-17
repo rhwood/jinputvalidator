@@ -21,8 +21,6 @@ import com.alexandriasoftware.swing.border.ValidatorBorder;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
@@ -59,16 +57,16 @@ public abstract class JInputValidator extends InputVerifier {
      * with this call listens to all changes to the component if the component is a
      * {@link javax.swing.text.JTextComponent}.
      *
-     * @param component the component to attach the validator to
+     * @param component the component to attach the validator to; must not be null
      */
-    protected JInputValidator(@Nonnull JComponent component) {
+    protected JInputValidator(JComponent component) {
         this(component, true, true);
     }
 
     /**
      * Create a JInputValidator with the default preferences.
      *
-     * @param component   the component to attach the validator to
+     * @param component   the component to attach the validator to; must not be null
      * @param onInput     {@code true} if validator to validate on all input;
      *                    {@code false} to validate only on focus change; note this
      *                    has no effect if component is not a
@@ -77,14 +75,14 @@ public abstract class JInputValidator extends InputVerifier {
      *                    {@link #verify(javax.swing.JComponent)}; {@code false} to
      *                    always return {@code true} for that method.
      */
-    protected JInputValidator(@Nonnull JComponent component, boolean onInput, boolean isVerifying) {
+    protected JInputValidator(JComponent component, boolean onInput, boolean isVerifying) {
         this(component, onInput, isVerifying, JInputValidatorPreferences.getPreferences());
     }
 
     /**
      * Create a JInputValidator with custom preferences.
      *
-     * @param component   the component to attach the validator to
+     * @param component   the component to attach the validator to; must not be null
      * @param onInput     {@code true} if validator to validate on all input;
      *                    {@code false} to validate only on focus change; note this
      *                    has no effect if component is not a
@@ -92,10 +90,10 @@ public abstract class JInputValidator extends InputVerifier {
      * @param isVerifying {@code true} if validator is to return true or false per
      *                    {@link #verify(javax.swing.JComponent)}; {@code false} to
      *                    always return {@code true} for that method.
-     * @param preferences the custom preferences
+     * @param preferences the custom preferences; must not be null
      */
-    protected JInputValidator(@Nonnull JComponent component, boolean onInput, boolean isVerifying,
-            @Nonnull JInputValidatorPreferences preferences) {
+    protected JInputValidator(JComponent component, boolean onInput, boolean isVerifying,
+            JInputValidatorPreferences preferences) {
         this.component = component;
         originalBorder = this.component.getBorder();
         originalToolTipText = this.component.getToolTipText();
@@ -160,9 +158,8 @@ public abstract class JInputValidator extends InputVerifier {
      * Get the current validation. This property can be listened to using the
      * property name {@code validation}.
      *
-     * @return the current validation
+     * @return the current validation; will not be null
      */
-    @Nonnull
     public final Validation getValidation() {
         return validation;
     }
@@ -245,8 +242,7 @@ public abstract class JInputValidator extends InputVerifier {
      * @param input the input to modify
      * @return the modified input or an empty string if input was null
      */
-    @Nonnull
-    protected final String trimHtmlTags(@Nullable String input) {
+    protected final String trimHtmlTags(String input) {
         String output = input != null ? input.trim() : "";
         if (output.startsWith("<html>")) {
             output = output.substring(6);
@@ -326,7 +322,7 @@ public abstract class JInputValidator extends InputVerifier {
         return pcs.getPropertyChangeListeners(propertyName);
     }
 
-    private void addChangeListener(@Nonnull JTextComponent component, @Nonnull ChangeListener changeListener) {
+    private void addChangeListener(JTextComponent component, ChangeListener changeListener) {
         DocumentListener listener = new DocumentListener() {
             private int lastChange = 0;
             private int lastNotifiedChange = 0;

@@ -18,7 +18,6 @@ package com.alexandriasoftware.swing;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.Objects;
-import javax.annotation.Nonnull;
 
 /**
  * A Validation is the combination of a validation state and the tool tip to
@@ -94,9 +93,9 @@ public class Validation {
      *
      * @param type the type of validation
      * @param message the tool tip text
-     * @param preferences the preferences to use
+     * @param preferences the preferences to use; must not be null
      */
-    public Validation(Type type, String message, @Nonnull JInputValidatorPreferences preferences) {
+    public Validation(Type type, String message, JInputValidatorPreferences preferences) {
         this.type = type;
         this.message = message;
         this.preferences = preferences;
@@ -124,9 +123,8 @@ public class Validation {
     /**
      * Get the Unicode characters for the displayed icon.
      *
-     * @return the icon text
+     * @return the icon text or an empty string if there is no icon to display
      */
-    @Nonnull
     public String getIcon() {
         return preferences.getIcon(type);
     }
@@ -134,9 +132,8 @@ public class Validation {
     /**
      * Get the color the icon is displayed in.
      *
-     * @return the color to use
+     * @return the color to use or the System text color
      */
-    @Nonnull
     public Color getColor() {
         return preferences.getColor(type);
     }
@@ -146,7 +143,6 @@ public class Validation {
      *
      * @return the font to use
      */
-    @Nonnull
     public Font getFont() {
         return preferences.getFont();
     }
@@ -154,10 +150,10 @@ public class Validation {
     /**
      * Set the preferences to use with this Validation.
      *
-     * @param preferences the preferences to set
+     * @param preferences the preferences to set; must not be null
      */
     // package private
-    void setPreferences(@Nonnull JInputValidatorPreferences preferences) {
+    void setPreferences(JInputValidatorPreferences preferences) {
         this.preferences = preferences;
     }
     

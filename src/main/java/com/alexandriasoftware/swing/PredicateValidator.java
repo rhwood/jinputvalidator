@@ -16,7 +16,6 @@
 package com.alexandriasoftware.swing;
 
 import java.util.function.Predicate;
-import javax.annotation.Nonnull;
 import javax.swing.JComponent;
 import javax.swing.text.JTextComponent;
 
@@ -38,13 +37,13 @@ public class PredicateValidator extends JInputValidator {
      * {@link #PredicateValidator(JComponent, Predicate, Validation, boolean, boolean)}
      * with the onInput and isVerifying parameters true.
      *
-     * @param component the component to verify
-     * @param predicate the predicate to use
+     * @param component the component to verify; must not be null
+     * @param predicate the predicate to use; must not be null
      * @param invalid   the validation to use when the
      *                  {@link java.util.function.Predicate#test(java.lang.Object)}
      *                  method of the predicate returns false
      */
-    public PredicateValidator(@Nonnull JComponent component, @Nonnull Predicate<String> predicate, Validation invalid) {
+    public PredicateValidator(JComponent component, Predicate<String> predicate, Validation invalid) {
         this(component, predicate, invalid, true, true);
     }
 
@@ -56,8 +55,8 @@ public class PredicateValidator extends JInputValidator {
      * {@link JInputValidatorPreferences#getPreferences()} for the preferences
      * parameter.
      *
-     * @param component   the component to verify
-     * @param predicate   the predicate to use
+     * @param component   the component to verify; must not be null
+     * @param predicate   the predicate to use; must not be null
      * @param invalid     the validation to use when the
      *                    {@link java.util.function.Predicate#test(java.lang.Object)}
      *                    method of the predicate returns false
@@ -68,30 +67,30 @@ public class PredicateValidator extends JInputValidator {
      *                    per {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)};
      *                    {@code false} to always return {@code true} for that method.
      */
-    public PredicateValidator(@Nonnull JComponent component, @Nonnull Predicate<String> predicate, Validation invalid, boolean onInput, boolean isVerifying) {
+    public PredicateValidator(JComponent component, Predicate<String> predicate, Validation invalid, boolean onInput, boolean isVerifying) {
         this(component, predicate, invalid, null, onInput, isVerifying, JInputValidatorPreferences.getPreferences());
     }
 
     /**
      * Create a PredicateValidator.
      *
-     * @param component   the component to verify
-     * @param predicate   the predicate to use
+     * @param component   the component to verify; must not be null
+     * @param predicate   the predicate to use; must not be null
      * @param invalid     the validation to use when the
      *                    {@link java.util.function.Predicate#test(java.lang.Object)}
-     *                    method of the predicate returns false
+     *                    method of the predicate returns false; must not be null
      * @param valid       the validation to use when the
      *                    {@link java.util.function.Predicate#test(java.lang.Object)}
-     *                    method of the predicate returns true
+     *                    method of the predicate returns true; may be null
      * @param onInput     true if validation should occur on every change to
      *                    input; false if validation should only occur on focus
      *                    changes
      * @param isVerifying {@code true} if validator is to return true or false
      *                    per {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)};
      *                    {@code false} to always return {@code true} for that method.
-     * @param preferences the preferences to use to draw the validation icons
+     * @param preferences the preferences to use to draw the validation icons; must not be null
      */
-    public PredicateValidator(@Nonnull JComponent component, @Nonnull Predicate<String> predicate, @Nonnull Validation invalid, Validation valid, boolean onInput, boolean isVerifying, @Nonnull JInputValidatorPreferences preferences) {
+    public PredicateValidator(JComponent component, Predicate<String> predicate, Validation invalid, Validation valid, boolean onInput, boolean isVerifying, JInputValidatorPreferences preferences) {
         super(component, onInput, isVerifying, preferences);
         this.predicate = predicate;
         this.invalid = invalid;

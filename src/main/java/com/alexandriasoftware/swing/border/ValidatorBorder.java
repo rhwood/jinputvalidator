@@ -23,7 +23,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.RenderingHints;
-import javax.annotation.Nonnull;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -47,11 +46,11 @@ public class ValidatorBorder extends CompoundBorder {
     /**
      * Create a ValidatorBorder.
      *
-     * @param validation     the validation to use in the border
+     * @param validation     the validation to use in the border; must not be null
      * @param originalBorder the original border of the component being
      *                       validated
      */
-    public ValidatorBorder(@Nonnull Validation validation, Border originalBorder) {
+    public ValidatorBorder(Validation validation, Border originalBorder) {
         this.validation = validation;
         this.font = this.validation.getFont().deriveFont(Font.BOLD, 0);
         this.outsideBorder = originalBorder;
@@ -62,7 +61,7 @@ public class ValidatorBorder extends CompoundBorder {
              * {@inheritDoc}
              */
             @Override
-            public void paintBorder(Component c, @Nonnull Graphics g, int x, int y, int width, int height) {
+            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
                 Insets insets = outsideBorder.getBorderInsets(c);
                 FontMetrics metrics = getFontMetrics(c);
                 int by = (c.getHeight() / 2) + (metrics.getAscent() / 2) - insets.top;
