@@ -13,7 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ '8', '11', '17', '18' ]
+        include:
+        - java: 8
+          maven: verify
+        - java: 11
+          maven: verify
+        - java: 17
+          maven: verify site sonar:sonar
+        - java: 18
+          maven: verify
     steps:
       - uses: actions/checkout@v2
         with:
@@ -39,4 +47,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: xvfb-run mvn -B verify site sonar:sonar
+        run: xvfb-run mvn -B ${{ matrix.maven }}
