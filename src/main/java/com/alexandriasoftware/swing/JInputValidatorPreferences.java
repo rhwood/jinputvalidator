@@ -174,16 +174,16 @@ public class JInputValidatorPreferences {
             f = (new JLabel()).getFont();
         }
         font = f;
-        unknownIcon = preferences.get("unknown.icon", defaults.get("unknown.icon", "\uf059"));
-        unknownColor = new Color(preferences.getInt("unknown.color", defaults.getInt("unknown.color", DEFAULT_UNKNOWN_COLOR)));
+        dangerIcon = preferences.get("danger.icon", defaults.get("danger.icon", "\uf06a"));
+        dangerColor = new Color(preferences.getInt("danger.color", defaults.getInt("danger.color", DEFAULT_DANGER_COLOR)));
         informationIcon = preferences.get("information.icon", defaults.get("information.icon", "\uf05a"));
         informationColor = new Color(preferences.getInt("information.color", defaults.getInt("information.color", DEFAULT_INFORMATION_COLOR)));
         successIcon = preferences.get("success.icon", defaults.get("success.icon", "\uf058"));
         successColor = new Color(preferences.getInt("success.color", defaults.getInt("success.color", DEFAULT_SUCCESS_COLOR)));
+        unknownIcon = preferences.get("unknown.icon", defaults.get("unknown.icon", "\uf059"));
+        unknownColor = new Color(preferences.getInt("unknown.color", defaults.getInt("unknown.color", DEFAULT_UNKNOWN_COLOR)));
         warningIcon = preferences.get("warning.icon", defaults.get("warning.icon", "\uf071"));
         warningColor = new Color(preferences.getInt("warning.color", defaults.getInt("warning.color", DEFAULT_WARNING_COLOR)));
-        dangerIcon = preferences.get("danger.icon", defaults.get("danger.icon", "\uf06a"));
-        dangerColor = new Color(preferences.getInt("danger.color", defaults.getInt("danger.color", DEFAULT_DANGER_COLOR)));
     }
 
     /**
