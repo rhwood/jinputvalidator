@@ -15,7 +15,6 @@
  */
 package com.alexandriasoftware.swing;
 
-import javax.annotation.Nonnull;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 
@@ -36,13 +35,13 @@ public class VerifyingValidator extends JInputValidator {
      * {@link #VerifyingValidator(javax.swing.JComponent, javax.swing.InputVerifier, com.alexandriasoftware.swing.Validation, boolean, boolean)}
      * with the onInput and isVerifying parameters true.
      *
-     * @param component the component to verify
-     * @param verifier  the verifier to use
+     * @param component the component to verify; must not be null
+     * @param verifier  the verifier to use; must not be null
      * @param invalid   the validation to use when the
      *                  {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)}
      *                  method of the verifier returns false
      */
-    public VerifyingValidator(@Nonnull JComponent component, @Nonnull InputVerifier verifier, Validation invalid) {
+    public VerifyingValidator(JComponent component, InputVerifier verifier, Validation invalid) {
         this(component, verifier, invalid, true, true);
     }
 
@@ -54,8 +53,8 @@ public class VerifyingValidator extends JInputValidator {
      * {@link JInputValidatorPreferences#getPreferences()} for the preferences
      * parameter.
      *
-     * @param component   the component to verify
-     * @param verifier    the verifier to use
+     * @param component   the component to verify; must not be null
+     * @param verifier    the verifier to use; must not be null
      * @param invalid     the validation to use when the
      *                    {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)}
      *                    method of the verifier returns false
@@ -66,21 +65,21 @@ public class VerifyingValidator extends JInputValidator {
      *                    per {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)};
      *                    {@code false} to always return {@code true} for that method.
      */
-    public VerifyingValidator(@Nonnull JComponent component, @Nonnull InputVerifier verifier, Validation invalid, boolean onInput, boolean isVerifying) {
+    public VerifyingValidator(JComponent component, InputVerifier verifier, Validation invalid, boolean onInput, boolean isVerifying) {
         this(component, verifier, invalid, null, onInput, isVerifying, JInputValidatorPreferences.getPreferences());
     }
 
     /**
      * Create a VerifyingValidator.
      *
-     * @param component   the component to verify
-     * @param verifier    the verifier to use
+     * @param component   the component to verify; must not be null
+     * @param verifier    the verifier to use; must not be null
      * @param invalid     the validation to use when the
      *                    {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)}
-     *                    method of the verifier returns false
+     *                    method of the verifier returns false; must not be null
      * @param valid       the validation to use when the
      *                    {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)}
-     *                    method of the verifier returns true
+     *                    method of the verifier returns true; may be null
      * @param onInput     {@code true} if validation should occur on every change to
      *                    input; {@code false} if validation should only occur on focus
      *                    changes
@@ -89,7 +88,7 @@ public class VerifyingValidator extends JInputValidator {
      *                    {@code false} to always return {@code true} for that method.
      * @param preferences the preferences to use to draw the validation icons
      */
-    public VerifyingValidator(@Nonnull JComponent component, @Nonnull InputVerifier verifier, @Nonnull Validation invalid, Validation valid, boolean onInput, boolean isVerifying, @Nonnull JInputValidatorPreferences preferences) {
+    public VerifyingValidator(JComponent component, InputVerifier verifier, Validation invalid, Validation valid, boolean onInput, boolean isVerifying, JInputValidatorPreferences preferences) {
         super(component, onInput, isVerifying, preferences);
         this.verifier = verifier;
         this.invalid = invalid;
