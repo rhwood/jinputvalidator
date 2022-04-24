@@ -29,7 +29,7 @@ public class Validation {
 
     private final Type type;
     private final String message;
-    private JInputValidatorPreferences preferences;
+    private final JInputValidatorPreferences preferences;
 
     /**
      * The Validation state. The states {@link Type#DANGER} and
