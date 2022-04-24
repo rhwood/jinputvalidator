@@ -22,17 +22,27 @@ import static com.alexandriasoftware.swing.JInputValidatorPreferences.DEFAULT_UN
 import static com.alexandriasoftware.swing.JInputValidatorPreferences.DEFAULT_WARNING_COLOR;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.util.UUID;
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
+import javax.swing.JLabel;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  *
  * @author rhwood
  */
 class JInputValidatorPreferencesTest {
-    
+
+    @BeforeEach
+    void setup() throws BackingStoreException {
+        Preferences p = Preferences.systemNodeForPackage(JInputValidatorPreferences.class);
+        p.put("font", "/com/fontawesome/Font Awesome 5 Free-Solid-900.otf");
+    }
+
     /**
      * Test of getPreferences method, of class JInputValidatorPreferences.
      */
@@ -80,6 +90,20 @@ class JInputValidatorPreferencesTest {
         assertEquals("\uf058", preferences.getIcon(Validation.Type.SUCCESS), "default success icon");
         assertEquals("\uf059", preferences.getIcon(Validation.Type.UNKNOWN), "default unknown icon");
         assertEquals("\uf071", preferences.getIcon(Validation.Type.WARNING), "default warning icon");
+    }
+    
+    /**
+     * Test of getPreferences method, of class JInputValidatorPreferences with invalid font name.
+     */
+    @Test
+    void testGetPreferences_badFont() {
+        System.out.println("getPreferences");
+        Preferences parameter = Preferences.systemNodeForPackage(JInputValidatorPreferences.class);
+        parameter.put("font", UUID.randomUUID().toString());
+        String defaultFont = new JLabel().getFont().getFontName();
+        JInputValidatorPreferences preferences = JInputValidatorPreferences.getPreferences(parameter);
+        assertNotNull(preferences);
+        assertEquals(defaultFont, preferences.getFont().getFontName(), "invalid font");
     }
     
 }
