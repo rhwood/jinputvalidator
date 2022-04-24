@@ -20,9 +20,10 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.SystemColor;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 import javax.swing.JLabel;
-import org.slf4j.LoggerFactory;
 
 /**
  * Preferences for a JInputValidator. By default the preferences are pulled from
@@ -73,6 +74,9 @@ public class JInputValidatorPreferences {
      * {@link java.util.prefs.Preferences}, so application-wide defaults can be
      * set by setting preferences keys appropriately before calling this method.
      *
+     * <strong>Note</strong> if the requested font is not available, this will
+     * log, but not throw, an error and use the default font. 
+     * 
      * @return the default preferences
      */
     public static synchronized JInputValidatorPreferences getPreferences() {
@@ -84,9 +88,12 @@ public class JInputValidatorPreferences {
 
     /**
      * Get a set of preferences using a {@link java.util.prefs.Preferences}
-     * object. The Preferences must contain the keys listed above, but not
-     * necessarily within the package specified above.
+     * object. The Preferences must contain those keys overriding defaults
+     * listed above, but not necessarily within the package specified above.
      *
+     * <strong>Note</strong> if the requested font is not available, this will
+     * log, but not throw, an error and use the default font.
+     * 
      * @param preferences the preferences to use
      * @return the preferences for a specific scenario
      */
@@ -166,11 +173,12 @@ public class JInputValidatorPreferences {
     private JInputValidatorPreferences(final Preferences preferences) {
         Preferences defaults = Preferences.userNodeForPackage(JInputValidatorPreferences.class);
         String fontAwesome = "/com/fontawesome/Font Awesome 5 Free-Solid-900.otf";
+        String fontName = preferences.get("font", defaults.get("font", fontAwesome));
         Font f;
         try {
-            f = Font.createFont(Font.TRUETYPE_FONT, JInputValidatorPreferences.class.getResourceAsStream(preferences.get("font", defaults.get("font", fontAwesome))));
+            f = Font.createFont(Font.TRUETYPE_FONT, JInputValidatorPreferences.class.getResourceAsStream(fontName));
         } catch (FontFormatException | IOException ex) {
-            LoggerFactory.getLogger(this.getClass()).error("Unable to get Font resource named {}", preferences.get("font", fontAwesome), ex);
+            Logger.getLogger(JInputValidatorPreferences.class.getName()).log(Level.SEVERE, "Unable to get Font resource named " + fontName, ex);
             f = (new JLabel()).getFont();
         }
         font = f;
