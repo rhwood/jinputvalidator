@@ -29,7 +29,7 @@ public class Validation {
 
     private final Type type;
     private final String message;
-    private JInputValidatorPreferences preferences;
+    private final JInputValidatorPreferences preferences;
 
     /**
      * The Validation state. The states {@link Type#DANGER} and
@@ -102,6 +102,17 @@ public class Validation {
     }
 
     /**
+     * Create a validation from an existing validation with custom preferences.
+     * 
+     * @param validation the existing validation to base the new validation on;
+     *                   must not be null
+     * @param preferences the preferences to use; must not be null
+     */
+    public Validation(Validation validation, JInputValidatorPreferences preferences) {
+        this(validation.getType(), validation.getMessage(), preferences);
+    }
+
+    /**
      * Get the validation type.
      *
      * @return the validation type
@@ -147,16 +158,6 @@ public class Validation {
         return preferences.getFont();
     }
 
-    /**
-     * Set the preferences to use with this Validation.
-     *
-     * @param preferences the preferences to set; must not be null
-     */
-    // package private
-    void setPreferences(JInputValidatorPreferences preferences) {
-        this.preferences = preferences;
-    }
-    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -165,6 +166,14 @@ public class Validation {
         return hash;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <strong>Note</strong> two Validations are considered equal if
+     * {@code getType()} and {@code getMessage()} are equal (the display
+     * properties {@code getColor()}, {@code getFont()}, and {@code getIcon()}
+     * are not considered for equality).
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
