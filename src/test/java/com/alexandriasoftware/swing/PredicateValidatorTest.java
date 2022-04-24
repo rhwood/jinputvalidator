@@ -76,4 +76,19 @@ class PredicateValidatorTest {
         assertEquals(new Color(0x73BCF7), v1.getColor());
     }
 
+    @Test
+    void testValidValidationsInConstructor() {
+        JTextField c = new JTextField();
+        Validation valid = new Validation(Type.SUCCESS, "");
+        Validation invalid = new Validation(Type.DANGER, "");
+        PredicateValidator v = new PredicateValidator(c, (String t) -> t.equals("test1"), invalid);
+        assertFalse(v.verify(c));
+        assertEquals(invalid, v.getValidation());
+        c.setText("test1");
+        assertTrue(v.verify(c));
+        assertEquals(v.getNoneValidation(), v.getValidation());
+        v = new PredicateValidator(c, (String t) -> t.equals("test1"), invalid, valid, true, true, JInputValidatorPreferences.getPreferences());
+        assertTrue(v.verify(c));
+        assertEquals(valid, v.getValidation());
+    }
 }
