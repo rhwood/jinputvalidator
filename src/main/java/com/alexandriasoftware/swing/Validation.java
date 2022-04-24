@@ -167,7 +167,7 @@ public class Validation {
     }
 
     /**
-     * @@inheritDoc
+     * @inheritDoc
      * <p>
      * <strong>Note</strong> two Validations are considered equal if
      * {@code getType()} and {@code getMessage()} are equal (the display
