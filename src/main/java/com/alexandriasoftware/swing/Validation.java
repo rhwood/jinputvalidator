@@ -102,6 +102,17 @@ public class Validation {
     }
 
     /**
+     * Create a validation from an existing validation with custom preferences.
+     * 
+     * @param validation the existing validation to base the new validation on;
+     *                   must not be null
+     * @param preferences the preferences to use; must not be null
+     */
+    public Validation(Validation validation, JInputValidatorPreferences preferences) {
+        this(validation.getType(), validation.getMessage(), preferences);
+    }
+
+    /**
      * Get the validation type.
      *
      * @return the validation type
@@ -147,16 +158,6 @@ public class Validation {
         return preferences.getFont();
     }
 
-    /**
-     * Set the preferences to use with this Validation.
-     *
-     * @param preferences the preferences to set; must not be null
-     */
-    // package private
-    void setPreferences(JInputValidatorPreferences preferences) {
-        this.preferences = preferences;
-    }
-    
     @Override
     public int hashCode() {
         int hash = 5;

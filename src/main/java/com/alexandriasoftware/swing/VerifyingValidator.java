@@ -91,11 +91,9 @@ public class VerifyingValidator extends JInputValidator {
     public VerifyingValidator(JComponent component, InputVerifier verifier, Validation invalid, Validation valid, boolean onInput, boolean isVerifying, JInputValidatorPreferences preferences) {
         super(component, onInput, isVerifying, preferences);
         this.verifier = verifier;
-        this.invalid = invalid;
-        setValidationPreferences(this.invalid);
+        this.invalid = new Validation(invalid, preferences);
         if (valid != null) {
-            this.valid = valid;
-            setValidationPreferences(this.valid);
+            this.valid = new Validation(valid, preferences);
         } else {
             this.valid = getNoneValidation();
         }

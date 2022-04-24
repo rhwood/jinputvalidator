@@ -227,15 +227,6 @@ public abstract class JInputValidator extends InputVerifier {
     }
 
     /**
-     * Set the preferences for a Validation to this JInputValidator's preferences.
-     *
-     * @param validation the validation to set preferences for
-     */
-    protected final void setValidationPreferences(Validation validation) {
-        validation.setPreferences(preferences);
-    }
-
-    /**
      * Trims input and removes the leading {@code <html>} and trailing
      * {@code </html>} markers if present.
      *
