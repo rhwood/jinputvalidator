@@ -18,7 +18,9 @@ package com.alexandriasoftware.swing;
 import com.alexandriasoftware.swing.Validation.Type;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.time.Duration;
 
 import javax.swing.JComponent;
@@ -27,6 +29,7 @@ import javax.swing.text.JTextComponent;
 import static org.awaitility.Awaitility.await;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -287,5 +290,22 @@ class JInputValidatorTest {
         assertTrue(v.verify(c));
         c.setText("test");
         assertTrue(v.verify(c));
+    }
+
+    @Test
+    void testPropertyChangeSupport() {
+        JInputValidator v = new JInputValidator(new JTextField()) {
+            @Override
+            protected Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
+                return new Validation(Type.NONE, "", settings);
+            }
+        };
+        PropertyChangeSupport pcs = v.getPropertyChangeSupport();
+        assertNotNull(pcs);
+        PropertyChangeListener l = (PropertyChangeEvent evt) -> {
+            // nothing to do
+        };
+        pcs.addPropertyChangeListener(l);
+        assertArrayEquals(new PropertyChangeListener[]{l}, v.getPropertyChangeListeners());
     }
 }
