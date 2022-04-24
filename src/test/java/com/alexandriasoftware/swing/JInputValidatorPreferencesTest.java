@@ -70,7 +70,6 @@ class JInputValidatorPreferencesTest {
      */
     @Test
     void testGetPreferences_Preferences() {
-        System.out.println("getPreferences");
         Preferences parameter = Preferences.systemNodeForPackage(JInputValidatorPreferences.class);
         parameter.put("danger.icon", "foo");
         parameter.put("danger.color", "0");
@@ -97,7 +96,6 @@ class JInputValidatorPreferencesTest {
      */
     @Test
     void testGetPreferences_badFont() {
-        System.out.println("getPreferences");
         Preferences parameter = Preferences.systemNodeForPackage(JInputValidatorPreferences.class);
         parameter.put("font", UUID.randomUUID().toString());
         String defaultFont = new JLabel().getFont().getFontName();
