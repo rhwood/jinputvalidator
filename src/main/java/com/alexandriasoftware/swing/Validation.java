@@ -166,6 +166,14 @@ public class Validation {
         return hash;
     }
 
+    /**
+     * @@inheritDoc
+     * <p>
+     * <strong>Note</strong> two Validations are considered equal if
+     * {@code getType()} and {@code getMessage()} are equal (the display
+     * properties {@code getColor()}, {@code getFont()}, and {@code getIcon()}
+     * are not considered for equality).
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
