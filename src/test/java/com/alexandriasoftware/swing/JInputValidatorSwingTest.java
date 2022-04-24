@@ -15,11 +15,18 @@
  */
 package com.alexandriasoftware.swing;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
+import org.assertj.swing.edt.GuiActionRunner;
+import org.assertj.swing.fixture.FrameFixture;
+import org.assertj.swing.fixture.JTextComponentFixture;
+import static org.awaitility.Awaitility.await;
+import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
 
@@ -37,13 +44,15 @@ class JInputValidatorSwingTest extends javax.swing.JFrame {
      */
     public JInputValidatorSwingTest() {
         initComponents();
-        validator = new VerifyingValidator(jTextField1, new InputVerifier() {
+        InputVerifier verifier = new InputVerifier() {
             @Override
             public boolean verify(JComponent input) {
                 int length = jTextField1.getText().length();
                 return (length <= 0 || length >= 8); // true if empty or 8 or more characters
             }
-        },
+        };
+        validator = new VerifyingValidator(jTextField1,
+                verifier,
                 new Validation(Validation.Type.DANGER, "This is a DANGER state."),
                 new Validation(Validation.Type.SUCCESS, "This is a SUCCESS state."),
                 true,
@@ -69,6 +78,7 @@ class JInputValidatorSwingTest extends javax.swing.JFrame {
 
         jTextField1.setText("jTextField1");
         jTextField1.setToolTipText("This is a valid state.");
+        jTextField1.setName("jTextField1"); // NOI18N
 
         jLabel1.setText("VerifyingValidator demonstration.");
 
@@ -116,6 +126,19 @@ class JInputValidatorSwingTest extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private FrameFixture window;
+
+    @BeforeEach
+    void setup() {
+        JInputValidatorSwingTest frame = GuiActionRunner.execute(() -> new JInputValidatorSwingTest());
+        window = new FrameFixture(frame);
+    }
+
+    @AfterEach
+    void tearDown() {
+        window.cleanUp();
+    }
+
     @Test
     void testVerifyingValidator() {
         jTextField1.setText("");
@@ -131,6 +154,18 @@ class JInputValidatorSwingTest extends javax.swing.JFrame {
         jTextField1.setText("1234567890");
         assertTrue(validator.verify(jTextField1));
         assertEquals(Validation.Type.SUCCESS, validator.getValidation().getType());
+    }
+
+    @Test
+    void testDocumentListener() {
+        window.show();
+        JTextComponentFixture field = window.textBox("jTextField1");
+        field.deleteText();
+        field.enterText("1234");
+        GuiActionRunner.execute(() -> assertEquals(Validation.Type.DANGER, validator.getValidation().getType()));
+        field.enterText("567890");
+        GuiActionRunner.execute(() -> assertEquals(Validation.Type.SUCCESS, validator.getValidation().getType()));
+        window.cleanUp();
     }
 
     /**

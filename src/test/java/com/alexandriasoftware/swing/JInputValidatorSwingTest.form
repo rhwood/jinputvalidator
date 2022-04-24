@@ -72,6 +72,7 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="jTextField1"/>
         <Property name="toolTipText" type="java.lang.String" value="This is a valid state."/>
+        <Property name="name" type="java.lang.String" value="jTextField1" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
