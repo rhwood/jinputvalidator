@@ -178,7 +178,7 @@ public class JInputValidatorPreferences {
         try {
             f = Font.createFont(Font.TRUETYPE_FONT, JInputValidatorPreferences.class.getResourceAsStream(fontName));
         } catch (FontFormatException | IOException ex) {
-            Logger.getLogger(JInputValidatorPreferences.class.getName()).log(Level.SEVERE, "Unable to get Font resource named " + fontName, ex);
+            Logger.getLogger(JInputValidatorPreferences.class.getName()).log(Level.SEVERE, ex, () -> String.format("Unable to get Font resource named %s", fontName));
             f = (new JLabel()).getFont();
         }
         font = f;
