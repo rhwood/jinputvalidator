@@ -139,7 +139,7 @@ public abstract class JInputValidator extends InputVerifier {
      */
     public void setToolTipText(String toolTipText) {
         originalToolTipText = toolTipText;
-        if (validation == null || validation.getType() == Type.NONE) {
+        if (validation.getType() == Type.NONE) {
             component.setToolTipText(toolTipText);
         }
     }
@@ -169,7 +169,7 @@ public abstract class JInputValidator extends InputVerifier {
      *
      * @param input       the component to get the state of
      * @param preferences preferences to use for creating the validation
-     * @return the validation for the current state
+     * @return the validation for the current state; must never be null
      */
     protected abstract Validation getValidation(JComponent input, JInputValidatorPreferences preferences);
 
