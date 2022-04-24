@@ -167,8 +167,8 @@ public class Validation {
     }
 
     /**
-     * @inheritDoc
-     * <p>
+     * {@inheritDoc}
+     *
      * <strong>Note</strong> two Validations are considered equal if
      * {@code getType()} and {@code getMessage()} are equal (the display
      * properties {@code getColor()}, {@code getFont()}, and {@code getIcon()}
