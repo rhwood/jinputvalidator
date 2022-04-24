@@ -116,6 +116,9 @@ class JInputValidatorTest {
         await().atMost(Duration.ofSeconds(1));
         assertEquals(Type.DANGER, v.getValidation().getType());
         assertEquals("empty", c.getToolTipText());
+        // verify validator does not change tool tip with type DANGER
+        v.setToolTipText("3");
+        assertEquals("empty", c.getToolTipText());
         c.setText("test4");
         // manually call to assert return value
         assertTrue(v.verify(c));
