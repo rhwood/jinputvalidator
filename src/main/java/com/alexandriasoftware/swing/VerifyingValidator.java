@@ -105,12 +105,12 @@ public class VerifyingValidator extends JInputValidator {
      * the current verifier.
      *
      * @param input       the component to verify
-     * @param preferences ignored, but required by implemented API
+     * @param preferences preferences to apply to Validation
      * @return the Validation for the valid or invalid states as appropriate
      */
     @Override
     protected Validation getValidation(JComponent input, JInputValidatorPreferences preferences) {
-        return verifier.verify(input) ? valid : invalid;
+        return new Validation(verifier.verify(input) ? valid : invalid, preferences);
     }
 
 }

@@ -108,13 +108,13 @@ public class PredicateValidator extends JInputValidator {
      * validation is performed.
      *
      * @param input       the component to verify
-     * @param preferences ignored, but required by implemented API
+     * @param preferences preferences to apply to Validation
      * @return the Validation for the valid or invalid states as appropriate
      */
     @Override
     protected Validation getValidation(JComponent input, JInputValidatorPreferences preferences) {
         if (input instanceof JTextComponent) {
-            return predicate.test(((JTextComponent) input).getText()) ? valid : invalid;
+            return new Validation(predicate.test(((JTextComponent) input).getText()) ? valid : invalid, preferences);
         } else {
             return getNoneValidation();
         }
