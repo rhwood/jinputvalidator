@@ -15,13 +15,11 @@
  */
 package com.alexandriasoftware.swing;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.fixture.FrameFixture;
 import org.assertj.swing.fixture.JTextComponentFixture;
-import static org.awaitility.Awaitility.await;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -126,11 +124,12 @@ class JInputValidatorSwingTest extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private JInputValidatorSwingTest frame;
     private FrameFixture window;
 
     @BeforeEach
     void setup() {
-        JInputValidatorSwingTest frame = GuiActionRunner.execute(() -> new JInputValidatorSwingTest());
+        frame = GuiActionRunner.execute(() -> new JInputValidatorSwingTest());
         window = new FrameFixture(frame);
     }
 
@@ -160,12 +159,13 @@ class JInputValidatorSwingTest extends javax.swing.JFrame {
     void testDocumentListener() {
         window.show();
         JTextComponentFixture field = window.textBox("jTextField1");
+        assertEquals(Validation.Type.NONE, frame.validator.getValidation().getType());
         field.deleteText();
+        assertEquals(Validation.Type.SUCCESS, frame.validator.getValidation().getType());
         field.enterText("1234");
-        GuiActionRunner.execute(() -> assertEquals(Validation.Type.DANGER, validator.getValidation().getType()));
+        assertEquals(Validation.Type.DANGER, frame.validator.getValidation().getType());
         field.enterText("567890");
-        GuiActionRunner.execute(() -> assertEquals(Validation.Type.SUCCESS, validator.getValidation().getType()));
-        window.cleanUp();
+        assertEquals(Validation.Type.SUCCESS, frame.validator.getValidation().getType());
     }
 
     /**
