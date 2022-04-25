@@ -18,15 +18,19 @@ package com.alexandriasoftware.swing;
 import com.alexandriasoftware.swing.Validation.Type;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.time.Duration;
 
 import javax.swing.JComponent;
 import javax.swing.JTextField;
+import javax.swing.text.PlainDocument;
 import javax.swing.text.JTextComponent;
 import static org.awaitility.Awaitility.await;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -112,6 +116,9 @@ class JInputValidatorTest {
         assertFalse(v.verify(c));
         await().atMost(Duration.ofSeconds(1));
         assertEquals(Type.DANGER, v.getValidation().getType());
+        assertEquals("empty", c.getToolTipText());
+        // verify validator does not change tool tip with type DANGER
+        v.setToolTipText("3");
         assertEquals("empty", c.getToolTipText());
         c.setText("test4");
         // manually call to assert return value
@@ -287,5 +294,41 @@ class JInputValidatorTest {
         assertTrue(v.verify(c));
         c.setText("test");
         assertTrue(v.verify(c));
+    }
+
+    @Test
+    void testPropertyChangeSupport() {
+        JInputValidator v = new JInputValidator(new JTextField()) {
+            @Override
+            protected Validation getValidation(JComponent input, JInputValidatorPreferences settings) {
+                return new Validation(Type.NONE, "", settings);
+            }
+        };
+        PropertyChangeSupport pcs = v.getPropertyChangeSupport();
+        assertNotNull(pcs);
+        PropertyChangeListener l = (PropertyChangeEvent evt) -> {
+            // nothing to do
+        };
+        pcs.addPropertyChangeListener(l);
+        assertArrayEquals(new PropertyChangeListener[]{l}, v.getPropertyChangeListeners());
+    }
+
+    @Test
+    void testChangingDocument() {
+        JTextField f = new JTextField();
+        JInputValidator v = new JInputValidator(f, true, true) {
+            @Override
+            protected Validation getValidation(JComponent input, JInputValidatorPreferences preferences) {
+                if (((JTextComponent) input).getDocument() == null) {
+                    return new Validation(Type.DANGER, "", preferences);
+                } else {
+                    return new Validation(Type.SUCCESS, "", preferences);
+                }
+            }
+        };
+        assertEquals(Type.NONE, v.getValidation().getType());
+        f.setDocument(new PlainDocument());
+        assertTrue(v.verify(f));
+        assertEquals(Type.SUCCESS, v.getValidation().getType());
     }
 }

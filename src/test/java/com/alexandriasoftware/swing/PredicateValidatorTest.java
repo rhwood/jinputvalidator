@@ -18,6 +18,7 @@ package com.alexandriasoftware.swing;
 import com.alexandriasoftware.swing.Validation.Type;
 import java.awt.Color;
 import java.awt.SystemColor;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -90,5 +91,14 @@ class PredicateValidatorTest {
         v = new PredicateValidator(c, (String t) -> t.equals("test1"), invalid, valid, true, true, JInputValidatorPreferences.getPreferences());
         assertTrue(v.verify(c));
         assertEquals(valid, v.getValidation());
+    }
+
+    @Test
+    void testNonTextComponentValidation() {
+        JLabel c = new JLabel();
+        Validation invalid = new Validation(Type.DANGER, "");
+        PredicateValidator v = new PredicateValidator(c, (String t) -> t.equals("test1"), invalid);
+        assertTrue(v.verify(c));
+        assertEquals(new Validation(Type.NONE, ""), v.getValidation());
     }
 }
