@@ -188,7 +188,7 @@ public abstract class JInputValidator extends InputVerifier {
     public boolean verify(JComponent input) {
         oldValidation = validation;
         validation = getValidation(input, preferences);
-        if (!validation.equals(oldValidation) && !inVerifyMethod) {
+        if (!inVerifyMethod && !validation.equals(oldValidation)) {
             inVerifyMethod = true;
             if (validation.getType() == Type.NONE) {
                 input.setBorder(originalBorder);
