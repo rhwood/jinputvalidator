@@ -17,6 +17,7 @@ package com.alexandriasoftware.swing;
 
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
+import javax.swing.text.PlainDocument;
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.fixture.FrameFixture;
 import org.assertj.swing.fixture.JTextComponentFixture;
@@ -166,6 +167,18 @@ class JInputValidatorSwingTest extends javax.swing.JFrame {
         assertEquals(Validation.Type.DANGER, frame.validator.getValidation().getType());
         field.enterText("567890");
         assertEquals(Validation.Type.SUCCESS, frame.validator.getValidation().getType());
+    }
+
+    @Test
+    void testChangingDocument() {
+        window.show();
+        JTextComponentFixture field = window.textBox("jTextField1");
+        assertEquals(Validation.Type.NONE, frame.validator.getValidation().getType());
+        field.deleteText();
+        assertEquals(Validation.Type.SUCCESS, frame.validator.getValidation().getType());
+        frame.jTextField1.setDocument(new PlainDocument());
+        field.enterText("1234");
+        assertEquals(Validation.Type.DANGER, frame.validator.getValidation().getType());
     }
 
     /**

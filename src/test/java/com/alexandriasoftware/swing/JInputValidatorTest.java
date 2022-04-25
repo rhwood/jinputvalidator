@@ -312,23 +312,4 @@ class JInputValidatorTest {
         pcs.addPropertyChangeListener(l);
         assertArrayEquals(new PropertyChangeListener[]{l}, v.getPropertyChangeListeners());
     }
-
-    @Test
-    void testChangingDocument() {
-        JTextField f = new JTextField();
-        JInputValidator v = new JInputValidator(f, true, true) {
-            @Override
-            protected Validation getValidation(JComponent input, JInputValidatorPreferences preferences) {
-                if (((JTextComponent) input).getDocument() == null) {
-                    return new Validation(Type.DANGER, "", preferences);
-                } else {
-                    return new Validation(Type.SUCCESS, "", preferences);
-                }
-            }
-        };
-        assertEquals(Type.NONE, v.getValidation().getType());
-        f.setDocument(new PlainDocument());
-        assertTrue(v.verify(f));
-        assertEquals(Type.SUCCESS, v.getValidation().getType());
-    }
 }
