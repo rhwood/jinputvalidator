@@ -5,10 +5,11 @@ An [InputVerifier](https://docs.oracle.com/javase/8/docs/api/index.html?javax/sw
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.alexandriasoftware.swing/jinputvalidator/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.alexandriasoftware.swing/jinputvalidator)
 [![Javadocs](https://www.javadoc.io/badge/com.alexandriasoftware.swing/jinputvalidator.svg)](https://www.javadoc.io/doc/com.alexandriasoftware.swing/jinputvalidator)
-[![Build Status](https://travis-ci.com/rhwood/jinputvalidator.svg?token=cqDHpGf1kVSnERY1P7z7&branch=master)](https://travis-ci.com/rhwood/jinputvalidator)
-[![Coverage Status](https://coveralls.io/repos/github/rhwood/jinputvalidator/badge.svg?branch=master)](https://coveralls.io/github/rhwood/jinputvalidator?branch=master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/3a346edbb0d353e71536/maintainability)](https://codeclimate.com/github/rhwood/jinputvalidator/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/3a346edbb0d353e71536/test_coverage)](https://codeclimate.com/github/rhwood/jinputvalidator/test_coverage)
+[![Build](https://github.com/rhwood/jinputvalidator/actions/workflows/build.yml/badge.svg)](https://github.com/rhwood/jinputvalidator/actions/workflows/build.yml)
+[![CodeQL](https://github.com/rhwood/jinputvalidator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/rhwood/jinputvalidator/actions/workflows/codeql-analysis.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rhwood_jinputvalidator&metric=alert_status)](https://sonarcloud.io/dashboard?id=rhwood_jinputvalidator)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=rhwood_jinputvalidator&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=rhwood_jinputvalidator)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=rhwood_jinputvalidator&metric=coverage)](https://sonarcloud.io/dashboard?id=rhwood_jinputvalidator)
 
 JInputValidator extends the verify idiom to use six states, each with its own graphical representation and tool tip text:
 
