@@ -357,27 +357,4 @@ limitations under the License.
             </plugin>
         </plugins>
     </reporting>
-    <repositories>
-        <repository>
-            <id>central</id>
-            <url>https://repo.maven.apache.org/maven2/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>eclipse-egit</id>
-            <url>https://repo.eclipse.org/content/repositories/egit-releases/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>spring-plugins</id>
-            <url>https://repo.spring.io/plugins-release/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 </project>
