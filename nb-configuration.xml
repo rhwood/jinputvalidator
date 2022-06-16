@@ -26,5 +26,7 @@ Any value defined here will override the pom.xml file value but is only applicab
         <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.enableBlockCommentFormatting>true</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.enableBlockCommentFormatting>
         <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.alignJavadocReturnDescription>true</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.alignJavadocReturnDescription>
         <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.alignJavadocParameterDescriptions>true</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.alignJavadocParameterDescriptions>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.usePackageImport>true</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.usePackageImport>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.useSingleClassImport>false</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.useSingleClassImport>
     </properties>
 </project-shared-configuration>
