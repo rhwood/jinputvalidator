@@ -39,3 +39,6 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build and analyze
         run: xvfb-run mvn -B ${{ matrix.maven }}
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        if: matrix.java == '17'
