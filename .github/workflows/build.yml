@@ -19,7 +19,7 @@ jobs:
         - java: 11
           maven: verify
         - java: 17
-          maven: verify site sonar:sonar
+          maven: verify site
         - java: 18
           maven: verify
     steps:
@@ -31,12 +31,6 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: 'temurin'
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v1
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
       - name: Cache Maven packages
         uses: actions/cache@v1
         with:
@@ -44,7 +38,7 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build and analyze
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: xvfb-run mvn -B ${{ matrix.maven }}
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        if: matrix.java == '17'
