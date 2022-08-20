@@ -23,7 +23,7 @@ jobs:
         - java: 18
           maven: verify
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # disable shallow checkouts
       - name: Set up Java
