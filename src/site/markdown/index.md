@@ -9,7 +9,7 @@ An [InputVerifier](https://docs.oracle.com/javase/8/docs/api/index.html?javax/sw
 [![CodeQL](https://github.com/rhwood/jinputvalidator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/rhwood/jinputvalidator/actions/workflows/codeql-analysis.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rhwood_jinputvalidator&metric=alert_status)](https://sonarcloud.io/dashboard?id=rhwood_jinputvalidator)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=rhwood_jinputvalidator&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=rhwood_jinputvalidator)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=rhwood_jinputvalidator&metric=coverage)](https://sonarcloud.io/dashboard?id=rhwood_jinputvalidator)
+[![Coverage](https://codecov.io/gh/rhwood/jinputvalidator/branch/main/graph/badge.svg?token=pKCkI8SxSg)](https://codecov.io/gh/rhwood/jinputvalidator)
 
 JInputValidator extends the verify idiom to use six states, each with its own graphical representation and tool tip text:
 
@@ -61,7 +61,7 @@ myJTextField.setInputVerifier(new VerifyingValidator(myJTextField,
 
 ## Customizing
 
-By default, `JInputValidator` uses [PatternFly 4](https://www.patternfly.org/v4/) [colors](https://www.patternfly.org/v4/design-guidelines/styles/colors) and [icons](https://www.patternfly.org/v4/design-guidelines/styles/icons) for the various states.
+By default, `JInputValidator` uses [PatternFly 4 colors](https://www.patternfly.org/v4/design-guidelines/styles/colors) and [Font Awesome icons](https://fontawesome.com/icons?d=gallery&s=solid&m=free) for the various states.
 
 These values can be overridden by providing a [`Preferences`](https://docs.oracle.com/javase/8/docs/api/index.html?java/util/prefs/Preferences.html) object to [`JInputValidatorPreferences.getPreferences(Preferences preferences)`](https://static.javadoc.io/com.alexandriasoftware.swing/jinputvalidator/0.1.0/com/alexandriasoftware/swing/JInputValidatorPreferences.html#getPreferences-java.util.prefs.Preferences-) containing the following keys:
 
