@@ -40,7 +40,7 @@ jobs:
       - name: Build and analyze
         run: xvfb-run mvn -B ${{ matrix.maven }}
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         if: matrix.java == '17'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
