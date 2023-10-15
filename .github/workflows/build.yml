@@ -22,9 +22,9 @@ jobs:
         - java: 11
           maven: verify
         - java: 17
-          maven: verify site
-        - java: 18
           maven: verify
+        - java: 21
+          maven: verify site
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@1b05615854632b887b69ae1be8cbefe72d3ae423 # v2.6.0
