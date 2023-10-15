@@ -26,3 +26,12 @@ hs_err_pid*
 
 # macOS artifacts
 .DS_Store
+
+# IntelliJ Idea settings
+.idea
+
+# Eclipse and VSCode settings
+/.project
+/.classpath
+/.vscode/
+/.settings/
