@@ -10,6 +10,7 @@ An [InputVerifier](https://docs.oracle.com/javase/8/docs/api/index.html?javax/sw
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rhwood_jinputvalidator&metric=alert_status)](https://sonarcloud.io/dashboard?id=rhwood_jinputvalidator)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=rhwood_jinputvalidator&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=rhwood_jinputvalidator)
 [![Coverage](https://codecov.io/gh/rhwood/jinputvalidator/branch/main/graph/badge.svg?token=pKCkI8SxSg)](https://codecov.io/gh/rhwood/jinputvalidator)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/rhwood/jinputvalidator/badge)](https://securityscorecards.dev/viewer/?uri=github.com/rhwood/jinputvalidator)
 
 JInputValidator extends the verify idiom to use six states, each with its own graphical representation and tool tip text:
 
