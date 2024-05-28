@@ -1,0 +1,4 @@
+# Jitpack configuration
+jdk:
+  # Build on oldest LTS version supporting modules
+  - openjdk11
