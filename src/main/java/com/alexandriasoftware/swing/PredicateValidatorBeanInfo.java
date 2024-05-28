@@ -67,6 +67,13 @@ public class PredicateValidatorBeanInfo extends AbstractValidatorBeanInfo {
     }
 
     /**
+     * Construct a {@code PredicateValidatorBeanInfo }
+     */
+    public PredicateValidatorBeanInfo() {
+        super();
+    }
+
+    /**
      * Gets the bean's <code>BeanDescriptor</code>s.
      *
      * @return BeanDescriptor describing the editable properties of this bean. May

@@ -65,6 +65,13 @@ public class JInputValidatorBeanInfo extends AbstractValidatorBeanInfo {
     }
 
     /**
+     * Construct a {@code JInputValidatorBeanInfo }
+     */
+    public JInputValidatorBeanInfo() {
+        super();
+    }
+
+    /**
      * Gets the bean's <code>BeanDescriptor</code>s.
      *
      * @return BeanDescriptor describing the editable properties of this bean. May
