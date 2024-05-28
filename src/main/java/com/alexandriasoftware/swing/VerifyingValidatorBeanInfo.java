@@ -64,6 +64,13 @@ public class VerifyingValidatorBeanInfo extends AbstractValidatorBeanInfo {
     }
 
     /**
+     * Construct a {@code VerifyingValidatorBeanInfo }
+     */
+    public VerifyingValidatorBeanInfo() {
+        super();
+    }
+
+    /**
      * Gets the bean's <code>BeanDescriptor</code>s.
      *
      * @return BeanDescriptor describing the editable properties of this bean. May
