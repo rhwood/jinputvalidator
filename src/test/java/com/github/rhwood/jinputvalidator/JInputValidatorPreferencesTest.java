@@ -22,6 +22,7 @@ import static com.github.rhwood.jinputvalidator.JInputValidatorPreferences.DEFAU
 import static com.github.rhwood.jinputvalidator.JInputValidatorPreferences.DEFAULT_WARNING_COLOR;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.util.logging.Logger;
 import java.util.UUID;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
@@ -96,6 +97,7 @@ class JInputValidatorPreferencesTest {
      */
     @Test
     void testGetPreferences_badFont() {
+        Logger.getAnonymousLogger().info("SEVERE Stack trace is expected.");
         Preferences parameter = Preferences.systemNodeForPackage(JInputValidatorPreferences.class);
         parameter.put("font", UUID.randomUUID().toString());
         String defaultFont = new JLabel().getFont().getFontName();
