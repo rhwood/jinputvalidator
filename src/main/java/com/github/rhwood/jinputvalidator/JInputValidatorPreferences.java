@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alexandriasoftware.swing;
+package com.github.rhwood.jinputvalidator;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -28,7 +28,7 @@ import javax.swing.JLabel;
 /**
  * Preferences for a JInputValidator. By default the preferences are pulled from
  * a {@link java.util.prefs.Preferences} object for the package
- * {@code com.alexandriasoftware.swing} with the following keys:
+ * {@code com.github.rhwood.jinputvalidator} with the following keys:
  * <dl>
  * <dt>font (String)</dt>
  * <dd>Path to a font that can be loaded using

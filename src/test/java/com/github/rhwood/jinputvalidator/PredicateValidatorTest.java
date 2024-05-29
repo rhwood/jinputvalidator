@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alexandriasoftware.swing;
+package com.github.rhwood.jinputvalidator;
 
-import com.alexandriasoftware.swing.Validation.Type;
+import com.github.rhwood.jinputvalidator.Validation.Type;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.JLabel;

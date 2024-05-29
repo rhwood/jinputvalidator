@@ -79,7 +79,7 @@ These values can be overridden by providing a [`Preferences`](https://docs.oracl
 
 Once you have the `JInputValidatorPreferences` object, it can be passed to the constructor of a `JInputValidator`.
 
-If your application already uses `Preferences` for other purposes, you can set the above keys in the package `com.alexandriasoftware.swing` to override the defaults as long as your application reads its preferences before creating the first JInputValidator object.
+If your application already uses `Preferences` for other purposes, you can set the above keys in the package `com.github.rhwood.jinputvalidator` to override the defaults as long as your application reads its preferences before creating the first JInputValidator object.
 
 ## License
 

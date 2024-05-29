@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019, 2022 Randall Wood.
+ * Copyright (C) 2019, 2022 Randall Wood
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,51 +13,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alexandriasoftware.swing;
+package com.github.rhwood.jinputvalidator;
 
-import javax.swing.InputVerifier;
+import java.util.function.Predicate;
 import javax.swing.JComponent;
+import javax.swing.text.JTextComponent;
 
 /**
  * A {@link JInputValidator} that uses a standard
- * {@link javax.swing.InputVerifier} to toggle a good/bad state.
+ * {@link java.util.function.Predicate} for a String to toggle a good/bad state.
+ * This only works against subclasses of {@link JTextComponent}.
  *
  * @author Randall Wood
  */
-public class VerifyingValidator extends JInputValidator {
+public class PredicateValidator extends JInputValidator {
 
-    private final InputVerifier verifier;
+    private final Predicate<String> predicate;
     private final Validation valid;
     private final Validation invalid;
 
     /**
-     * Create a VerifyingValidator. This is the same as calling
-     * {@link #VerifyingValidator(javax.swing.JComponent, javax.swing.InputVerifier, com.alexandriasoftware.swing.Validation, boolean, boolean)}
+     * Create a PredicateValidator. This is the same as calling
+     * {@link #PredicateValidator(JComponent, Predicate, Validation, boolean, boolean)}
      * with the onInput and isVerifying parameters true.
      *
      * @param component the component to verify; must not be null
-     * @param verifier  the verifier to use; must not be null
+     * @param predicate the predicate to use; must not be null
      * @param invalid   the validation to use when the
-     *                  {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)}
-     *                  method of the verifier returns false
+     *                  {@link java.util.function.Predicate#test(java.lang.Object)}
+     *                  method of the predicate returns false
      */
-    public VerifyingValidator(JComponent component, InputVerifier verifier, Validation invalid) {
-        this(component, verifier, invalid, true, true);
+    public PredicateValidator(JComponent component, Predicate<String> predicate, Validation invalid) {
+        this(component, predicate, invalid, true, true);
     }
 
     /**
-     * Create a VerifyingValidator. This is the same as calling
-     * {@link #VerifyingValidator(javax.swing.JComponent, javax.swing.InputVerifier, com.alexandriasoftware.swing.Validation, com.alexandriasoftware.swing.Validation, boolean, boolean, com.alexandriasoftware.swing.JInputValidatorPreferences)}
+     * Create a PredicateValidator. This is the same as calling
+     * {@link #PredicateValidator(JComponent, Predicate, Validation, Validation, boolean, boolean, JInputValidatorPreferences)}
      * with a {@link Validation} that has type {@link Validation.Type#NONE} for
      * the valid parameter and
      * {@link JInputValidatorPreferences#getPreferences()} for the preferences
      * parameter.
      *
      * @param component   the component to verify; must not be null
-     * @param verifier    the verifier to use; must not be null
+     * @param predicate   the predicate to use; must not be null
      * @param invalid     the validation to use when the
-     *                    {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)}
-     *                    method of the verifier returns false
+     *                    {@link java.util.function.Predicate#test(java.lang.Object)}
+     *                    method of the predicate returns false
      * @param onInput     true if validation should occur on every change to
      *                    input; false if validation should only occur on focus
      *                    changes
@@ -65,32 +67,32 @@ public class VerifyingValidator extends JInputValidator {
      *                    per {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)};
      *                    {@code false} to always return {@code true} for that method.
      */
-    public VerifyingValidator(JComponent component, InputVerifier verifier, Validation invalid, boolean onInput, boolean isVerifying) {
-        this(component, verifier, invalid, null, onInput, isVerifying, JInputValidatorPreferences.getPreferences());
+    public PredicateValidator(JComponent component, Predicate<String> predicate, Validation invalid, boolean onInput, boolean isVerifying) {
+        this(component, predicate, invalid, null, onInput, isVerifying, JInputValidatorPreferences.getPreferences());
     }
 
     /**
-     * Create a VerifyingValidator.
+     * Create a PredicateValidator.
      *
      * @param component   the component to verify; must not be null
-     * @param verifier    the verifier to use; must not be null
+     * @param predicate   the predicate to use; must not be null
      * @param invalid     the validation to use when the
-     *                    {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)}
-     *                    method of the verifier returns false; must not be null
+     *                    {@link java.util.function.Predicate#test(java.lang.Object)}
+     *                    method of the predicate returns false; must not be null
      * @param valid       the validation to use when the
-     *                    {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)}
-     *                    method of the verifier returns true; may be null
-     * @param onInput     {@code true} if validation should occur on every change to
-     *                    input; {@code false} if validation should only occur on focus
+     *                    {@link java.util.function.Predicate#test(java.lang.Object)}
+     *                    method of the predicate returns true; may be null
+     * @param onInput     true if validation should occur on every change to
+     *                    input; false if validation should only occur on focus
      *                    changes
      * @param isVerifying {@code true} if validator is to return true or false
      *                    per {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)};
      *                    {@code false} to always return {@code true} for that method.
-     * @param preferences the preferences to use to draw the validation icons
+     * @param preferences the preferences to use to draw the validation icons; must not be null
      */
-    public VerifyingValidator(JComponent component, InputVerifier verifier, Validation invalid, Validation valid, boolean onInput, boolean isVerifying, JInputValidatorPreferences preferences) {
+    public PredicateValidator(JComponent component, Predicate<String> predicate, Validation invalid, Validation valid, boolean onInput, boolean isVerifying, JInputValidatorPreferences preferences) {
         super(component, onInput, isVerifying, preferences);
-        this.verifier = verifier;
+        this.predicate = predicate;
         this.invalid = new Validation(invalid, preferences);
         if (valid != null) {
             this.valid = new Validation(valid, preferences);
@@ -102,7 +104,8 @@ public class VerifyingValidator extends JInputValidator {
     /**
      * Get the validation for the current result of calling
      * {@link javax.swing.InputVerifier#verify(javax.swing.JComponent)} using
-     * the current verifier.
+     * the predicate. If input is not a subclass of {@link JTextComponent}; no
+     * validation is performed.
      *
      * @param input       the component to verify
      * @param preferences preferences to apply to Validation
@@ -110,7 +113,11 @@ public class VerifyingValidator extends JInputValidator {
      */
     @Override
     protected Validation getValidation(JComponent input, JInputValidatorPreferences preferences) {
-        return new Validation(verifier.verify(input) ? valid : invalid, preferences);
+        if (input instanceof JTextComponent) {
+            return new Validation(predicate.test(((JTextComponent) input).getText()) ? valid : invalid, preferences);
+        } else {
+            return getNoneValidation();
+        }
     }
 
 }

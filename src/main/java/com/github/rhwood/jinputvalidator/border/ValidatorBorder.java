@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alexandriasoftware.swing.border;
+package com.github.rhwood.jinputvalidator.border;
 
-import com.alexandriasoftware.swing.Validation;
+import com.github.rhwood.jinputvalidator.Validation;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.FontMetrics;

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alexandriasoftware.swing;
+package com.github.rhwood.jinputvalidator;
 
-import com.alexandriasoftware.swing.Validation.Type;
-import com.alexandriasoftware.swing.border.ValidatorBorder;
+import com.github.rhwood.jinputvalidator.Validation.Type;
+import com.github.rhwood.jinputvalidator.border.ValidatorBorder;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
