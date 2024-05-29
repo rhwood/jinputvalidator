@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alexandriasoftware.swing;
+package com.github.rhwood.jinputvalidator;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -79,7 +79,7 @@ public class Validation {
      * Create a validation with default preferences.
      * <p>
      * This constructor should not be used within
-     * {@link JInputValidator#getValidation(javax.swing.JComponent, com.alexandriasoftware.swing.JInputValidatorPreferences)}.
+     * {@link JInputValidator#getValidation(javax.swing.JComponent, com.github.rhwood.jinputvalidator.JInputValidatorPreferences)}.
      *
      * @param type the type of validation
      * @param message the tool tip text

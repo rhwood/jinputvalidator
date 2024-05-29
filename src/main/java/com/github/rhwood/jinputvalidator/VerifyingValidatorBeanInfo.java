@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019, 2022 Randall Wood
+ * Copyright (C) 2019, 2021 Randall Wood.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alexandriasoftware.swing;
+package com.github.rhwood.jinputvalidator;
 
 import java.beans.BeanDescriptor;
 import java.beans.IntrospectionException;
@@ -22,7 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Provide a graphical editor for {@link PredicateValidator}.
+ * Provide a graphical editor for {@link VerifyingValidator}.
  * <p>
  * Icon is from
  * <a href="https://fontawesome.com/icons/clipboard-check?style=solid">Font
@@ -31,33 +31,30 @@ import java.util.logging.Logger;
  * @author Randall Wood
  */
 @SuppressWarnings("java:S115") // static names include names of methods
-public class PredicateValidatorBeanInfo extends AbstractValidatorBeanInfo {
+public class VerifyingValidatorBeanInfo extends AbstractValidatorBeanInfo {
 
     // Bean descriptor
     /* lazy BeanDescriptor */
     private static BeanDescriptor getBdescriptor() {
-        return new BeanDescriptor(PredicateValidator.class, null);
+        return new BeanDescriptor(VerifyingValidator.class, null);
     }
 
     // Property identifiers
-    private static final int PROPERTY_noneValidation = 0;
-    private static final int PROPERTY_propertyChangeListeners = 1;
-    private static final int PROPERTY_toolTipText = 2;
-    private static final int PROPERTY_validation = 3;
+    private static final int PROPERTY_propertyChangeListeners = 0;
+    private static final int PROPERTY_toolTipText = 1;
+    private static final int PROPERTY_validation = 2;
 
     // Property array
     /* lazy PropertyDescriptor */
     private static PropertyDescriptor[] getPdescriptor() {
-        PropertyDescriptor[] properties = new PropertyDescriptor[4];
+        PropertyDescriptor[] properties = new PropertyDescriptor[3];
 
         try {
-            properties[PROPERTY_noneValidation] = new PropertyDescriptor("noneValidation", PredicateValidator.class,
-                    "getNoneValidation", null);
             properties[PROPERTY_propertyChangeListeners] = new PropertyDescriptor("propertyChangeListeners",
-                    PredicateValidator.class, "getPropertyChangeListeners", null);
-            properties[PROPERTY_toolTipText] = new PropertyDescriptor("toolTipText", PredicateValidator.class,
+                    VerifyingValidator.class, "getPropertyChangeListeners", null);
+            properties[PROPERTY_toolTipText] = new PropertyDescriptor("toolTipText", VerifyingValidator.class,
                     "getToolTipText", "setToolTipText");
-            properties[PROPERTY_validation] = new PropertyDescriptor("validation", PredicateValidator.class,
+            properties[PROPERTY_validation] = new PropertyDescriptor("validation", VerifyingValidator.class,
                     "getValidation", null);
         } catch (IntrospectionException e) {
             Logger.getLogger(JInputValidatorBeanInfo.class.getName()).log(Level.SEVERE, e.getMessage(), e);
@@ -67,9 +64,9 @@ public class PredicateValidatorBeanInfo extends AbstractValidatorBeanInfo {
     }
 
     /**
-     * Construct a {@code PredicateValidatorBeanInfo }
+     * Construct a {@code VerifyingValidatorBeanInfo }
      */
-    public PredicateValidatorBeanInfo() {
+    public VerifyingValidatorBeanInfo() {
         super();
     }
 

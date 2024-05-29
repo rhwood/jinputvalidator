@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alexandriasoftware.swing;
+package com.github.rhwood.jinputvalidator;
 
-import static com.alexandriasoftware.swing.JInputValidatorPreferences.DEFAULT_DANGER_COLOR;
-import static com.alexandriasoftware.swing.JInputValidatorPreferences.DEFAULT_INFORMATION_COLOR;
-import static com.alexandriasoftware.swing.JInputValidatorPreferences.DEFAULT_SUCCESS_COLOR;
-import static com.alexandriasoftware.swing.JInputValidatorPreferences.DEFAULT_UNKNOWN_COLOR;
-import static com.alexandriasoftware.swing.JInputValidatorPreferences.DEFAULT_WARNING_COLOR;
+import static com.github.rhwood.jinputvalidator.JInputValidatorPreferences.DEFAULT_DANGER_COLOR;
+import static com.github.rhwood.jinputvalidator.JInputValidatorPreferences.DEFAULT_INFORMATION_COLOR;
+import static com.github.rhwood.jinputvalidator.JInputValidatorPreferences.DEFAULT_SUCCESS_COLOR;
+import static com.github.rhwood.jinputvalidator.JInputValidatorPreferences.DEFAULT_UNKNOWN_COLOR;
+import static com.github.rhwood.jinputvalidator.JInputValidatorPreferences.DEFAULT_WARNING_COLOR;
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.util.UUID;

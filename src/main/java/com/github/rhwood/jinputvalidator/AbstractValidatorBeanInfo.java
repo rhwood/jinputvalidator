@@ -1,4 +1,4 @@
-package com.alexandriasoftware.swing;
+package com.github.rhwood.jinputvalidator;
 
 import java.awt.Image;
 import java.beans.EventSetDescriptor;
