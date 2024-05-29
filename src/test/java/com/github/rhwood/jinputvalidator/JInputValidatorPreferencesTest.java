@@ -40,7 +40,7 @@ class JInputValidatorPreferencesTest {
     @BeforeEach
     void setup() throws BackingStoreException {
         Preferences p = Preferences.systemNodeForPackage(JInputValidatorPreferences.class);
-        p.put("font", "/com/fontawesome/Font Awesome 5 Free-Solid-900.otf");
+        p.put("font", "/com/github/rhwood/jinputvalidator/Font Awesome 5 Free-Solid-900.otf");
     }
 
     /**

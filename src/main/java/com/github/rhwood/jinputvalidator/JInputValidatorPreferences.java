@@ -172,7 +172,7 @@ public class JInputValidatorPreferences {
 
     private JInputValidatorPreferences(final Preferences preferences) {
         Preferences defaults = Preferences.userNodeForPackage(JInputValidatorPreferences.class);
-        String fontAwesome = "/com/fontawesome/Font Awesome 5 Free-Solid-900.otf";
+        String fontAwesome = "/com/github/rhwood/jinputvalidator/Font Awesome 5 Free-Solid-900.otf";
         String fontName = preferences.get("font", defaults.get("font", fontAwesome));
         Font f;
         try {
