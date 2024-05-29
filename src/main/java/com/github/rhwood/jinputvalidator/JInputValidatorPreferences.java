@@ -67,7 +67,7 @@ public class JInputValidatorPreferences {
     /**
      * Path to default font.
      */
-    private static String DEFAULT_FONT_PATH = "/com/github/rhwood/jinputvalidator/Font Awesome 5 Free-Solid-900.otf";
+    private final static String DEFAULT_FONT_PATH = "/com/github/rhwood/jinputvalidator/Font Awesome 5 Free-Solid-900.otf";
     /**
      * The default preferences instance.
      */
