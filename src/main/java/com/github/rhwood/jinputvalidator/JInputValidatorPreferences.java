@@ -65,6 +65,10 @@ import javax.swing.JLabel;
 public class JInputValidatorPreferences {
 
     /**
+     * Path to default font.
+     */
+    private static String DEFAULT_FONT_PATH = "/com/github/rhwood/jinputvalidator/Font Awesome 5 Free-Solid-900.otf";
+    /**
      * The default preferences instance.
      */
     private static JInputValidatorPreferences defaultPreferences = null;
@@ -172,7 +176,7 @@ public class JInputValidatorPreferences {
 
     private JInputValidatorPreferences(final Preferences preferences) {
         Preferences defaults = Preferences.userNodeForPackage(JInputValidatorPreferences.class);
-        String fontPath = "/com/github/rhwood/jinputvalidator/Font Awesome 5 Free-Solid-900.otf";
+        String fontPath = DEFAULT_FONT_PATH;
         String fontName = preferences.get("font", defaults.get("font", fontPath));
         Font f;
         try {
