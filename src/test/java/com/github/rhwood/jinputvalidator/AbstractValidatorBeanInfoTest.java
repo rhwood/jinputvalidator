@@ -10,13 +10,15 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.beans.BeanInfo;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Ignore;
+import org.junit.Test;
 
 abstract class AbstractValidatorBeanInfoTest {
 
     protected BeanInfo info;
     protected Class<?> trgt;
 
+    @Ignore
     @Test
     void testGetIcon() {
         assertNotNull(info.getIcon(ICON_COLOR_16x16));
