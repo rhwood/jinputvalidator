@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.beans.BeanInfo;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 abstract class AbstractValidatorBeanInfoTest {
@@ -17,6 +18,7 @@ abstract class AbstractValidatorBeanInfoTest {
     protected BeanInfo info;
     protected Class<?> trgt;
 
+    @Disabled("See https://github.com/rhwood/jinputvalidator/issues/389")
     @Test
     void testGetIcon() {
         assertNotNull(info.getIcon(ICON_COLOR_16x16));

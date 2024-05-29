@@ -20,10 +20,10 @@ class AbstractValidatorBeanInfo extends SimpleBeanInfo {
     private static java.awt.Image iconColor32 = null;
     private static java.awt.Image iconMono16 = null;
     private static java.awt.Image iconMono32 = null;
-    private static String iconNameC16 = "/com/fontawesome/clipboard-check.png";
-    private static String iconNameC32 = "/com/fontawesome/clipboard-check@2x.png";
-    private static String iconNameM16 = "/com/fontawesome/clipboard-check.png";
-    private static String iconNameM32 = "/com/fontawesome/clipboard-check@2x.png";
+    private static String iconNameC16 = "/com/github/rhwood/jinputvalidator/clipboard-check.png";
+    private static String iconNameC32 = "/com/github/rhwood/jinputvalidator/clipboard-check@2x.png";
+    private static String iconNameM16 = "/com/github/rhwood/jinputvalidator/clipboard-check.png";
+    private static String iconNameM32 = "/com/github/rhwood/jinputvalidator/clipboard-check@2x.png";
 
     // EventSet identifiers
     private static final int EVENT_propertyChangeListener = 0;
