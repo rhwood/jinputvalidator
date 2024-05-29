@@ -176,8 +176,7 @@ public class JInputValidatorPreferences {
 
     private JInputValidatorPreferences(final Preferences preferences) {
         Preferences defaults = Preferences.userNodeForPackage(JInputValidatorPreferences.class);
-        String fontPath = DEFAULT_FONT_PATH;
-        String fontName = preferences.get("font", defaults.get("font", fontPath));
+        String fontName = preferences.get("font", defaults.get("font", DEFAULT_FONT_PATH));
         Font f;
         try {
             f = Font.createFont(Font.TRUETYPE_FONT, JInputValidatorPreferences.class.getResourceAsStream(fontName));
