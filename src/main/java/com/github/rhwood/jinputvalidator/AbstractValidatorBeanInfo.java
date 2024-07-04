@@ -1,6 +1,6 @@
 package com.github.rhwood.jinputvalidator;
 
-import java.awt.Image;
+import java.awt.*;
 import java.beans.EventSetDescriptor;
 import java.beans.IntrospectionException;
 import java.beans.MethodDescriptor;
@@ -16,14 +16,8 @@ import javax.swing.JComponent;
 @SuppressWarnings("java:S115") // static names include names of methods
 class AbstractValidatorBeanInfo extends SimpleBeanInfo {
 
-    private static java.awt.Image iconColor16 = null;
-    private static java.awt.Image iconColor32 = null;
-    private static java.awt.Image iconMono16 = null;
-    private static java.awt.Image iconMono32 = null;
-    private static String iconNameC16 = "/com/github/rhwood/jinputvalidator/clipboard-check.png";
-    private static String iconNameC32 = "/com/github/rhwood/jinputvalidator/clipboard-check@2x.png";
-    private static String iconNameM16 = "/com/github/rhwood/jinputvalidator/clipboard-check.png";
-    private static String iconNameM32 = "/com/github/rhwood/jinputvalidator/clipboard-check@2x.png";
+    private static final String ICON_NAME_COLOR_16 = "resources/clipboard-check.png";
+    private static final String ICON_NAME_COLOR_32 = "resources/clipboard-check@2x.png";
 
     // EventSet identifiers
     private static final int EVENT_propertyChangeListener = 0;
@@ -136,25 +130,13 @@ class AbstractValidatorBeanInfo extends SimpleBeanInfo {
     public Image getIcon(int iconKind) {
         switch (iconKind) {
             case ICON_COLOR_16x16:
-                return loadImage(iconColor16, iconNameC16);
-            case ICON_COLOR_32x32:
-                return loadImage(iconColor32, iconNameC32);
             case ICON_MONO_16x16:
-                return loadImage(iconMono16, iconNameM16);
+                return Toolkit.getDefaultToolkit().createImage(this.getClass().getResource(ICON_NAME_COLOR_16));
+            case ICON_COLOR_32x32:
             case ICON_MONO_32x32:
-                return loadImage(iconMono32, iconNameM32);
+                return Toolkit.getDefaultToolkit().createImage(this.getClass().getResource(ICON_NAME_COLOR_32));
             default:
                 return null;
         }
-    }
-
-    private Image loadImage(Image image, String name) {
-        if (name == null) {
-            return null;
-        }
-        if (image == null) {
-            image = loadImage(name);
-        }
-        return image;
     }
 }
