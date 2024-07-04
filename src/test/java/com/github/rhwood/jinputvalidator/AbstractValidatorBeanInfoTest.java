@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.beans.BeanInfo;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 abstract class AbstractValidatorBeanInfoTest {
