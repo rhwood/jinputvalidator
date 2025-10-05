@@ -82,6 +82,12 @@ Once you have the `JInputValidatorPreferences` object, it can be passed to the c
 
 If your application already uses `Preferences` for other purposes, you can set the above keys in the package `com.github.rhwood.jinputvalidator` to override the defaults as long as your application reads its preferences before creating the first JInputValidator object.
 
+## Supported Java versions
+
+JSplitButton is supported on Java LTS versions 17, 21, and 25. Non-LTS versions of Java are not supported and will receive best-effort support.
+
+Support for Java versions 8 and 11 is depricated, and CI testing will not be performed on these versions, but source code compatibility will be retained through a minimum of November 2026 for Java 8 and November 2027 for Java 11.
+
 ## License
 
 JInputValidator is released under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0)
