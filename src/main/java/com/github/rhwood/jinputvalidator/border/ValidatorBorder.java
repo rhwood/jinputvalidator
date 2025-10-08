@@ -67,7 +67,7 @@ public class ValidatorBorder extends CompoundBorder {
                 int by = (c.getHeight() / 2) + (metrics.getAscent() / 2) - insets.top;
                 int bw = Math.max(2, insets.right); // border width
                 int iw = metrics.stringWidth(validation.getIcon()); // icon width
-                int bx = x + width - (Math.round((iw * 1.5f) + (bw * 1.5f))) + 2;
+                int bx = x + width - Math.round((iw * 1.5f) + (bw * 1.5f)) + 2;
                 g.translate(bx, by);
                 g.setColor(validation.getColor());
                 g.setFont(font);

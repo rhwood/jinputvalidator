@@ -27,9 +27,21 @@ import java.util.Objects;
  */
 public class Validation {
 
-    private final Type type;
-    private final String message;
-    private final JInputValidatorPreferences preferences;
+    /**
+     * The type of validation. (f for "field" to avoid conflict with parameter
+     * name)
+     */
+    private final Type fType;
+    /**
+     * The tool tip text to display on the validated component. (f for "field"
+     * to avoid conflict with parameter name)
+     */
+    private final String fMessage;
+    /**
+     * The preferences used to determine the display properties of the
+     * validation. (f for "field" to avoid conflict with parameter name)
+     */
+    private final JInputValidatorPreferences fPreferences;
 
     /**
      * The Validation state. The states {@link Type#DANGER} and
@@ -79,12 +91,13 @@ public class Validation {
      * Create a validation with default preferences.
      * <p>
      * This constructor should not be used within
-     * {@link JInputValidator#getValidation(javax.swing.JComponent, com.github.rhwood.jinputvalidator.JInputValidatorPreferences)}.
+     * {@link JInputValidator#getValidation(javax.swing.JComponent,
+     * com.github.rhwood.jinputvalidator.JInputValidatorPreferences)}.
      *
      * @param type the type of validation
      * @param message the tool tip text
      */
-    public Validation(Type type, String message) {
+    public Validation(final Type type, final String message) {
         this(type, message, JInputValidatorPreferences.getPreferences());
     }
 
@@ -95,20 +108,25 @@ public class Validation {
      * @param message the tool tip text
      * @param preferences the preferences to use; must not be null
      */
-    public Validation(Type type, String message, JInputValidatorPreferences preferences) {
-        this.type = type;
-        this.message = message;
-        this.preferences = preferences;
+    public Validation(
+        final Type type,
+        final String message,
+        final JInputValidatorPreferences preferences) {
+        this.fType = type;
+        this.fMessage = message;
+        this.fPreferences = preferences;
     }
 
     /**
      * Create a validation from an existing validation with custom preferences.
-     * 
+     *
      * @param validation the existing validation to base the new validation on;
      *                   must not be null
      * @param preferences the preferences to use; must not be null
      */
-    public Validation(Validation validation, JInputValidatorPreferences preferences) {
+    public Validation(
+        final Validation validation,
+        final JInputValidatorPreferences preferences) {
         this(validation.getType(), validation.getMessage(), preferences);
     }
 
@@ -118,7 +136,7 @@ public class Validation {
      * @return the validation type
      */
     public Type getType() {
-        return type;
+        return fType;
     }
 
     /**
@@ -128,7 +146,7 @@ public class Validation {
      * @return the tool tip text
      */
     public String getMessage() {
-        return message;
+        return fMessage;
     }
 
     /**
@@ -137,7 +155,7 @@ public class Validation {
      * @return the icon text or an empty string if there is no icon to display
      */
     public String getIcon() {
-        return preferences.getIcon(type);
+        return fPreferences.getIcon(fType);
     }
 
     /**
@@ -146,7 +164,7 @@ public class Validation {
      * @return the color to use or the System text color
      */
     public Color getColor() {
-        return preferences.getColor(type);
+        return fPreferences.getColor(fType);
     }
 
     /**
@@ -155,14 +173,14 @@ public class Validation {
      * @return the font to use
      */
     public Font getFont() {
-        return preferences.getFont();
+        return fPreferences.getFont();
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int hash = 5;
-        hash = 79 * hash + Objects.hashCode(this.type);
-        hash = 79 * hash + Objects.hashCode(this.message);
+        hash = 79 * hash + Objects.hashCode(this.fType);
+        hash = 79 * hash + Objects.hashCode(this.fMessage);
         return hash;
     }
 
@@ -175,7 +193,7 @@ public class Validation {
      * are not considered for equality).
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
