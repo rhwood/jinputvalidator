@@ -162,7 +162,7 @@ public abstract class JInputValidator extends InputVerifier {
      *
      * @param isVerifying {@code true} if verifying; {@code false} if not
      */
-    public void setIsVerifying(final boolean isVerifying) {
+    public void setVerifying(final boolean isVerifying) {
         this.fIsVerifying = isVerifying;
     }
 
@@ -172,7 +172,7 @@ public abstract class JInputValidator extends InputVerifier {
      *
      * @return {@code true} if verifying; {@code false} if not
      */
-    public boolean isIsVerifying() {
+    public boolean isVerifying() {
         return fIsVerifying;
     }
 

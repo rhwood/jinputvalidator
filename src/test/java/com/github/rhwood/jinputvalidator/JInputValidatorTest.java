@@ -260,11 +260,11 @@ class JInputValidatorTest {
                 return new Validation(Type.NONE, "", settings);
             }
         };
-        assertTrue(instance.isIsVerifying());
-        instance.setIsVerifying(false);
-        assertFalse(instance.isIsVerifying());
-        instance.setIsVerifying(true);
-        assertTrue(instance.isIsVerifying());
+        assertTrue(instance.isVerifying());
+        instance.setVerifying(false);
+        assertFalse(instance.isVerifying());
+        instance.setVerifying(true);
+        assertTrue(instance.isVerifying());
     }
 
     /**
@@ -285,12 +285,12 @@ class JInputValidatorTest {
                 return new Validation(Type.NONE, "none", settings);
             }
         };
-        assertFalse(v.isIsVerifying());
+        assertFalse(v.isVerifying());
         assertTrue(c.getText().isEmpty());
         assertTrue(v.verify(c));
-        v.setIsVerifying(true);
+        v.setVerifying(true);
         assertFalse(v.verify(c));
-        v.setIsVerifying(false);
+        v.setVerifying(false);
         assertTrue(v.verify(c));
         c.setText("test");
         assertTrue(v.verify(c));
