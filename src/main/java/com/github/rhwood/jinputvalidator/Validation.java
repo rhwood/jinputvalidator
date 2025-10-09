@@ -42,6 +42,10 @@ public class Validation {
      * validation. (f for "field" to avoid conflict with parameter name)
      */
     private final JInputValidatorPreferences fPreferences;
+    /**
+     * A prime number used in hashCode calculations.
+     */
+    private static final int HASH_PRIME = 79;
 
     /**
      * The Validation state. The states {@link Type#DANGER} and
@@ -178,9 +182,9 @@ public class Validation {
 
     @Override
     public final int hashCode() {
-        int hash = 5;
-        hash = 79 * hash + Objects.hashCode(this.fType);
-        hash = 79 * hash + Objects.hashCode(this.fMessage);
+        int hash = HASH_PRIME;
+        hash = HASH_PRIME * hash + Objects.hashCode(this.fType);
+        hash = HASH_PRIME * hash + Objects.hashCode(this.fMessage);
         return hash;
     }
 

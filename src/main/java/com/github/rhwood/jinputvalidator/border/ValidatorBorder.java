@@ -28,31 +28,46 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 
 /**
- * A CompoundBorder that draws an inner border that contains the validation icon
- * to the right of the input being validated. The outer border is the original
- * border of the component this border is attached to.
+ * A CompoundBorder that draws an inner border that contains the validation
+ * icon to the right of the input being validated. The outer border is the
+ * original border of the component this border is attached to.
  *
  * @author Randall Wood
  */
 public class ValidatorBorder extends CompoundBorder {
 
+    /**
+     * Serial version UID. (required since extending java.io.Serializable)
+     */
     private static final long serialVersionUID = 1L;
-    private final transient Validation validation;
+    /**
+     * The validation to use in the border. (f for "field" to avoid conflict
+     * with parameter name)
+     */
+    private final transient Validation fValidation;
     /**
      * The font used to draw the validation icons.
      */
     private Font font;
+    /**
+     * Multiplier to apply to icon width and border width to determine
+     * insets and position.
+     */
+    private final float multiplier = 1.5f;
 
     /**
      * Create a ValidatorBorder.
      *
-     * @param validation     the validation to use in the border; must not be null
+     * @param validation     the validation to use in the border; must not be
+     *                       null
      * @param originalBorder the original border of the component being
      *                       validated
      */
-    public ValidatorBorder(Validation validation, Border originalBorder) {
-        this.validation = validation;
-        this.font = this.validation.getFont().deriveFont(Font.BOLD, 0);
+    public ValidatorBorder(
+        final Validation validation,
+        final Border originalBorder) {
+        this.fValidation = validation;
+        this.font = this.fValidation.getFont().deriveFont(Font.BOLD, 0);
         this.outsideBorder = originalBorder;
         this.insideBorder = new AbstractBorder() {
             private static final long serialVersionUID = 1L;
@@ -61,13 +76,26 @@ public class ValidatorBorder extends CompoundBorder {
              * {@inheritDoc}
              */
             @Override
-            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            public void paintBorder(
+                final Component c,
+                final Graphics g,
+                final int x,
+                final int y,
+                final int width,
+                final int height) {
                 Insets insets = outsideBorder.getBorderInsets(c);
                 FontMetrics metrics = getFontMetrics(c);
-                int by = (c.getHeight() / 2) + (metrics.getAscent() / 2) - insets.top;
-                int bw = Math.max(2, insets.right); // border width
-                int iw = metrics.stringWidth(validation.getIcon()); // icon width
-                int bx = x + width - Math.round((iw * 1.5f) + (bw * 1.5f)) + 2;
+                int by = (c.getHeight() / 2)
+                    + (metrics.getAscent() / 2)
+                    - insets.top;
+                // border width
+                int bw = Math.max(2, insets.right);
+                // icon width
+                int iw = metrics.stringWidth(validation.getIcon());
+                int bx = x
+                    + width
+                    - Math.round((iw * multiplier) + (bw * multiplier))
+                    + 2;
                 g.translate(bx, by);
                 g.setColor(validation.getColor());
                 g.setFont(font);
@@ -95,19 +123,22 @@ public class ValidatorBorder extends CompoundBorder {
              * {@inheritDoc}
              */
             @Override
-            public Insets getBorderInsets(Component c, Insets insets) {
+            public Insets getBorderInsets(
+                final Component c,
+                final Insets insets) {
                 FontMetrics metrics = getFontMetrics(c);
-                int iw = metrics.stringWidth(validation.getIcon()); // icon width
-                insets.right = Math.round(iw * 1.5f);
+                // icon width
+                int iw = metrics.stringWidth(validation.getIcon());
+                insets.right = Math.round(iw * multiplier);
                 return insets;
             }
         };
     }
 
-    private FontMetrics getFontMetrics(Component c) {
+    private FontMetrics getFontMetrics(final Component c) {
         Font cFont = c.getFont();
         if (font.getSize() != cFont.getSize()) {
-            font = validation.getFont().deriveFont(Font.BOLD, cFont.getSize());
+            font = fValidation.getFont().deriveFont(Font.BOLD, cFont.getSize());
         }
         return c.getFontMetrics(font);
     }
