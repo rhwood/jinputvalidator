@@ -19,7 +19,9 @@ limitations under the License.
      "http://www.puppycrawl.com/dtds/suppressions_1_0.dtd">
 
 <suppressions>
-    <suppress checks=".*" files="JInputValidatorBeanInfo.java"/>
-    <suppress checks=".*" files="PredicateValidatorBeanInfo.java"/>
-    <suppress checks=".*" files="VerifyingValidatorBeanInfo.java"/>
+    <!--
+        Ignore style of BeanInfo files since these will be replaced
+        with annotations once Java 8 support is dropped
+    -->
+    <suppress checks=".*" files=".*BeanInfo.java"/>
 </suppressions>
