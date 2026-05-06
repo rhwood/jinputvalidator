@@ -28,6 +28,10 @@ import java.util.Objects;
 public class Validation {
 
     /**
+     * A prime number used in hashCode calculations.
+     */
+    private static final int HASH_PRIME = 79;
+    /**
      * The type of validation. (f for "field" to avoid conflict with parameter
      * name)
      */
@@ -42,10 +46,6 @@ public class Validation {
      * validation. (f for "field" to avoid conflict with parameter name)
      */
     private final JInputValidatorPreferences fPreferences;
-    /**
-     * A prime number used in hashCode calculations.
-     */
-    private static final int HASH_PRIME = 79;
 
     /**
      * The Validation state. The states {@link Type#DANGER} and
