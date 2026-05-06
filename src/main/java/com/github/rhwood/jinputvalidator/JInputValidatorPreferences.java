@@ -65,6 +65,26 @@ import javax.swing.JLabel;
 public final class JInputValidatorPreferences {
 
     /**
+     * Default color for {@link Validation.Type#DANGER} as HTML color code.
+     */
+    public static final int DEFAULT_DANGER_COLOR = 0xC9190B;
+    /**
+     * Default color for {@link Validation.Type#INFORMATION} as HTML color code.
+     */
+    public static final int DEFAULT_INFORMATION_COLOR = 0x73BCF7;
+    /**
+     * Default color for {@link Validation.Type#SUCCESS} as HTML color code.
+     */
+    public static final int DEFAULT_SUCCESS_COLOR = 0x92D400;
+    /**
+     * Default color for {@link Validation.Type#UNKNOWN} as HTML color code.
+     */
+    public static final int DEFAULT_UNKNOWN_COLOR = 0x73BCF7;
+    /**
+     * Default color for {@link Validation.Type#WARNING} as HTML color code.
+     */
+    public static final int DEFAULT_WARNING_COLOR = 0xF0AB00;
+    /**
      * Path to default font.
      */
     private static final String DEFAULT_FONT_PATH =
@@ -73,40 +93,6 @@ public final class JInputValidatorPreferences {
      * The default preferences instance.
      */
     private static JInputValidatorPreferences defaultPreferences = null;
-
-    /**
-     * Get the default preferences object. This object uses the default
-     * {@link java.util.prefs.Preferences}, so application-wide defaults can be
-     * set by setting preferences keys appropriately before calling this method.
-     *
-     * <strong>Note</strong> if the requested font is not available, this will
-     * log, but not throw, an error and use the default font.
-     *
-     * @return the default preferences
-     */
-    public static synchronized JInputValidatorPreferences getPreferences() {
-        if (defaultPreferences == null) {
-            defaultPreferences = new JInputValidatorPreferences();
-        }
-        return defaultPreferences;
-    }
-
-    /**
-     * Get a set of preferences using a {@link java.util.prefs.Preferences}
-     * object. The Preferences must contain those keys overriding defaults
-     * listed above, but not necessarily within the package specified above.
-     *
-     * <strong>Note</strong> if the requested font is not available, this will
-     * log, but not throw, an error and use the default font.
-     *
-     * @param preferences the preferences to use
-     * @return the preferences for a specific scenario
-     */
-    public static JInputValidatorPreferences getPreferences(
-        final Preferences preferences) {
-        return new JInputValidatorPreferences(preferences);
-    }
-
     /**
      * The font used to display validation icons.
      */
@@ -151,26 +137,6 @@ public final class JInputValidatorPreferences {
      * The color for {@link Validation.Type#DANGER}.
      */
     private final Color dangerColor;
-    /**
-     * Default color for {@link Validation.Type#DANGER} as HTML color code.
-     */
-    public static final int DEFAULT_DANGER_COLOR = 0xC9190B;
-    /**
-     * Default color for {@link Validation.Type#INFORMATION} as HTML color code.
-     */
-    public static final int DEFAULT_INFORMATION_COLOR = 0x73BCF7;
-    /**
-     * Default color for {@link Validation.Type#SUCCESS} as HTML color code.
-     */
-    public static final int DEFAULT_SUCCESS_COLOR = 0x92D400;
-    /**
-     * Default color for {@link Validation.Type#UNKNOWN} as HTML color code.
-     */
-    public static final int DEFAULT_UNKNOWN_COLOR = 0x73BCF7;
-    /**
-     * Default color for {@link Validation.Type#WARNING} as HTML color code.
-     */
-    public static final int DEFAULT_WARNING_COLOR = 0xF0AB00;
 
     private JInputValidatorPreferences() {
         this(Preferences.userNodeForPackage(JInputValidatorPreferences.class));
@@ -227,6 +193,39 @@ public final class JInputValidatorPreferences {
         warningColor = new Color(preferences.getInt(
             "warning.color",
             defaults.getInt("warning.color", DEFAULT_WARNING_COLOR)));
+    }
+
+    /**
+     * Get the default preferences object. This object uses the default
+     * {@link java.util.prefs.Preferences}, so application-wide defaults can be
+     * set by setting preferences keys appropriately before calling this method.
+     *
+     * <strong>Note</strong> if the requested font is not available, this will
+     * log, but not throw, an error and use the default font.
+     *
+     * @return the default preferences
+     */
+    public static synchronized JInputValidatorPreferences getPreferences() {
+        if (defaultPreferences == null) {
+            defaultPreferences = new JInputValidatorPreferences();
+        }
+        return defaultPreferences;
+    }
+
+    /**
+     * Get a set of preferences using a {@link java.util.prefs.Preferences}
+     * object. The Preferences must contain those keys overriding defaults
+     * listed above, but not necessarily within the package specified above.
+     *
+     * <strong>Note</strong> if the requested font is not available, this will
+     * log, but not throw, an error and use the default font.
+     *
+     * @param preferences the preferences to use
+     * @return the preferences for a specific scenario
+     */
+    public static JInputValidatorPreferences getPreferences(
+        final Preferences preferences) {
+        return new JInputValidatorPreferences(preferences);
     }
 
     /**
